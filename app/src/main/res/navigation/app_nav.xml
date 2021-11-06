@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/splashScreen">
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SplashScreen"
+        android:label="screen_splash"
+        tools:layout="@layout/screen_splash" >
+        <action
+            android:id="@+id/action_splashScreen_to_mainScreen"
+            app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/action_splashScreen_to_authScreen"
+            app:destination="@id/authScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.RegisterScreen"
+        android:label="screen_register"
+        tools:layout="@layout/screen_register" >
+        <action
+            android:id="@+id/action_registerScreen_to_verifyScreen"
+            app:destination="@id/verifyScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.LoginScreen"
+        android:label="screen_login"
+        tools:layout="@layout/screen_login" >
+        <action
+            android:id="@+id/action_loginScreen_to_verifyScreen"
+            app:destination="@id/verifyScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MainScreen"
+        android:label="screen_main"
+        tools:layout="@layout/screen_main" >
+        <action
+            android:id="@+id/action_mainScreen_to_resetPasswordScreen"
+            app:destination="@id/resetPasswordScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_myCardsScreen"
+            app:destination="@id/myCardsScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_menuLayoutScreen"
+            app:destination="@id/menuLayoutScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_profileScreen"
+            app:destination="@id/profileScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_sendMoneyScreen2"
+            app:destination="@id/sendMoneyScreen2" />
+    </fragment>
+    <fragment
+        android:id="@+id/authScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.AuthScreen"
+        android:label="screen_auth"
+        tools:layout="@layout/screen_auth" >
+        <action
+            android:id="@+id/action_authScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
+        <action
+            android:id="@+id/action_authScreen_to_registerScreen"
+            app:destination="@id/registerScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.VerifyScreen"
+        android:label="screen_verify"
+        tools:layout="@layout/screen_verify" >
+        <action
+            android:id="@+id/action_verifyScreen_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.ResetPasswordScreen"
+        android:label="screen_reset_password"
+        tools:layout="@layout/screen_reset_password" />
+    <fragment
+        android:id="@+id/myCardsScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MyCardsScreen"
+        android:label="screen_my_cards"
+        tools:layout="@layout/screen_my_cards" >
+        <action
+            android:id="@+id/action_myCardsScreen_to_addCardScreen"
+            app:destination="@id/addCardScreen" />
+        <action
+            android:id="@+id/action_myCardsScreen_to_settingsCardScreen"
+            app:destination="@id/settingsCardScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.AddCardScreen"
+        android:label="screen_add_card"
+        tools:layout="@layout/screen_add_card" >
+        <action
+            app:popUpTo="@+id/app_nav"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_addCardScreen_to_verifyCardScreen"
+            app:destination="@id/verifyCardScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuLayoutScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MenuLayoutScreen"
+        android:label="screen_menu_layout"
+        tools:layout="@layout/screen_menu_layout" />
+    <fragment
+        android:id="@+id/profileScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.ProfileScreen"
+        android:label="screen_profile"
+        tools:layout="@layout/screen_profile" />
+    <fragment
+        android:id="@+id/sendMoneyScreen2"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SendMoneyScreen"
+        android:label="screen_send_money"
+        tools:layout="@layout/screen_send_money" />
+    <fragment
+        android:id="@+id/verifyCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.VerifyCardScreen"
+        android:label="screen_verify_card"
+        tools:layout="@layout/screen_verify_card" >
+        <action
+            android:id="@+id/action_verifyCardScreen_to_myCardsScreen"
+            app:destination="@id/myCardsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SettingsCardScreen"
+        android:label="screen_card_settings"
+        tools:layout="@layout/screen_card_settings" />
+</navigation>
