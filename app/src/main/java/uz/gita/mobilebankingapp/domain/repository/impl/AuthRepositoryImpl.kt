@@ -35,9 +35,6 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
             ResponseBody
-            response.errorBody()?.let {
-                st = gson.fromJson(it.string(), RegisterResponse::class.java).message
-            }
             emit(Result.failure<String>(Throwable(st)))
         }
 
@@ -52,9 +49,6 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
             ResponseBody
-            response.errorBody()?.let {
-                st = gson.fromJson(it.string(), LoginResponse::class.java).message
-            }
             emit(Result.failure<String>(Throwable(st)))
         }
 

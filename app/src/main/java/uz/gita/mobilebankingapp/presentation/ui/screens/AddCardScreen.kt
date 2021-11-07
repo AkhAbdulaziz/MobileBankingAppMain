@@ -157,8 +157,4 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
             }
         }
     }
-
-    fun tttt(){
-
-    }
 }
