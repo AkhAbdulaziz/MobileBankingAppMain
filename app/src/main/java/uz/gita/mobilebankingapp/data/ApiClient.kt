@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.data
 
-import android.util.Log
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
@@ -67,7 +66,6 @@ fun refreshInterceptor() = Interceptor { chain ->
         response.close()
         val pref = MySharedPreferences.getPref()
         val data = JSONObject()
-        Log.d("TTT", "phone = ${pref.userPhone}")
         data.put("phone", pref.userPhone)
         val body =
             data.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
@@ -78,10 +76,7 @@ fun refreshInterceptor() = Interceptor { chain ->
             .url("${BASE_URL}auth/refresh")
             .build()
 
-        Log.d("TTT","pref.refreshToken = ${pref.refreshToken}")
         val responseRefresh = chain.proceed(requestRefresh)
-        timber(responseRefresh.message)
-            Log.d("TTT","refresh = ${responseRefresh.code}")
         if (responseRefresh.code == 401) {
             return@Interceptor responseRefresh// refresh token ham eskirdi login screen navigate
         }

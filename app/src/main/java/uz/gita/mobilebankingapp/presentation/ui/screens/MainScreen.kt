@@ -25,7 +25,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
         }
 
         sendMoneyBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_mainScreen_to_sendMoneyScreen2)
+            findNavController().navigate(R.id.action_mainScreen_to_fillSendMoneyScreen)
         }
     }
 }

@@ -72,9 +72,11 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
             }
             eventDialog.setSettingsListener {
                 eventDialog.dismiss()
-                val bundle = Bundle()
-                bundle.putString("phone", cardsList[adapterPos].pan!!)
-                findNavController().navigate(R.id.action_myCardsScreen_to_settingsCardScreen, bundle)
+                findNavController().navigate(
+                    MyCardsScreenDirections.actionMyCardsScreenToSettingsCardScreen(
+                        cardsList[adapterPos]
+                    )
+                )
             }
             eventDialog.show(childFragmentManager, "event")
         }

@@ -19,10 +19,8 @@ class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: 
     override val errorMessageLiveData = MutableLiveData<String>()
 
     override fun editCard(data: EditCardRequest) {
-        if (!isConnected()) {
-            errorMessageLiveData.value = "Internet mavjud emas"
-            return
-        }
+        checkInternet()
+
         cardRepository.editCard(data).onEach {
             it.onFailure { throwable ->
                 errorMessageLiveData.value = throwable.message
@@ -33,4 +31,10 @@ class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: 
         }.launchIn(viewModelScope)
     }
 
+    private fun checkInternet() {
+        if (!isConnected()) {
+            errorMessageLiveData.value = "Internet mavjud emas"
+            return
+        }
+    }
 }

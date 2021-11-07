@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/white"
     tools:context=".presentation.ui.screens.LoginScreen">
 
     <TextView
@@ -65,6 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:enabled="false"
         android:layout_marginRight="16dp"
         android:background="@drawable/bg_button"
         android:paddingVertical="12dp"

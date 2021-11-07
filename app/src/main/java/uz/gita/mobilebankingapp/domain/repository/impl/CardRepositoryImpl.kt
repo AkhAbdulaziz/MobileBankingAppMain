@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.ResponseBody
 import uz.gita.mobilebankingapp.data.ApiClient
+import uz.gita.mobilebankingapp.data.CardData
 import uz.gita.mobilebankingapp.data.api.CardApi
 import uz.gita.mobilebankingapp.data.model.card_req_res.request.*
 import uz.gita.mobilebankingapp.data.model.card_req_res.response.GetCardsData
@@ -22,6 +23,7 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
     private val api = ApiClient.retrofit.create(CardApi::class.java)
     private val gson = Gson()
     private val pref = MySharedPreferences.getPref()
+    private var cardsList: List<CardData>? = null
 
     override fun addCard(data: AddCardRequest): Flow<Result<String>> = flow {
         savePanToPref(data.pan)
@@ -43,8 +45,7 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
         val response = api.getAllCards(pref.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
-        } else {
-            emit(null)
+            cardsList = response.body()!!.data?.data
         }
     }.flowOn(Dispatchers.IO)
 
@@ -155,4 +156,16 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
+
+    override fun getUserCardDataByPan(pan: String): CardData? {
+        getAllCardsList(pref.accessToken)
+        if (cardsList != null) {
+            for (cardData: CardData in cardsList!!) {
+                if (cardData.pan.equals(pan)) {
+                    return cardData
+                }
+            }
+        }
+        return null
+    }
 }

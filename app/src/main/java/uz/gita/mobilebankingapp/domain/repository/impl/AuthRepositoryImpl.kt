@@ -14,7 +14,9 @@ import uz.gita.mobilebankingapp.data.model.profile_req_res.request.UserInfoReque
 import uz.gita.mobilebankingapp.data.model.profile_req_res.response.AvatarResponse
 import uz.gita.mobilebankingapp.data.model.profile_req_res.response.ProfileInfoResponse
 import uz.gita.mobilebankingapp.data.model.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.*
+import uz.gita.mobilebankingapp.data.model.user_req_res.response.BaseResponse
+import uz.gita.mobilebankingapp.data.model.user_req_res.response.LogoutResponse
+import uz.gita.mobilebankingapp.data.model.user_req_res.response.RefreshResponse
 import uz.gita.mobilebankingapp.data.pref.MySharedPreferences
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import java.io.File
@@ -32,6 +34,7 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
             pref.userPhone = data.phone
+            pref.userFullName = "${data.firstName} ${data.lastName}"
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
             ResponseBody
@@ -138,5 +141,9 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
+
+    override fun getUserFullName(): String {
+        return pref.userFullName
+    }
 
 }

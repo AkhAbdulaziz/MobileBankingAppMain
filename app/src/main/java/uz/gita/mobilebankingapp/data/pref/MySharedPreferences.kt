@@ -21,7 +21,7 @@ class MySharedPreferences private constructor(context: Context) {
 
     var cardToken: String by StringPreference(pref)
 
-    var userName: String by StringPreference(pref)
+    var userFullName: String by StringPreference(pref)
 
     var startScreen: StartScreenEnum
         set(value) = pref.edit().putString("startScreen", value.name).apply()

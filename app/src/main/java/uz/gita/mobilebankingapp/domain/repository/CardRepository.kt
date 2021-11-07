@@ -1,6 +1,7 @@
 package uz.gita.mobilebankingapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import uz.gita.mobilebankingapp.data.CardData
 import uz.gita.mobilebankingapp.data.model.card_req_res.request.*
 import uz.gita.mobilebankingapp.data.model.card_req_res.response.GetCardsData
 import uz.gita.mobilebankingapp.data.model.card_req_res.response.OwnerByIdResponse
@@ -42,4 +43,6 @@ interface CardRepository {
     fun putIgnoreBalance(data: IgnoreBalanceRequest): Flow<Result<String>>
 
     fun getTotalSum(): Flow<Result<Double>>
+
+    fun getUserCardDataByPan(pan: String): CardData?
 }

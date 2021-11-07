@@ -53,8 +53,8 @@
             android:id="@+id/action_mainScreen_to_profileScreen"
             app:destination="@id/profileScreen" />
         <action
-            android:id="@+id/action_mainScreen_to_sendMoneyScreen2"
-            app:destination="@id/sendMoneyScreen2" />
+            android:id="@+id/action_mainScreen_to_fillSendMoneyScreen"
+            app:destination="@id/fillSendMoneyScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
@@ -119,7 +119,17 @@
         android:id="@+id/sendMoneyScreen2"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SendMoneyScreen"
         android:label="screen_send_money"
-        tools:layout="@layout/screen_send_money" />
+        tools:layout="@layout/screen_send_money" >
+        <argument
+            android:name="cardNumber"
+            app:argType="string" />
+        <argument
+            android:name="amount"
+            app:argType="long" />
+        <argument
+            android:name="receiverName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/verifyCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.VerifyCardScreen"
@@ -133,5 +143,18 @@
         android:id="@+id/settingsCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SettingsCardScreen"
         android:label="screen_card_settings"
-        tools:layout="@layout/screen_card_settings" />
+        tools:layout="@layout/screen_card_settings" >
+        <argument
+            android:name="cardData"
+            app:argType="uz.gita.mobilebankingapp.data.CardData" />
+    </fragment>
+    <fragment
+        android:id="@+id/fillSendMoneyScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.FillSendMoneyScreen"
+        android:label="screen_fill_send_money"
+        tools:layout="@layout/screen_fill_send_money" >
+        <action
+            android:id="@+id/action_fillSendMoneyScreen_to_sendMoneyScreen2"
+            app:destination="@id/sendMoneyScreen2" />
+    </fragment>
 </navigation>

@@ -1,5 +1,7 @@
 package uz.gita.mobilebankingapp.data
 
+import java.io.Serializable
+
 data class CardData(
     val id: Int? = null,
     val owner: String? = null,
@@ -8,4 +10,4 @@ data class CardData(
     val pan: String? = null,
     val exp: String? = null,
     val status: Int? = null
-)
+) : Serializable

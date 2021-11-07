@@ -2,9 +2,12 @@ package uz.gita.mobilebankingapp.presentation.ui.screens
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
@@ -22,7 +25,7 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
     private val viewModel: SettingsCardViewModel by viewModels<SettingsCardViewModelImpl>()
     private lateinit var bgsList: ArrayList<Int>
     private lateinit var pagerAdapter: CardBackgroundsPagerAdapter
-    private var cardPan = ""
+    private val args: SettingsCardScreenArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
@@ -54,6 +57,8 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
             }
         }
 
+        textCardName.setText(args.cardData.cardName!!)
+
         textCardName.setOnFocusChangeListener { view, hasFocus ->
             if (!hasFocus) {
                 hideKeyboardFrom(requireContext(), view)
@@ -64,16 +69,23 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
             findNavController().popBackStack()
         }
 
-        arguments?.let {
-            cardPan = it.getString("pan", "")
-        }
-
         readyChangesBtn.setOnClickListener {
             viewModel.editCard(
                 EditCardRequest(
-                    cardPan, textCardName.text.toString()
+                    args.cardData.pan!!, textCardName.text.toString()
                 )
             )
         }
+
+        viewModel.closeScreenLiveData.observe(viewLifecycleOwner, closeScreenObserver)
+        viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
+    }
+
+    private val closeScreenObserver = Observer<Unit> {
+        findNavController().popBackStack()
+    }
+
+    private val errorMessageObserver = Observer<String> {
+        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
 }

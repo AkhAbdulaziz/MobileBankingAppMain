@@ -6,62 +6,33 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import uz.gita.mobilebankingapp.data.CardData
 import uz.gita.mobilebankingapp.data.model.card_req_res.request.MoneyRequest
 import uz.gita.mobilebankingapp.data.model.card_req_res.request.OwnerByPanRequest
-import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
+import uz.gita.mobilebankingapp.presentation.viewmodels.FillSendMoneyViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.SendMoneyViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
 import javax.inject.Inject
 
 @HiltViewModel
-class SendMoneyViewModelImpl @Inject constructor(
-    private val cardRepository: CardRepository,
-    private val authRepository: AuthRepository
-) :
-    ViewModel(), SendMoneyViewModel {
-    override val enableSendMoneyButton = MutableLiveData<Unit>()
+class FillSendMoneyViewModelImpl @Inject constructor(private val repository: CardRepository) :
+    ViewModel(), FillSendMoneyViewModel {
+    override val enableNextButton = MutableLiveData<Unit>()
     override val errorLiveData = MutableLiveData<String>()
     override val successLiveData = MutableLiveData<String>()
     override val ownerNameLiveData = MutableLiveData<String>()
-    override val feeLiveData = MutableLiveData<String>()
 
     override fun getOwnerByPan(data: OwnerByPanRequest) {
         checkInternet()
-        cardRepository.getOwnerByPan(data).onEach {
+        repository.getOwnerByPan(data).onEach {
             it.onFailure { throwable ->
                 errorLiveData.value = throwable.message
             }
             it.onSuccess { data ->
-                enableSendMoneyButton.value = Unit
+                enableNextButton.value = Unit
                 ownerNameLiveData.value = data.owner
             }
         }.launchIn(viewModelScope)
-    }
-
-    override fun sendMoney(data: MoneyRequest) {
-        checkInternet()
-        cardRepository.sendMoney(data).onEach {
-            it.onFailure { throwable ->
-                errorLiveData.value = throwable.message
-            }
-            it.onSuccess { message ->
-                successLiveData.value = message
-            }
-        }.launchIn(viewModelScope)
-    }
-
-    override fun getFee(data: MoneyRequest) {
-        checkInternet()
-        cardRepository.getFee(data).onEach {
-            it.onFailure { throwable ->
-                errorLiveData.value = throwable.message
-            }
-            it.onSuccess {
-                feeLiveData.value = it.message
-            }
-        }
     }
 
     private fun checkInternet() {
@@ -69,9 +40,5 @@ class SendMoneyViewModelImpl @Inject constructor(
             errorLiveData.value = "Internetga ulanib qayta urining"
             return
         }
-    }
-
-    override fun getUserCardDataByPan(pan: String): CardData? {
-        return cardRepository.getUserCardDataByPan(pan)
     }
 }

@@ -36,6 +36,8 @@ interface CardApi {
         @Header("token") token: String
     ): Response<AllCardsResponse>
 
+
+    //    @HTTP(method = "GET", path = "card/owner-by-pan", hasBody = true)
     @GET("card/owner-by-pan")
     suspend fun getOwnerByPan(
         @Body data: OwnerByPanRequest
