@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/main_menu"
+        android:title="Main" />
+
+    <item
+        android:id="@+id/payment"
+        android:icon="@drawable/wallet"
+        android:title="Payment" />
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/map"
+        android:title="Map" />
+
+
+    <item
+        android:id="@+id/service"
+        android:icon="@drawable/service"
+        android:title="Service" />
+
+    <item
+        android:id="@+id/history"
+        android:icon="@drawable/history"
+        android:title="History" />
+</menu>

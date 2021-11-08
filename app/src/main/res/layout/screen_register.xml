@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    tools:context=".presentation.ui.screens.RegisterScreen">
+    tools:context=".presentation.ui.screens.auth.RegisterScreen">
 
     <TextView
         android:id="@+id/title"
@@ -122,14 +122,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/button_bg"
+        android:enabled="false"
         android:paddingVertical="12dp"
+        android:textColor="@color/white"
         android:text="Ro'yxatdan o'tish"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,27 +6,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.ResponseBody
-import uz.gita.mobilebankingapp.data.ApiClient
-import uz.gita.mobilebankingapp.data.api.ProfileApi
-import uz.gita.mobilebankingapp.data.api.UserApi
-import uz.gita.mobilebankingapp.data.model.profile_req_res.request.UserInfoRequest
-import uz.gita.mobilebankingapp.data.model.profile_req_res.response.AvatarResponse
-import uz.gita.mobilebankingapp.data.model.profile_req_res.response.ProfileInfoResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.LogoutResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.RefreshResponse
-import uz.gita.mobilebankingapp.data.pref.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.remote.api.AuthApi
+import uz.gita.mobilebankingapp.data.remote.api.ProfileApi
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequest
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarResponse
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import java.io.File
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor() : AuthRepository {
-    private val userApi = ApiClient.retrofit.create(UserApi::class.java)
-    private val profileApi = ApiClient.retrofit.create(ProfileApi::class.java)
+class AuthRepositoryImpl @Inject constructor(
+    private val userApi: AuthApi,
+    private val profileApi: ProfileApi,
+    private val pref: MySharedPreferences
+) : AuthRepository {
     private val gson = Gson()
-    private val pref = MySharedPreferences.getPref()
 
     override fun registerUser(data: RegisterRequest): Flow<Result<String>> = flow {
         val response = userApi.register(data)
@@ -36,9 +35,11 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             pref.userPhone = data.phone
             pref.userFullName = "${data.firstName} ${data.lastName}"
         } else {
-            var st = "Serverga ulanishda xatolik bo'ldi"
-            ResponseBody
-            emit(Result.failure<String>(Throwable(st)))
+            var message = "Xatolik yuzaga keldi"
+            response.errorBody()?.let {
+                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+            }
+            emit(Result.failure<String>(Throwable(message)))
         }
 
     }.flowOn(Dispatchers.IO)
@@ -50,15 +51,17 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             pref.userPhone = data.phone
             emit(Result.success(response.body()!!.message))
         } else {
-            var st = "Serverga ulanishda xatolik bo'ldi"
-            ResponseBody
-            emit(Result.failure<String>(Throwable(st)))
+            var message = "Xatolik yuzaga keldi"
+            response.errorBody()?.let {
+                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+            }
+            emit(Result.failure<String>(Throwable(message)))
         }
 
     }.flowOn(Dispatchers.IO)
 
     override fun logoutUser(): Flow<Result<LogoutResponse>> = flow {
-        val response = userApi.logout()
+        val response = userApi.logout(pref.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
@@ -101,9 +104,12 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             }
             emit(Result.success(Unit))
         } else {
-            emit(Result.failure<Unit>(Throwable(response.errorBody().toString())))
+            var message = "Xatolik yuzaga keldi"
+            response.errorBody()?.let {
+                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+            }
+            emit(Result.failure<Unit>(Throwable(message)))
         }
-
     }
 
     override fun getUserPhoneNumber(): String {

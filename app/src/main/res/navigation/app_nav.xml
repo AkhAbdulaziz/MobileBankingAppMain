@@ -9,58 +9,55 @@
         android:id="@+id/splashScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SplashScreen"
         android:label="screen_splash"
-        tools:layout="@layout/screen_splash" >
-        <action
-            android:id="@+id/action_splashScreen_to_mainScreen"
-            app:destination="@id/mainScreen" />
+        tools:layout="@layout/screen_splash">
         <action
             android:id="@+id/action_splashScreen_to_authScreen"
             app:destination="@id/authScreen" />
+        <action
+            android:id="@+id/action_splashScreen_to_basicScreen"
+            app:destination="@id/basicScreen" />
     </fragment>
     <fragment
         android:id="@+id/registerScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.RegisterScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.RegisterScreen"
         android:label="screen_register"
-        tools:layout="@layout/screen_register" >
+        tools:layout="@layout/screen_register">
         <action
             android:id="@+id/action_registerScreen_to_verifyScreen"
             app:destination="@id/verifyScreen" />
     </fragment>
     <fragment
         android:id="@+id/loginScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.LoginScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.LoginScreen"
         android:label="screen_login"
-        tools:layout="@layout/screen_login" >
+        tools:layout="@layout/screen_login">
         <action
             android:id="@+id/action_loginScreen_to_verifyScreen"
             app:destination="@id/verifyScreen" />
     </fragment>
     <fragment
-        android:id="@+id/mainScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MainScreen"
-        android:label="screen_main"
-        tools:layout="@layout/screen_main" >
+        android:id="@+id/basicScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreen"
+        android:label="screen_basic"
+        tools:layout="@layout/screen_basic_nav" >
         <action
-            android:id="@+id/action_mainScreen_to_resetPasswordScreen"
-            app:destination="@id/resetPasswordScreen" />
-        <action
-            android:id="@+id/action_mainScreen_to_myCardsScreen"
-            app:destination="@id/myCardsScreen" />
-        <action
-            android:id="@+id/action_mainScreen_to_menuLayoutScreen"
-            app:destination="@id/menuLayoutScreen" />
-        <action
-            android:id="@+id/action_mainScreen_to_profileScreen"
+            android:id="@+id/action_basicScreen_to_profileScreen"
             app:destination="@id/profileScreen" />
         <action
-            android:id="@+id/action_mainScreen_to_fillSendMoneyScreen"
+            android:id="@+id/action_basicScreen_to_fillSendMoneyScreen"
             app:destination="@id/fillSendMoneyScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_myCardsScreen"
+            app:destination="@id/myCardsScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_resetPasswordScreen"
+            app:destination="@id/resetPasswordScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.AuthScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.AuthScreen"
         android:label="screen_auth"
-        tools:layout="@layout/screen_auth" >
+        tools:layout="@layout/screen_auth">
         <action
             android:id="@+id/action_authScreen_to_loginScreen"
             app:destination="@id/loginScreen" />
@@ -70,23 +67,23 @@
     </fragment>
     <fragment
         android:id="@+id/verifyScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.VerifyScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.VerifyScreen"
         android:label="screen_verify"
-        tools:layout="@layout/screen_verify" >
+        tools:layout="@layout/screen_verify">
         <action
-            android:id="@+id/action_verifyScreen_to_mainScreen"
-            app:destination="@id/mainScreen" />
+            android:id="@+id/action_verifyScreen_to_basicScreen"
+            app:destination="@id/basicScreen" />
     </fragment>
     <fragment
         android:id="@+id/resetPasswordScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.ResetPasswordScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.ResetPasswordScreen"
         android:label="screen_reset_password"
         tools:layout="@layout/screen_reset_password" />
     <fragment
         android:id="@+id/myCardsScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MyCardsScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.MyCardsScreen"
         android:label="screen_my_cards"
-        tools:layout="@layout/screen_my_cards" >
+        tools:layout="@layout/screen_my_cards">
         <action
             android:id="@+id/action_myCardsScreen_to_addCardScreen"
             app:destination="@id/addCardScreen" />
@@ -96,30 +93,23 @@
     </fragment>
     <fragment
         android:id="@+id/addCardScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.AddCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.AddCardScreen"
         android:label="screen_add_card"
-        tools:layout="@layout/screen_add_card" >
+        tools:layout="@layout/screen_add_card">
         <action
-            app:popUpTo="@+id/app_nav"
-            app:popUpToInclusive="true"
             android:id="@+id/action_addCardScreen_to_verifyCardScreen"
             app:destination="@id/verifyCardScreen" />
     </fragment>
     <fragment
-        android:id="@+id/menuLayoutScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.MenuLayoutScreen"
-        android:label="screen_menu_layout"
-        tools:layout="@layout/screen_menu_layout" />
-    <fragment
         android:id="@+id/profileScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.ProfileScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.ProfileScreen"
         android:label="screen_profile"
         tools:layout="@layout/screen_profile" />
     <fragment
         android:id="@+id/sendMoneyScreen2"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SendMoneyScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SendMoneyScreen"
         android:label="screen_send_money"
-        tools:layout="@layout/screen_send_money" >
+        tools:layout="@layout/screen_send_money">
         <argument
             android:name="cardNumber"
             app:argType="string" />
@@ -132,27 +122,27 @@
     </fragment>
     <fragment
         android:id="@+id/verifyCardScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.VerifyCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.VerifyCardScreen"
         android:label="screen_verify_card"
-        tools:layout="@layout/screen_verify_card" >
+        tools:layout="@layout/screen_verify_card">
         <action
             android:id="@+id/action_verifyCardScreen_to_myCardsScreen"
             app:destination="@id/myCardsScreen" />
     </fragment>
     <fragment
         android:id="@+id/settingsCardScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.SettingsCardScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SettingsCardScreen"
         android:label="screen_card_settings"
-        tools:layout="@layout/screen_card_settings" >
+        tools:layout="@layout/screen_card_settings">
         <argument
             android:name="cardData"
-            app:argType="uz.gita.mobilebankingapp.data.CardData" />
+            app:argType="uz.gita.mobilebankingapp.data.remote.card_req_res.CardData" />
     </fragment>
     <fragment
         android:id="@+id/fillSendMoneyScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.FillSendMoneyScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.pages.PaymentPage"
         android:label="screen_fill_send_money"
-        tools:layout="@layout/screen_fill_send_money" >
+        tools:layout="@layout/page_payment">
         <action
             android:id="@+id/action_fillSendMoneyScreen_to_sendMoneyScreen2"
             app:destination="@id/sendMoneyScreen2" />

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1250000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textFee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fee"
+        android:textSize="20sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

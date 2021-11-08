@@ -6,28 +6,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.ResponseBody
-import uz.gita.mobilebankingapp.data.ApiClient
-import uz.gita.mobilebankingapp.data.CardData
-import uz.gita.mobilebankingapp.data.api.CardApi
-import uz.gita.mobilebankingapp.data.model.card_req_res.request.*
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.GetCardsData
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.OwnerByIdResponse
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.OwnerByPanResponse
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.VerifyCardResponseData
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.pref.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.remote.api.CardApi
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByIdResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByPanResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.VerifyCardResponseData
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import javax.inject.Inject
 
-class CardRepositoryImpl @Inject constructor() : CardRepository {
-    private val api = ApiClient.retrofit.create(CardApi::class.java)
+class CardRepositoryImpl @Inject constructor(
+    private val cardApi: CardApi,
+    private val pref: MySharedPreferences
+) : CardRepository {
     private val gson = Gson()
-    private val pref = MySharedPreferences.getPref()
     private var cardsList: List<CardData>? = null
 
     override fun addCard(data: AddCardRequest): Flow<Result<String>> = flow {
         savePanToPref(data.pan)
-        val response = api.addCard(data)
+        val response = cardApi.addCard(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
         } else {
@@ -42,7 +42,7 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
     }.flowOn(Dispatchers.IO)
 
     override fun getAllCardsList(token: String): Flow<Result<GetCardsData?>?> = flow {
-        val response = api.getAllCards(pref.accessToken)
+        val response = cardApi.getAllCards(pref.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
             cardsList = response.body()!!.data?.data
@@ -50,7 +50,7 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
     }.flowOn(Dispatchers.IO)
 
     override fun sendMoney(data: MoneyRequest): Flow<Result<String>> = flow {
-        val response = api.sendMoney(data)
+        val response = cardApi.sendMoney(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
         } else {
@@ -65,7 +65,7 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
     }.flowOn(Dispatchers.IO)
 
     override fun verifyCard(data: VerifyCardRequest): Flow<Result<VerifyCardResponseData>> = flow {
-        val response = api.verifyCard(data)
+        val response = cardApi.verifyCard(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
         }
@@ -81,77 +81,77 @@ class CardRepositoryImpl @Inject constructor() : CardRepository {
     }
 
     override fun deleteCard(data: DeleteCardRequest): Flow<Result<String>> = flow {
-        val response = api.deleteCard(data)
+        val response = cardApi.deleteCard(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun editCard(data: EditCardRequest): Flow<Result<String>> = flow {
-        val response = api.editCard(data)
+        val response = cardApi.editCard(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerByPan(data: OwnerByPanRequest): Flow<Result<OwnerByPanResponse>> = flow {
-        val response = api.getOwnerByPan(data)
+        val response = cardApi.getOwnerByPan(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerById(data: OwnerByIdRequest): Flow<Result<OwnerByIdResponse>> = flow {
-        val response = api.getOwnerById(data)
+        val response = cardApi.getOwnerById(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getFee(data: MoneyRequest): Flow<Result<BaseResponse>> = flow {
-        val response = api.getFee(data)
+        val response = cardApi.getFee(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getHistory(data: HistoryRequest): Flow<Result<BaseResponse>> = flow {
-        val response = api.getHistory(data)
+        val response = cardApi.getHistory(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getIncomes(data: HistoryRequest): Flow<Result<BaseResponse>> = flow {
-        val response = api.getIncomes(data)
+        val response = cardApi.getIncomes(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOutcomes(data: HistoryRequest): Flow<Result<BaseResponse>> = flow {
-        val response = api.getOutcomes(data)
+        val response = cardApi.getOutcomes(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun putColor(data: ColorRequest): Flow<Result<String>> = flow {
-        val response = api.putColor(data)
+        val response = cardApi.putColor(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun putIgnoreBalance(data: IgnoreBalanceRequest): Flow<Result<String>> = flow {
-        val response = api.putIgnoreBalance(data)
+        val response = cardApi.putIgnoreBalance(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getTotalSum(): Flow<Result<Double>> = flow {
-        val response = api.getTotalSum()
+        val response = cardApi.getTotalSum()
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }

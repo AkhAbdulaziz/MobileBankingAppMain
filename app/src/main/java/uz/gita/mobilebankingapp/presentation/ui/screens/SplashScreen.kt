@@ -10,8 +10,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.databinding.ScreenSplashBinding
-import uz.gita.mobilebankingapp.presentation.viewmodels.SplashViewModel
-import uz.gita.mobilebankingapp.presentation.viewmodels.impl.SplashViewModelImpl
+import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.SplashViewModel
+import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.SplashViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
 
 @AndroidEntryPoint
@@ -29,6 +29,6 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
 
     private val openMainScreenObserver = Observer<Unit> {
-        findNavController().navigate(R.id.action_splashScreen_to_mainScreen)
+        findNavController().navigate(R.id.action_splashScreen_to_basicScreen)
     }
 }

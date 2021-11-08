@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.screens.ProfileScreen">
+    android:background="@color/white"
+    tools:context=".presentation.ui.screens.main.ProfileScreen">
 
     <LinearLayout
         android:id="@+id/title"
@@ -81,11 +81,13 @@
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
+    <EditText
         android:id="@+id/userFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:inputType="text"
         android:text="John Smith"
         android:textColor="@color/black"
         android:textSize="26sp"
@@ -94,11 +96,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userImage" />
 
-    <TextView
+    <EditText
         android:id="@+id/userPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:inputType="number"
         android:text="+998914757587"
         android:textColor="@color/black"
         android:textSize="16sp"

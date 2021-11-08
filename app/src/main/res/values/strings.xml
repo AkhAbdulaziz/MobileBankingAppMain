@@ -2,4 +2,5 @@
     <string name="app_name">MobileBankingApp</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="verify_screen_info_text">Tekshiruv kodi quyidagi\nraqamga yuborildi\n+998 91 *** ** 87</string>
 </resources>

@@ -1,11 +1,10 @@
 package uz.gita.mobilebankingapp.app
 
 import android.app.Application
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import uz.gita.mobilebankingapp.BuildConfig
-import uz.gita.mobilebankingapp.data.pref.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 
 @HiltAndroidApp
 class App : Application() {
@@ -20,7 +19,6 @@ class App : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-        MySharedPreferences.init(this)
         instance = this
     }
 }

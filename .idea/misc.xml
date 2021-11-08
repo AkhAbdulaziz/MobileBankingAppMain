@@ -16,6 +16,7 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MobileBankingAppDialog/app/src/main/res/layout/screen_my_cards.xml" value="0.178125" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MobileBankingAppDialog/app/src/main/res/layout/screen_reset_password.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MobileBankingAppDialog/app/src/main/res/layout/screen_verify_card.xml" value="0.16203703703703703" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable-v24/bg_button_contained_round.xml" value="0.2037037037037037" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable-v24/ic_circle.xml" value="0.19427083333333334" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/bg_button.xml" value="0.1046875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/bg_dialog.xml" value="0.18796296296296297" />
@@ -25,33 +26,48 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_close.xml" value="0.18796296296296297" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_delete.xml" value="0.18796296296296297" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_edit.xml" value="0.18796296296296297" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_help.xml" value="0.20512820512820512" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_logout.xml" value="0.20512820512820512" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_profile.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_settings.xml" value="0.18796296296296297" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_share.xml" value="0.20512820512820512" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/ic_theme.xml" value="0.20833333333333334" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/mainscreencardviewbg.xml" value="0.20833333333333334" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/drawable/tab_indicator_shape.xml" value="0.19427083333333334" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout-v26/screen_verify.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/activity_main.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/dialog_event.xml" value="0.18" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/fragment_card_bg.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/fragment_card_bg1.xml" value="0.178125" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/history_item.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/item_card.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/item_paging_loading.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/main_screen_cardviewbg.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/nav_header.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/page_history.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/page_main.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/page_map.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/page_service.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_add_card.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_auth.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_basic.xml" value="0.16" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_basic_nav.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_card_settings.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_fill_send_money.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_login.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_main.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_menu_layout.xml" value="0.18" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_my_cards.xml" value="0.2" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_profile.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_profile.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_register.xml" value="0.2" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_reset_password.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_reset_password.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_send_money.xml" value="0.2" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_splash.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_splash.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_user_settings.xml" value="0.1921875" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_verify.xml" value="0.22" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_verify_card.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_verify.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_verify_card.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/home_menu.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/main_menu.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/main_screen_menu.xml" value="0.25" />
       </map>
     </option>

@@ -1,13 +1,13 @@
 package uz.gita.mobilebankingapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import uz.gita.mobilebankingapp.data.model.profile_req_res.request.UserInfoRequest
-import uz.gita.mobilebankingapp.data.model.profile_req_res.response.AvatarResponse
-import uz.gita.mobilebankingapp.data.model.profile_req_res.response.ProfileInfoResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.LogoutResponse
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.RefreshResponse
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequest
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarResponse
+import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
 import java.io.File
 
 interface AuthRepository {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="16dp"
     android:padding="16dp"
-    tools:context=".presentation.dialog.EventDialog">
+    tools:context=".presentation.dialog.card.EventDialog">
 
     <ImageButton
         android:background="@android:color/transparent"

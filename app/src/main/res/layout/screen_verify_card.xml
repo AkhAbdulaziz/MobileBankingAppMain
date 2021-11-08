@@ -6,18 +6,64 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    tools:context=".presentation.ui.screens.VerifyCardScreen">
+    tools:context=".presentation.ui.screens.auth.VerifyScreen">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Verify Card Screen"
-        android:textColor="@color/black"
-        android:textSize="26sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/white"
+        android:gravity="top|center"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Raqamni tasdiqlash"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:gravity="center"
+        android:text="Tekshiruv kodi quyidagi\nraqamga yuborildi\n"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <!--<EditText
         android:id="@+id/verificationCodeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,26 +74,50 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.4" />-->
 
-    <Button
-        android:id="@+id/sendBtn"
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/verificationCodeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sendBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/verificationCodeEditText" />
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="30dp"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:focusedByDefault="true"
+        android:inputType="number"
+        android:maxLength="6"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/infoText"
+        app:pinCharacterMask="*"
+        app:pinLineColors="#404040"
+        app:pinLineStroke="2dp"
+        app:pinLineStrokeSelected="2dp" />
 
-    <Button
-        android:id="@+id/repeatSend"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/verifyBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="repeat sms code"
+        android:background="@drawable/button_bg"
+        android:enabled="false"
+        android:paddingVertical="12dp"
+        android:text="Oldinga"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sendBtn" />
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!--
+        <Button
+            android:id="@+id/repeatSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="repeat sms code"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sendBtn" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

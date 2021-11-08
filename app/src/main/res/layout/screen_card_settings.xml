@@ -7,7 +7,7 @@
     android:clickable="true"
     android:background="@color/white"
     android:focusable="true"
-    tools:context=".presentation.ui.screens.SettingsCardScreen">
+    tools:context=".presentation.ui.screens.card.SettingsCardScreen">
 
     <LinearLayout
         android:id="@+id/textTop"

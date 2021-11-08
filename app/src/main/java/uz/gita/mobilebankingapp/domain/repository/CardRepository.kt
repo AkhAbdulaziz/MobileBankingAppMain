@@ -1,13 +1,13 @@
 package uz.gita.mobilebankingapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import uz.gita.mobilebankingapp.data.CardData
-import uz.gita.mobilebankingapp.data.model.card_req_res.request.*
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.GetCardsData
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.OwnerByIdResponse
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.OwnerByPanResponse
-import uz.gita.mobilebankingapp.data.model.card_req_res.response.VerifyCardResponseData
-import uz.gita.mobilebankingapp.data.model.user_req_res.response.BaseResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByIdResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByPanResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.VerifyCardResponseData
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 
 interface CardRepository {
     fun addCard(data: AddCardRequest): Flow<Result<String>>

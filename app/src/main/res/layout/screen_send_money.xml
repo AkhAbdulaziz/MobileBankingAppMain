@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    tools:context=".presentation.ui.screens.SendMoneyScreen">
+    tools:context=".presentation.ui.screens.card.SendMoneyScreen">
 
     <LinearLayout
         android:id="@+id/title"
@@ -298,13 +298,14 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sendBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
         android:paddingVertical="12dp"
         android:text="O'tkazilsin"
+        android:enabled="true"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

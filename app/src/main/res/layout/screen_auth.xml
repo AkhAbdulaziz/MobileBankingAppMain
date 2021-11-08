@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    tools:context=".presentation.ui.screens.AuthScreen"
+    tools:context=".presentation.ui.screens.auth.AuthScreen"
     android:padding="16dp">
     <TextView
         android:gravity="center"
