@@ -28,10 +28,6 @@ class MainPage : Fragment(R.layout.page_main) {
             findNavController().navigate(R.id.action_basicScreen_to_myCardsScreen)
         }
 
-        profileBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_basicScreen_to_profileScreen)
-        }
-
         sendMoneyBtn.setOnClickListener {
             findNavController().navigate(R.id.action_basicScreen_to_fillSendMoneyScreen)
         }

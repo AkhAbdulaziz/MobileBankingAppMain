@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.databinding.ScreenBasicNavBinding
+import uz.gita.mobilebankingapp.presentation.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicPageAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
@@ -73,7 +74,11 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             showToast("Support")
         }
         lineLogout.setOnClickListener {
-            viewModel.logout()
+            val clarifyLogoutDialog = ClarifyLogoutDialog()
+            clarifyLogoutDialog.setPositiveBtnListener {
+                viewModel.logout()
+            }
+            clarifyLogoutDialog.show(childFragmentManager, "logout_dialog")
         }
 
         viewModel.openProfileScreenLiveData.observe(this@BasicScreen, openProfileScreenObserver)
