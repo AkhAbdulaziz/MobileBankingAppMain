@@ -41,7 +41,6 @@ class AuthRepositoryImpl @Inject constructor(
             }
             emit(Result.failure<String>(Throwable(message)))
         }
-
     }.flowOn(Dispatchers.IO)
 
     override fun loginUser(data: LoginRequest): Flow<Result<String>> = flow {

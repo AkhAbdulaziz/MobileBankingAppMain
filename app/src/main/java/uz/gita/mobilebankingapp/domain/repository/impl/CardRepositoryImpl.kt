@@ -10,10 +10,7 @@ import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 import uz.gita.mobilebankingapp.data.remote.api.CardApi
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByIdResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByPanResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.VerifyCardResponseData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import javax.inject.Inject
@@ -41,26 +38,27 @@ class CardRepositoryImpl @Inject constructor(
 
     }.flowOn(Dispatchers.IO)
 
-    override fun getAllCardsList(token: String): Flow<Result<GetCardsData?>?> = flow {
-        val response = cardApi.getAllCards(pref.accessToken)
+    override fun getAllCardsList(): Flow<Result<GetCardsData?>?> = flow {
+        val response = cardApi.getAllCards()
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
             cardsList = response.body()!!.data?.data
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun sendMoney(data: MoneyRequest): Flow<Result<String>> = flow {
+    override fun sendMoney(data: MoneyRequest): Flow<Result<ReceiptMoneyData>> = flow {
         val response = cardApi.sendMoney(data)
         if (response.isSuccessful) {
-            emit(Result.success(response.body()!!.message))
-        } else {
-            var st = "Serverga ulanishda xatolik bo'ldi"
-            ResponseBody
-            response.errorBody()?.let {
-                st = gson.fromJson(it.string(), BaseResponse::class.java).message
-            }
-            emit(Result.failure<String>(Throwable(st)))
+            emit(Result.success(response.body()!!.data))
         }
+        /* else {
+                var st = "Serverga ulanishda xatolik bo'ldi"
+                ResponseBody
+                response.errorBody()?.let {
+                    st = gson.fromJson(it.string(), SendMoneyResponse::class.java).data
+                }
+                emit(Result.failure<String>(Throwable(st)))
+            }*/
 
     }.flowOn(Dispatchers.IO)
 
@@ -150,22 +148,42 @@ class CardRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getTotalSum(): Flow<Result<Double>> = flow {
+    override fun getTotalSumFromLocal(): String {
+        return pref.lastAllMoneyAmount
+    }
+
+    override fun getTotalSum(): Flow<Result<TotalCardResponse>> = flow {
         val response = cardApi.getTotalSum()
         if (response.isSuccessful) {
+            pref.lastAllMoneyAmount = "${response.body()!!.data}"
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getUserCardDataByPan(pan: String): CardData? {
-        getAllCardsList(pref.accessToken)
+    override fun getMyCurrentCardData(): CardData? {
+        getAllCardsList()
         if (cardsList != null) {
-            for (cardData: CardData in cardsList!!) {
+            /*for (cardData: CardData in cardsList!!) {
                 if (cardData.pan.equals(pan)) {
                     return cardData
                 }
-            }
+            }*/
+            return cardsList!![0]
         }
         return null
     }
+
+    override var isBalanceVisible: Boolean
+        get() = pref.isBalanceVisible
+        set(visibility) {
+            pref.isBalanceVisible = visibility
+            if (cardsList != null) {
+                putIgnoreBalance(
+                    IgnoreBalanceRequest(
+                        getMyCurrentCardData()!!.id!!,
+                        visibility
+                    )
+                )
+            }
+        }
 }

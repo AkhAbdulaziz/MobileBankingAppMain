@@ -245,6 +245,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomCardInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent">
@@ -294,6 +295,33 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:text="**** 5182" />
 
+            <ImageView
+                android:id="@+id/errorImg"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:alpha="0.9"
+                android:background="@color/colorErrorRed"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="You have not a card!" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -303,9 +331,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"
+        android:enabled="false"
         android:paddingVertical="12dp"
         android:text="O'tkazilsin"
-        android:enabled="true"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

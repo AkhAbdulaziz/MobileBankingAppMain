@@ -34,15 +34,17 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        progress.visible()
+        refresh.isRefreshing = true
+        viewModel.getAllCardList()
+
+        refresh.setOnRefreshListener {
+            viewModel.getAllCardList()
+            refresh.isRefreshing = true
+        }
 
         viewModel.cardsListLiveData.observe(viewLifecycleOwner, cardsListObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
-        viewModel.closeDialogLiveData.observe(
-            viewLifecycleOwner,
-            closeDialogObserver
-        )
-        viewModel.getAllCardList()
+        viewModel.closeDialogLiveData.observe(viewLifecycleOwner, closeDialogObserver)
 
         cardsRecyclerView.adapter = adapter
         cardsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -85,7 +87,7 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
     private val cardsListObserver = Observer<GetCardsData> {
         cardsList.clear()
         cardsList.addAll(it.data!!)
-        binding.progress.gone()
+        binding.refresh.isRefreshing = false
         adapter.notifyDataSetChanged()
     }
 

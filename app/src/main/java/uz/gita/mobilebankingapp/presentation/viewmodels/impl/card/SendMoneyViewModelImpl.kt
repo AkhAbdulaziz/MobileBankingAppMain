@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.MoneyRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByPanRequest
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.ReceiptMoneyData
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SendMoneyViewModel
@@ -23,7 +24,7 @@ class SendMoneyViewModelImpl @Inject constructor(
     ViewModel(), SendMoneyViewModel {
     override val enableSendMoneyButton = MutableLiveData<Unit>()
     override val errorLiveData = MutableLiveData<String>()
-    override val successLiveData = MutableLiveData<String>()
+    override val successLiveData = MutableLiveData<ReceiptMoneyData>()
     override val ownerNameLiveData = MutableLiveData<String>()
     override val feeLiveData = MutableLiveData<String>()
 
@@ -46,8 +47,8 @@ class SendMoneyViewModelImpl @Inject constructor(
             it.onFailure { throwable ->
                 errorLiveData.value = throwable.message
             }
-            it.onSuccess { message ->
-                successLiveData.value = message
+            it.onSuccess { data ->
+                successLiveData.value = data
             }
         }.launchIn(viewModelScope)
     }
@@ -71,7 +72,7 @@ class SendMoneyViewModelImpl @Inject constructor(
         }
     }
 
-    override fun getUserCardDataByPan(pan: String): CardData? {
-        return cardRepository.getUserCardDataByPan(pan)
+    override fun getMyCurrentCardData(): CardData? {
+        return cardRepository.getMyCurrentCardData()
     }
 }

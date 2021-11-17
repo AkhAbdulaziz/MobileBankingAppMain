@@ -3,10 +3,7 @@ package uz.gita.mobilebankingapp.data.remote.api
 import retrofit2.Response
 import retrofit2.http.*
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.AllCardsResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByIdResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByPanResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.VerifyCardResponse
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.UserMessageResponse
 
@@ -33,7 +30,6 @@ interface CardApi {
 
     @GET("card/all")
     suspend fun getAllCards(
-        @Header("token") token: String
     ): Response<AllCardsResponse>
 
 
@@ -43,7 +39,7 @@ interface CardApi {
         @Body data: OwnerByPanRequest
     ): Response<OwnerByPanResponse>
 
-    @GET("card/owner-by-pan")
+    @GET("card/owner-by-id")
     suspend fun getOwnerById(
         @Body data: OwnerByIdRequest
     ): Response<OwnerByIdResponse>
@@ -51,7 +47,7 @@ interface CardApi {
     @POST("money-transfer/send-money")
     suspend fun sendMoney(
         @Body data: MoneyRequest
-    ): Response<BaseResponse>
+    ): Response<SendMoneyResponse>
 
     @GET("money-transfer/fee")
     suspend fun getFee(
@@ -84,5 +80,5 @@ interface CardApi {
     ): Response<String>
 
     @GET("card/total-sum")
-    suspend fun getTotalSum(): Response<Double>
+    suspend fun getTotalSum(): Response<TotalCardResponse>
 }

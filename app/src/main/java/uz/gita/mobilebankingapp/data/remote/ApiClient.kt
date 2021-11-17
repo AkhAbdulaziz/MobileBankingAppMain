@@ -52,7 +52,8 @@ fun tokenInterceptor() = Interceptor { chain ->
     val pref = MySharedPreferences()
 
     val chainRequest = chain.request()
-    val newRequest = chainRequest.newBuilder().addHeader("token", pref.accessToken).build()
+    val newRequest =
+        chainRequest.newBuilder().removeHeader("token").addHeader("token", pref.accessToken).build()
 
     val response = chain.proceed(newRequest)
     response

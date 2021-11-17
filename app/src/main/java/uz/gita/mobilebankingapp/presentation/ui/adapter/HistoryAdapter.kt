@@ -36,25 +36,28 @@ class HistoryAdapter :
         private val textMoney = view.findViewById<TextView>(R.id.textMoney)
         private val textFee = view.findViewById<TextView>(R.id.textFee)
 
+        //status 0 -> pul tushdi, else -> pul yechib olindi
         fun bind() {
             getItem(absoluteAdapterPosition)?.let {
                 if (it.status == 0) {
-                    itemView.setBackgroundColor(
+                    textMoney.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
-                            R.color.purple_500
+                            R.color.colorGreen
                         )
                     )
+                    textMoney.text = "+${it.amount.toString()}"
+                    textFee.text = it.fee.toString()
                 } else {
-                    itemView.setBackgroundColor(
+                    textMoney.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
-                            R.color.teal_700
+                            R.color.colorRed
                         )
                     )
+                    textMoney.text = "-${it.amount.toString()}"
+                    textFee.text = it.fee.toString()
                 }
-                textMoney.text = it.amount.toString()
-                textFee.text = it.fee.toString()
             }
         }
     }
@@ -65,6 +68,6 @@ class HistoryAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         HistoryViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.history_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
         )
 }

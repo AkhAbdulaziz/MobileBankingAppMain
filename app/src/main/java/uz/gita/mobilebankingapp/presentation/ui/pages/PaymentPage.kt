@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByPanRequest
 import uz.gita.mobilebankingapp.databinding.PagePaymentBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.PaymentViewModelImpl
@@ -40,17 +39,23 @@ class PaymentPage : Fragment(R.layout.page_payment) {
                 check()
             }
             if (isReadyCardNumber) {
-                viewModel.getOwnerByPan(
+                // Shu joyida crash beryatgandi
+
+                /*viewModel.getOwnerByPan(
                     OwnerByPanRequest(
                         it.toString()
                     )
-                )
+                )*/
             }
         }
 
         moneyAmountEditText.addTextChangedListener {
             it?.let {
-                isReadyMoney = it.toString().length > 2
+                isReadyMoney = if (it.toString().isEmpty()) {
+                    false
+                } else {
+                    Integer.parseInt(it.toString()) >= 500
+                }
                 check()
             }
         }
@@ -80,7 +85,6 @@ class PaymentPage : Fragment(R.layout.page_payment) {
     }
 
     private val successObserver = Observer<String> {
-        findNavController().popBackStack()
         showToast(it)
     }
 

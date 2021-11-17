@@ -3,18 +3,15 @@ package uz.gita.mobilebankingapp.domain.repository
 import kotlinx.coroutines.flow.Flow
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByIdResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.OwnerByPanResponse
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.VerifyCardResponseData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 
 interface CardRepository {
     fun addCard(data: AddCardRequest): Flow<Result<String>>
 
-    fun getAllCardsList(token: String): Flow<Result<GetCardsData?>?>
+    fun getAllCardsList(): Flow<Result<GetCardsData?>?>
 
-    fun sendMoney(data: MoneyRequest): Flow<Result<String>>
+    fun sendMoney(data: MoneyRequest): Flow<Result<ReceiptMoneyData>>
 
     fun verifyCard(data: VerifyCardRequest): Flow<Result<VerifyCardResponseData>>
 
@@ -42,7 +39,11 @@ interface CardRepository {
 
     fun putIgnoreBalance(data: IgnoreBalanceRequest): Flow<Result<String>>
 
-    fun getTotalSum(): Flow<Result<Double>>
+    fun getTotalSum(): Flow<Result<TotalCardResponse>>
 
-    fun getUserCardDataByPan(pan: String): CardData?
+    fun getMyCurrentCardData(): CardData?
+
+    var isBalanceVisible : Boolean
+
+    fun getTotalSumFromLocal(): String
 }

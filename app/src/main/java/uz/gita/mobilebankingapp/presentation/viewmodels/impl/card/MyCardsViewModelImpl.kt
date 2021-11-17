@@ -25,7 +25,7 @@ class MyCardsViewModelImpl @Inject constructor(
     override val closeDialogLiveData = MutableLiveData<Unit>()
 
     override fun getAllCardList() {
-        cardRepository.getAllCardsList(appRepository.getToken()).onEach {
+        cardRepository.getAllCardsList().onEach {
             it?.onFailure { throwable ->
                 errorMessageLiveData.value = throwable.message
             }

@@ -7,6 +7,18 @@
     android:background="@drawable/main_bg1"
     tools:context=".presentation.ui.pages.MainPage">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contactList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <ImageButton
         android:id="@+id/homeBtn"
         android:layout_width="wrap_content"
@@ -19,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/umumiy_balance_id"
+        android:id="@+id/balanceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
@@ -30,40 +42,56 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imgEye"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="6dp"
+        android:src="@drawable/ic_eye"
+        app:layout_constraintBottom_toBottomOf="@id/balanceText"
+        app:layout_constraintRight_toLeftOf="@id/balanceText"
+        app:layout_constraintTop_toTopOf="@id/balanceText" />
+
     <TextView
-        android:id="@+id/balance_text"
+        android:id="@+id/balanceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="857 077"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/umumiy_balance_id" />
+        app:layout_constraintTop_toBottomOf="@id/balanceTitle"
+        tools:text="857 077" />
 
     <TextView
+        android:id="@+id/currencyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="so'm"
+        android:text=" so'm"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/balance_text"
-        app:layout_constraintLeft_toRightOf="@id/balance_text"
-        app:layout_constraintTop_toTopOf="@id/balance_text" />
+        app:layout_constraintBottom_toBottomOf="@id/balanceText"
+        app:layout_constraintLeft_toRightOf="@id/balanceText"
+        app:layout_constraintTop_toTopOf="@id/balanceText" />
 
     <TextView
-        android:id="@+id/text3"
+        android:id="@+id/expensesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Oktyabrdagi chiqim -234 000 so'm"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/balance_text"
-        app:layout_constraintRight_toRightOf="@id/balance_text"
-        app:layout_constraintTop_toBottomOf="@id/balance_text" />
+        app:layout_constraintLeft_toLeftOf="@id/balanceText"
+        app:layout_constraintRight_toRightOf="@id/balanceText"
+        app:layout_constraintTop_toBottomOf="@id/balanceText" />
 
     <ImageView
         android:id="@+id/myCardsImg"
@@ -76,7 +104,7 @@
         android:src="@drawable/mycardsicon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/paymeGoImg"
-        app:layout_constraintTop_toBottomOf="@id/text3" />
+        app:layout_constraintTop_toBottomOf="@id/expensesText" />
 
     <TextView
         android:id="@+id/myCardsText"
@@ -100,7 +128,7 @@
         android:src="@drawable/paymegoicon"
         app:layout_constraintLeft_toRightOf="@id/myCardsImg"
         app:layout_constraintRight_toLeftOf="@id/qrPaymentImg"
-        app:layout_constraintTop_toBottomOf="@id/text3" />
+        app:layout_constraintTop_toBottomOf="@id/expensesText" />
 
     <TextView
         android:id="@+id/paymeGoText"
@@ -124,7 +152,7 @@
         android:src="@drawable/qrpaymenticon"
         app:layout_constraintLeft_toRightOf="@id/paymeGoImg"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text3" />
+        app:layout_constraintTop_toBottomOf="@id/expensesText" />
 
     <TextView
         android:id="@+id/qrPaymentText"

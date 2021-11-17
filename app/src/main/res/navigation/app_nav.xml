@@ -39,7 +39,7 @@
         android:id="@+id/basicScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreen"
         android:label="screen_basic"
-        tools:layout="@layout/screen_basic_nav" >
+        tools:layout="@layout/screen_basic_nav">
         <action
             android:id="@+id/action_basicScreen_to_profileScreen"
             app:destination="@id/profileScreen" />
@@ -119,16 +119,15 @@
         <argument
             android:name="receiverName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_sendMoneyScreen2_to_waitingMoneySendScreen"
+            app:destination="@id/waitingMoneySendScreen" />
     </fragment>
     <fragment
         android:id="@+id/verifyCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.VerifyCardScreen"
         android:label="screen_verify_card"
-        tools:layout="@layout/screen_verify_card">
-        <action
-            android:id="@+id/action_verifyCardScreen_to_myCardsScreen"
-            app:destination="@id/myCardsScreen" />
-    </fragment>
+        tools:layout="@layout/screen_verify_card" />
     <fragment
         android:id="@+id/settingsCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SettingsCardScreen"
@@ -146,5 +145,27 @@
         <action
             android:id="@+id/action_fillSendMoneyScreen_to_sendMoneyScreen2"
             app:destination="@id/sendMoneyScreen2" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitingMoneySendScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.WaitingMoneySendScreen"
+        android:label="WaitingMoneySendScreen"
+        tools:layout="@layout/screen_waiting_money_send">
+        <action
+            android:id="@+id/action_waitingMoneySendScreen_to_succeedMoneySendScreen"
+            app:destination="@id/succeedMoneySendScreen" />
+        <argument
+            android:name="moneyRequest"
+            app:argType="uz.gita.mobilebankingapp.data.remote.card_req_res.request.MoneyRequest" />
+    </fragment>
+    <fragment
+        android:id="@+id/succeedMoneySendScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.SucceedMoneySendScreen"
+        android:label="screen_succeed_money_send"
+        tools:layout="@layout/screen_succeed_money_send" >
+        <action
+            android:id="@+id/action_succeedMoneySendScreen_to_basicScreen"
+            app:destination="@id/basicScreen"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

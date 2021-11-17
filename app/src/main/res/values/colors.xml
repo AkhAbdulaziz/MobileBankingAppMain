@@ -10,5 +10,10 @@
     <color name="colorDisable">#4D000000</color>
 
     <color name="baseColor">#109771</color>
+    <color name="lightBaseColor">#33EAB6</color>
     <color name="greyColor">#424242</color>
+
+    <color name="colorGreen">#00B512</color>
+    <color name="colorRed">#BD0707</color>
+    <color name="colorErrorRed">#D81818</color>
 </resources>

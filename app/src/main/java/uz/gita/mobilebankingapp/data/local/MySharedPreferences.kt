@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.data.local
 import android.content.Context
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.utils.BooleanPreference
 import uz.gita.mobilebankingapp.utils.StringPreference
 import uz.gita.mobilebankingapp.utils.startScreen
 import javax.inject.Inject
@@ -27,4 +28,8 @@ class MySharedPreferences @Inject constructor() {
     var refreshToken: String by StringPreference(pref)
 
     var currentPan: String by StringPreference(pref)
+
+    var isBalanceVisible: Boolean by BooleanPreference(pref, true)
+
+    var lastAllMoneyAmount: String by StringPreference(pref, "")
 }

@@ -41,6 +41,7 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
         cardBackgroundsViewPager.offscreenPageLimit = 3
         val pageMargin = 16
         val pageOffset = 16
+
         cardBackgroundsViewPager.setPageTransformer { page, position ->
             val myOffset: Float = position * -(2 * pageOffset + pageMargin)
             if (position < -1) {
