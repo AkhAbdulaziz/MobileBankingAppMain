@@ -2,6 +2,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.card
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -38,21 +39,36 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
         moneyAmountText.text = "${args.amount} sum"
         fullAmount = "${args.amount}"
 
-        val currentCardData: CardData? = viewModel.getMyCurrentCardData()
-        if (currentCardData != null) {
+        val mainCardData: CardData? = viewModel.getMyMainCardData()
+        if (mainCardData != null) {
             viewModel.getFee(
                 MoneyRequest(
-                    currentCardData.id!!,
+                    mainCardData.id!!,
                     args.cardNumber,
                     args.amount
                 )
             )
 
-            senderName.text = currentCardData.cardName
-            senderBalance.text = "Balance: ${currentCardData.balance} so'm"
-            senderCardNumber.text = "**** ${currentCardData.pan!!.substring(12)}"
+            if (mainCardData.color == null) {
+                cardBg.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.default_card_bg_color
+                    )
+                )
+            } else {
+                cardBg.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        mainCardData.color
+                    )
+                )
+            }
+            senderName.text = mainCardData.cardName
+            senderBalance.text = "Balance: ${mainCardData.balance} so'm"
+            senderCardNumber.text = "**** ${mainCardData.pan!!.substring(12)}"
 
-            if (currentCardData.balance!! < args.amount) {
+            if (mainCardData.balance!! < args.amount) {
                 sendBtn.isEnabled = false
                 showErrorNoMoney()
             } else {
@@ -64,19 +80,11 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
             showErrorNoCard()
         }
 
-        /* val firstName = "${args.receiverName.substring(0, args.receiverName.indexOf(" "))}"
-          var lastName = ""
-          for (i in 0 until (args.receiverName.length - firstName.length - 1)) {
-              lastName += "*"
-          }
-          receiverNameText.text = "$firstName $lastName"*/
-
-
         sendBtn.setOnClickListener {
             findNavController().navigate(
                 SendMoneyScreenDirections.actionSendMoneyScreen2ToWaitingMoneySendScreen(
                     MoneyRequest(
-                        currentCardData!!.id!!,
+                        mainCardData!!.id!!,
                         args.cardNumber,
                         args.amount
                     )

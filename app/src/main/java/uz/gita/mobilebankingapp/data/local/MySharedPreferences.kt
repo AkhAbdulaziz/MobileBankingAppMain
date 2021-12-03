@@ -19,6 +19,8 @@ class MySharedPreferences @Inject constructor() {
 
     var userFullName: String by StringPreference(pref)
 
+    var userPassword: String by StringPreference(pref)
+
     var startScreen: StartScreenEnum
         set(value) = pref.edit().putString("startScreen", value.name).apply()
         get() = pref.getString("startScreen", StartScreenEnum.LOGIN.name)!!.startScreen()
@@ -32,4 +34,6 @@ class MySharedPreferences @Inject constructor() {
     var isBalanceVisible: Boolean by BooleanPreference(pref, true)
 
     var lastAllMoneyAmount: String by StringPreference(pref, "")
+
+    var mainCardPan: String by StringPreference(pref)
 }

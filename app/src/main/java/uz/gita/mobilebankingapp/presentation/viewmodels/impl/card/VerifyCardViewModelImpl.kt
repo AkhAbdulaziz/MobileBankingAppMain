@@ -20,7 +20,7 @@ class VerifyCardViewModelImpl @Inject constructor(
 ) :
     ViewModel(), VerifyCardViewModel {
     override val errorMessageLiveData = MutableLiveData<String>()
-    override val openMyCardsScreenLiveData = MutableLiveData<Unit>()
+    override val exitScreenLiveData = MutableLiveData<Unit>()
 
     override fun verifyCard(data: VerifyCardRequest) {
         if (!isConnected()) {
@@ -33,7 +33,7 @@ class VerifyCardViewModelImpl @Inject constructor(
                 errorMessageLiveData.value = throwable.message
             }
             it.onSuccess {
-                openMyCardsScreenLiveData.value = Unit
+                exitScreenLiveData.value = Unit
             }
         }.launchIn(viewModelScope)
     }

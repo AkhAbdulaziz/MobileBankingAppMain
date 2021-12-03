@@ -7,6 +7,8 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 
 interface CardRepository {
+    fun setCardVerifiedListener(block: () -> Unit)
+
     fun addCard(data: AddCardRequest): Flow<Result<String>>
 
     fun getAllCardsList(): Flow<Result<GetCardsData?>?>
@@ -41,9 +43,11 @@ interface CardRepository {
 
     fun getTotalSum(): Flow<Result<TotalCardResponse>>
 
-    fun getMyCurrentCardData(): CardData?
+    fun getMyMainCardData(): CardData?
 
     var isBalanceVisible : Boolean
 
     fun getTotalSumFromLocal(): String
+
+    fun changeMainCard(pan :String)
 }

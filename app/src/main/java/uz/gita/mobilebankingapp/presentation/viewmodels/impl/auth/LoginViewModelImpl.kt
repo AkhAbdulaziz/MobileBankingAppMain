@@ -12,6 +12,7 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.LoginRequest
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.LoginViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
+import uz.gita.mobilebankingapp.utils.timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +43,7 @@ class LoginViewModelImpl @Inject constructor(private val repository: AuthReposit
                 hideProgressLiveData.value = Unit
             }
         }.catch { throwable ->
-            Log.d("TTT", "${throwable.message}")
+           timber("${throwable.message}")
         }.launchIn(viewModelScope)
     }
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.EditCardRequest
 import uz.gita.mobilebankingapp.databinding.ScreenCardSettingsBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
@@ -37,6 +38,31 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
 
         pagerAdapter = CardBackgroundsPagerAdapter(bgsList, childFragmentManager, lifecycle)
         cardBackgroundsViewPager.adapter = pagerAdapter
+
+        val mainCard: CardData? = viewModel.getMainCardData()
+        if (mainCard != null) {
+            if (mainCard.pan == args.cardData.pan) {
+                txtIsChecked.text = "Asosiydan olib tashlash"
+                imgIsChecked.setImageResource(R.drawable.ic_checked)
+            } else {
+                txtIsChecked.text = "Asosiy qilish"
+                imgIsChecked.setImageResource(R.drawable.ic_unchecked)
+            }
+        }
+
+        setCardMainLayout.setOnClickListener {
+            if (mainCard == null) {
+                txtIsChecked.text = "Asosiydan olib tashlash"
+                imgIsChecked.setImageResource(R.drawable.ic_checked)
+            } else if (mainCard.pan != args.cardData.pan) {
+                txtIsChecked.text = "Asosiydan olib tashlash"
+                imgIsChecked.setImageResource(R.drawable.ic_checked)
+            } else {
+                txtIsChecked.text = "Asosiy qilish"
+                imgIsChecked.setImageResource(R.drawable.ic_unchecked)
+            }
+            viewModel.changeMainCard(args.cardData.pan!!)
+        }
 
         cardBackgroundsViewPager.offscreenPageLimit = 3
         val pageMargin = 16

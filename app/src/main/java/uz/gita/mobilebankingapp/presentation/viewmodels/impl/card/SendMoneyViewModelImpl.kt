@@ -20,8 +20,7 @@ import javax.inject.Inject
 class SendMoneyViewModelImpl @Inject constructor(
     private val cardRepository: CardRepository,
     private val authRepository: AuthRepository
-) :
-    ViewModel(), SendMoneyViewModel {
+) : ViewModel(), SendMoneyViewModel {
     override val enableSendMoneyButton = MutableLiveData<Unit>()
     override val errorLiveData = MutableLiveData<String>()
     override val successLiveData = MutableLiveData<ReceiptMoneyData>()
@@ -72,7 +71,7 @@ class SendMoneyViewModelImpl @Inject constructor(
         }
     }
 
-    override fun getMyCurrentCardData(): CardData? {
-        return cardRepository.getMyCurrentCardData()
+    override fun getMyMainCardData(): CardData? {
+        return cardRepository.getMyMainCardData()
     }
 }

@@ -55,11 +55,11 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
             findNavController().popBackStack()
         }
 
-        viewModel.openMyCardsScreenLiveData.observe(viewLifecycleOwner, openMyCardsScreenObserver)
+        viewModel.exitScreenLiveData.observe(viewLifecycleOwner, exitScreenObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
     }
 
-    private val openMyCardsScreenObserver = Observer<Unit> {
+    private val exitScreenObserver = Observer<Unit> {
         findNavController().popBackStack()
     }
 

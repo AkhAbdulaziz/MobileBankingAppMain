@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.EditCardRequest
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SettingsCardViewModel
@@ -36,5 +37,13 @@ class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: 
             errorMessageLiveData.value = "Internet mavjud emas"
             return
         }
+    }
+
+    override fun getMainCardData(): CardData? {
+       return cardRepository.getMyMainCardData()
+    }
+
+    override fun changeMainCard(pan: String) {
+        cardRepository.changeMainCard(pan)
     }
 }

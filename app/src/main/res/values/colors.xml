@@ -16,4 +16,6 @@
     <color name="colorGreen">#00B512</color>
     <color name="colorRed">#BD0707</color>
     <color name="colorErrorRed">#D81818</color>
+
+    <color name="default_card_bg_color">#0E2865</color>
 </resources>

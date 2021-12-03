@@ -60,10 +60,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         viewModel.imageChangedLiveData.observe(viewLifecycleOwner, imageChangedObserver)
     }
 
-    private val imageChangedObserver = Observer<Uri> {
-        binding.userImage.setImageURI(it)
-    }
-
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
@@ -77,6 +73,10 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                 }
             }
         }
+
+    private val imageChangedObserver = Observer<Uri> {
+        binding.userImage.setImageURI(it)
+    }
 
     private fun setCurrentData() = binding.scope {
         userImage.setImageURI(imageUri)

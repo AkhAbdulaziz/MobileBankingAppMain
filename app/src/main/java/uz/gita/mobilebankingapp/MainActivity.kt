@@ -1,11 +1,13 @@
 package uz.gita.mobilebankingapp
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.activity_main)
-/*
+/*@AndroidEntryPoint
+class MainActivity : AppCompatActivity(R.layout.activity_main)*/
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,4 +20,3 @@ class MainActivity : AppCompatActivity() {
         navHost.navController.graph = graph
     }
 }
-*/

@@ -157,82 +157,6 @@
         app:layout_constraintTop_toTopOf="@id/text5"
         tools:text="5 050.00 sum" />
 
-    <!--    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardNumberLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            app:counterMaxLength="16"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title">
-
-            <EditText
-                android:id="@+id/cardNumberEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="Kartaning raqami"
-                android:inputType="number"
-                android:maxLength="16" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/cardOwnerNameText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Kartaning egasi: "
-            android:textColor="#19AE28"
-            android:textSize="16sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@id/moneyAmountLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardNumberLayout" />
-
-        <TextView
-            android:id="@+id/feeText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=": "
-            android:textColor="#19AE28"
-            android:textSize="16sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@id/moneyAmountLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardNumberLayout" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/moneyAmountLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:counterMaxLength="16"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardOwnerNameText">
-
-            <EditText
-                android:id="@+id/moneyAmountEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="O'tkazma summasi"
-                android:inputType="number"
-                android:maxLength="16" />
-
-        </com.google.android.material.textfield.TextInputLayout>-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
@@ -256,7 +180,7 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/card_bg1"
+                android:background="@color/default_card_bg_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -1,11 +1,12 @@
 package uz.gita.mobilebankingapp.domain.repository.impl
 
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.ResponseBody
 import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 import uz.gita.mobilebankingapp.data.remote.api.CardApi
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
@@ -22,6 +23,11 @@ class CardRepositoryImpl @Inject constructor(
     private val gson = Gson()
     private var cardsList: List<CardData>? = null
 
+    private var cardVerifiedListener: (() -> Unit)? = null
+    override fun setCardVerifiedListener(block: () -> Unit) {
+        cardVerifiedListener = block
+    }
+
     override fun addCard(data: AddCardRequest): Flow<Result<String>> = flow {
         savePanToPref(data.pan)
         val response = cardApi.addCard(data)
@@ -29,13 +35,15 @@ class CardRepositoryImpl @Inject constructor(
             emit(Result.success(response.body()!!.message))
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
-            ResponseBody
+
             response.errorBody()?.let {
                 st = gson.fromJson(it.string(), BaseResponse::class.java).message
             }
             emit(Result.failure<String>(Throwable(st)))
         }
 
+    }.catch { throwable ->
+        Log.d("TTT", throwable.message.toString())
     }.flowOn(Dispatchers.IO)
 
     override fun getAllCardsList(): Flow<Result<GetCardsData?>?> = flow {
@@ -66,6 +74,7 @@ class CardRepositoryImpl @Inject constructor(
         val response = cardApi.verifyCard(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
+            cardVerifiedListener?.invoke()
         }
 
     }.flowOn(Dispatchers.IO)
@@ -160,17 +169,25 @@ class CardRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getMyCurrentCardData(): CardData? {
+    override fun getMyMainCardData(): CardData? {
         getAllCardsList()
         if (cardsList != null) {
-            /*for (cardData: CardData in cardsList!!) {
-                if (cardData.pan.equals(pan)) {
+            for (cardData: CardData in cardsList!!) {
+                if (cardData.pan.equals(pref.mainCardPan)) {
                     return cardData
                 }
-            }*/
+            }
             return cardsList!![0]
         }
         return null
+    }
+
+    override fun changeMainCard(pan: String) {
+        if (pref.mainCardPan == pan) {
+            pref.mainCardPan = cardsList!![0].pan!!
+        } else {
+            pref.mainCardPan = pan
+        }
     }
 
     override var isBalanceVisible: Boolean
@@ -180,7 +197,7 @@ class CardRepositoryImpl @Inject constructor(
             if (cardsList != null) {
                 putIgnoreBalance(
                     IgnoreBalanceRequest(
-                        getMyCurrentCardData()!!.id!!,
+                        getMyMainCardData()!!.id!!,
                         visibility
                     )
                 )

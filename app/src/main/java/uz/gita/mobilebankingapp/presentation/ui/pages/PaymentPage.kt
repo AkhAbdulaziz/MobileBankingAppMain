@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByPanRequest
 import uz.gita.mobilebankingapp.databinding.PagePaymentBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.PaymentViewModelImpl
@@ -39,9 +40,9 @@ class PaymentPage : Fragment(R.layout.page_payment) {
                 check()
             }
             if (isReadyCardNumber) {
-                // Shu joyida crash beryatgandi
+//                 Shu joyida crash beryatgandi
 
-                /*viewModel.getOwnerByPan(
+               /* viewModel.getOwnerByPan(
                     OwnerByPanRequest(
                         it.toString()
                     )

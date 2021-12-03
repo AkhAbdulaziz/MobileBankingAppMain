@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.screens.card
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
@@ -28,6 +29,7 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
     private var isReadyCardNumber = false
     private var isReadyCardValidate = false
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
         bgsList = ArrayList()
@@ -97,14 +99,19 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
         viewModel.enableAddButtonLiveData.observe(viewLifecycleOwner, enableAddButtonObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.openVerifyCardScreenLiveData.observe(
-            viewLifecycleOwner,
+            this@AddCardScreen,
             openVerifyCardScreenObserver
         )
+        viewModel.closeScreenLiveData.observe(viewLifecycleOwner, closeScreenObserver)
     }
 
     private fun check() {
         binding.addCardBtn.isEnabled =
             isReadyCardValidate && isReadyCardNumber
+    }
+
+    private val closeScreenObserver = Observer<Unit> {
+        findNavController().popBackStack()
     }
 
     private val openVerifyCardScreenObserver = Observer<Unit> {

@@ -19,5 +19,5 @@ interface SendMoneyViewModel {
 
     fun getFee(data: MoneyRequest)
 
-    fun getMyCurrentCardData(): CardData?
+    fun getMyMainCardData(): CardData?
 }

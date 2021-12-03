@@ -2,15 +2,21 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.remote.user_req_res.request.ResendRequest
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.VerifyUserRequest
 import uz.gita.mobilebankingapp.databinding.ScreenVerifyBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.VerifyScreenViewModel
@@ -22,14 +28,18 @@ import uz.gita.mobilebankingapp.utils.showToast
 class VerifyScreen : Fragment(R.layout.screen_verify) {
     private val binding by viewBinding(ScreenVerifyBinding::bind)
     private val viewModel: VerifyScreenViewModel by viewModels<VerifyScreenViewModelImpl>()
+    private var phoneNumber = ""
+    private var userPassword = ""
+    private var phoneNumber998 = ""
+    private var phoneNumberCode = ""
+    private var phoneNumberLast = ""
+    private var minute = 60
+    private var isBreak = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-        val phoneNumber998 = "${viewModel.getUserPhoneNumber().substring(0, 4)}"
-        val phoneNumberCode = "${viewModel.getUserPhoneNumber().substring(4, 6)}"
-        val phoneNumberLast = "${viewModel.getUserPhoneNumber().substring(11)}"
-
-        infoText.text =
-            "Tekshiruv kodi quyidagi\nraqamga yuborildi\n$phoneNumber998 $phoneNumberCode *** ** $phoneNumberLast"
+        waitingCodeTime.isClickable = false
+        viewModel.getUserPhoneNumber()
+        startTime()
 
         verificationCodeEditText.addTextChangedListener {
             it?.let {
@@ -45,7 +55,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
         verifyBtn.setOnClickListener {
             viewModel.userVerify(
                 VerifyUserRequest(
-                    viewModel.getUserPhoneNumber(),
+                    phoneNumber,
                     verificationCodeEditText.text.toString()
                 )
             )
@@ -55,8 +65,22 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
             findNavController().popBackStack()
         }
 
+        waitingCodeTime.setOnClickListener {
+            viewModel.getUserPassword()
+            viewModel.resendCode(
+                ResendRequest(
+                    phoneNumber,
+                    userPassword
+                )
+            )
+            Log.d("GGG", "phone = $phoneNumber password = $userPassword")
+        }
+
         viewModel.openMainScreenLiveData.observe(viewLifecycleOwner, openMainScreenObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
+        viewModel.resendCodeLiveData.observe(viewLifecycleOwner, resendCodeObserver)
+        viewModel.userPhoneNumberLiveData.observe(viewLifecycleOwner, userPhoneNumberObserver)
+        viewModel.userPasswordLiveData.observe(viewLifecycleOwner, userPasswordObserver)
     }
 
     private val openMainScreenObserver = Observer<Unit> {
@@ -67,4 +91,68 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
         showToast(it)
     }
 
+    private val resendCodeObserver = Observer<Unit> {
+        Log.d("GGG", "RESEND CODE OBSERVER")
+        binding.waitingCodeTime.text = "Qayta yuboring 1:00"
+        isBreak = true
+        startTime()
+        binding.waitingCodeTime.isClickable = false
+        binding.waitingCodeTime.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.black
+            )
+        )
+    }
+
+    private val userPhoneNumberObserver = Observer<String> { phoneNumber ->
+        this.phoneNumber = phoneNumber
+        phoneNumber998 = phoneNumber.substring(0, 4)
+        phoneNumberCode = phoneNumber.substring(4, 6)
+        phoneNumberLast = phoneNumber.substring(11)
+        binding.infoText.text =
+            "Tekshiruv kodi quyidagi\nraqamga yuborildi\n$phoneNumber998 $phoneNumberCode *** ** $phoneNumberLast"
+
+    }
+
+    private val userPasswordObserver = Observer<String> { password ->
+        userPassword = password
+    }
+
+    private fun startTime() = binding.scope {
+        waitingCodeTime.isClickable = false
+        isBreak = false
+
+        lifecycleScope.launch {
+            minute = 60
+            while (minute > 0) {
+                if (isBreak) {
+                    break
+                }
+                delay(1000)
+                minute -= 1
+
+                if (minute < 10) {
+                    waitingCodeTime.text = "Qayta yuboring 0:0$minute"
+                } else {
+                    waitingCodeTime.text = "Qayta yuboring 0:$minute"
+                }
+            }
+            if (minute == 0) {
+                waitingCodeTime.isClickable = true
+                waitingCodeTime.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.baseColor
+                    )
+                )
+                waitingCodeTime.text = "Qayta yuboring"
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isBreak = true
+    }
 }

@@ -5,7 +5,7 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.request.VerifyCardReque
 
 interface VerifyCardViewModel {
     val errorMessageLiveData: LiveData<String>
-    val openMyCardsScreenLiveData: LiveData<Unit>
+    val exitScreenLiveData: LiveData<Unit>
 
     fun verifyCard(data: VerifyCardRequest)
 

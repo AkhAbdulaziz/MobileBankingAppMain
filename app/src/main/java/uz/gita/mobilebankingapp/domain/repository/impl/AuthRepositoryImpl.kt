@@ -21,17 +21,17 @@ import java.io.File
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val userApi: AuthApi,
+    private val authApi: AuthApi,
     private val profileApi: ProfileApi,
     private val pref: MySharedPreferences
 ) : AuthRepository {
     private val gson = Gson()
 
     override fun registerUser(data: RegisterRequest): Flow<Result<String>> = flow {
-        val response = userApi.register(data)
-        Log.d("TTT", "register response = $response")
+        val response = authApi.register(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.message))
+            pref.userPassword = data.password
             pref.userPhone = data.phone
             pref.userFullName = "${data.firstName} ${data.lastName}"
         } else {
@@ -44,9 +44,9 @@ class AuthRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun loginUser(data: LoginRequest): Flow<Result<String>> = flow {
-        val response = userApi.login(data)
-        Log.d("TTT", "login response = $response")
+        val response = authApi.login(data)
         if (response.isSuccessful) {
+            pref.userPassword = data.password
             pref.userPhone = data.phone
             emit(Result.success(response.body()!!.message))
         } else {
@@ -60,42 +60,43 @@ class AuthRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun logoutUser(): Flow<Result<LogoutResponse>> = flow {
-        val response = userApi.logout(pref.accessToken)
+        val response = authApi.logout(pref.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun resend(data: ResendRequest): Flow<Result<BaseResponse>> = flow {
-        val response = userApi.resend(data)
+        Log.d("GGG", "Repositoryga kirdi")
+        val response = authApi.resend(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun reset(data: ResetUserRequest): Flow<Result<BaseResponse>> = flow {
-        val response = userApi.reset(data)
+        val response = authApi.reset(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun setNewPassword(data: NewPasswordRequest): Flow<Result<BaseResponse>> = flow {
-        val response = userApi.setNewPassword(data)
+        val response = authApi.setNewPassword(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun refresh(data: RefreshRequest): Flow<Result<RefreshResponse>> = flow {
-        val response = userApi.refresh(data)
+        val response = authApi.refresh(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun verifyUser(request: VerifyUserRequest): Flow<Result<Unit>> = flow {
-        val response = userApi.verifyUser(request)
+        val response = authApi.verifyUser(request)
         if (response.isSuccessful) {
             response.body()?.let {
                 pref.refreshToken = it.data.refreshToken
@@ -105,7 +106,7 @@ class AuthRepositoryImpl @Inject constructor(
         } else {
             var message = "Xatolik yuzaga keldi"
             response.errorBody()?.let {
-                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+                message = gson.fromJson(it.toString(), BaseResponse::class.java).message
             }
             emit(Result.failure<Unit>(Throwable(message)))
         }
@@ -151,4 +152,7 @@ class AuthRepositoryImpl @Inject constructor(
         return pref.userFullName
     }
 
+    override fun getUserPassword(): String {
+        return pref.userPassword
+    }
 }

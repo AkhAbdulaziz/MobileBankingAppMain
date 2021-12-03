@@ -19,10 +19,8 @@ import uz.gita.mobilebankingapp.presentation.dialog.card.EventDialog
 import uz.gita.mobilebankingapp.presentation.ui.adapter.MyCardsAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.MyCardsViewModelImpl
-import uz.gita.mobilebankingapp.utils.gone
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
-import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
@@ -68,6 +66,7 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
                             cardsList[adapterPos].pan!!
                         )
                     )
+                    cardsList.removeAt(adapterPos)
                     adapter.notifyItemRemoved(adapterPos)
                 }
                 clarifyDeleteDialog.show(childFragmentManager, "event")
@@ -84,9 +83,9 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
         }
     }
 
-    private val cardsListObserver = Observer<GetCardsData> {
+    private val cardsListObserver = Observer<List<CardData>> {
         cardsList.clear()
-        cardsList.addAll(it.data!!)
+        cardsList.addAll(it)
         binding.refresh.isRefreshing = false
         adapter.notifyDataSetChanged()
     }

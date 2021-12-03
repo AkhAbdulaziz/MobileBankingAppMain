@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -27,6 +28,7 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
     private var boolConfirmPassword = false
     private var boolPhoneNumber = false
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         registerButton.isEnabled = false
         firstNameEditText.addTextChangedListener {
@@ -74,7 +76,7 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
         viewModel.enableRegisterLiveData.observe(viewLifecycleOwner,enableRegisterObserver)
         viewModel.errorLivaData.observe(viewLifecycleOwner,errorObserver)
         viewModel.progressLiveData.observe(viewLifecycleOwner,progressObserver)
-        viewModel.successLiveData.observe(viewLifecycleOwner,successObserver)
+        viewModel.successLiveData.observe(this@RegisterScreen,successObserver)
     }
 
     private fun check() {

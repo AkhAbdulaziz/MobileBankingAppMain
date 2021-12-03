@@ -6,11 +6,12 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.DeleteCardRequest
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
 import uz.gita.mobilebankingapp.domain.repository.AppRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
+import uz.gita.mobilebankingapp.utils.sortMainCard
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +21,7 @@ class MyCardsViewModelImpl @Inject constructor(
 ) :
     ViewModel(), MyCardsViewModel {
 
-    override val cardsListLiveData = MutableLiveData<GetCardsData>()
+    override val cardsListLiveData = MutableLiveData<List<CardData>>()
     override val errorMessageLiveData = MutableLiveData<String>()
     override val closeDialogLiveData = MutableLiveData<Unit>()
 
@@ -30,7 +31,7 @@ class MyCardsViewModelImpl @Inject constructor(
                 errorMessageLiveData.value = throwable.message
             }
             it?.onSuccess {
-                cardsListLiveData.value = it
+                cardsListLiveData.value = it!!.data!!
             }
         }.launchIn(viewModelScope)
     }

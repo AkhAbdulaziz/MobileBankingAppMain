@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
@@ -24,6 +25,7 @@ class LoginScreen : Fragment(R.layout.screen_login) {
     private var isReadyPassword = false
     private var isReadyPhoneNumber = false
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         passwordEditText.addTextChangedListener {
             it?.let {
@@ -50,7 +52,7 @@ class LoginScreen : Fragment(R.layout.screen_login) {
         viewModel.disableLoginButtonLiveData.observe(viewLifecycleOwner, disableLoginButtonObserver)
         viewModel.showProgressLiveData.observe(viewLifecycleOwner, showProgressObserver)
         viewModel.hideProgressLiveData.observe(viewLifecycleOwner, hideProgressObserver)
-        viewModel.openVerifyScreenLiveData.observe(viewLifecycleOwner, openVerifyScreenObserver)
+        viewModel.openVerifyScreenLiveData.observe(this@LoginScreen, openVerifyScreenObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
     }
 

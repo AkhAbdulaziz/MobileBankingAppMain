@@ -1,12 +1,15 @@
 package uz.gita.mobilebankingapp.presentation.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 
 class MyCardsAdapter(private val list: List<CardData>) :
@@ -39,7 +42,17 @@ class MyCardsAdapter(private val list: List<CardData>) :
             cardOwner.text = data.owner
             cardNumber.text = data.pan
             cardValidate.text = data.exp
-            cardBg.setImageResource(R.drawable.card_bg1)
+            if (data.color == 0) {
+                cardBg.setBackgroundColor(
+                    ContextCompat.getColor(
+                        App.instance,
+                        R.color.default_card_bg_color
+                    )
+                )
+            } else {
+                Log.d("FFFF", "OnThis")
+                cardBg.setBackgroundColor(ContextCompat.getColor(App.instance, data.color))
+            }
         }
     }
 
@@ -49,6 +62,4 @@ class MyCardsAdapter(private val list: List<CardData>) :
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind()
 
     override fun getItemCount(): Int = list.size
-
-
 }

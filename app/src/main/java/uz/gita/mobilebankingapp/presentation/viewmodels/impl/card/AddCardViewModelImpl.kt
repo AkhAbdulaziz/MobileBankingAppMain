@@ -20,6 +20,13 @@ class AddCardViewModelImpl @Inject constructor(
     override val disableAddButtonLiveData = MutableLiveData<Unit>()
     override val openVerifyCardScreenLiveData = MutableLiveData<Unit>()
     override val errorMessageLiveData = MutableLiveData<String>()
+    override val closeScreenLiveData = MutableLiveData<Unit>()
+
+    init {
+        repository.setCardVerifiedListener {
+            closeScreenLiveData.postValue(Unit)
+        }
+    }
 
     override fun addCard(cardData: AddCardRequest) {
         if (!isConnected()) {

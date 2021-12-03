@@ -40,4 +40,6 @@ interface AuthRepository {
     fun getProfileInfo(): Flow<Result<ProfileInfoResponse>>
 
     fun getUserFullName() : String
+
+    fun getUserPassword() : String
 }
