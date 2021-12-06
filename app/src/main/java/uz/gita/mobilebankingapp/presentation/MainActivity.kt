@@ -1,10 +1,11 @@
-package uz.gita.mobilebankingapp
+package uz.gita.mobilebankingapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
+import uz.gita.mobilebankingapp.R
 
 /*@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main)*/

@@ -88,7 +88,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardNumberLayout" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moneyAmountLayout"
         android:layout_width="match_parent"

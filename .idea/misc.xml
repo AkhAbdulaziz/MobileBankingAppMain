@@ -71,7 +71,7 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_register.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_reset_password.xml" value="0.18" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_send_money.xml" value="0.18" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_splash.xml" value="0.16" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_splash.xml" value="0.18" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_succeed_money_send.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_user_settings.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/layout/screen_verify.xml" value="0.16" />
@@ -81,6 +81,34 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/main_menu.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/main_menu2.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MobileBankingAppIntro/MyMobileBankingApp/app/src/main/res/menu/main_screen_menu.xml" value="0.25" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/activity_main.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/dialog_event.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/fragment_card_bg.xml" value="0.17" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/item_card.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/item_history.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/item_paging_loading.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/page_history.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/page_main.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/page_map.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/page_payment.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/page_service.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_add_card.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_auth.xml" value="0.16" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_basic.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_basic_nav.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_card_settings.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_check_transfer.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_login.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_my_cards.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_profile.xml" value="0.17" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_register.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_reset_password.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_send_money.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_splash.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_succeed_money_send.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_verify.xml" value="0.15" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_verify_card.xml" value="0.12" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/MyPaymeApp/app/src/main/res/layout/screen_waiting_money_send.xml" value="0.1921875" />
       </map>
     </option>
   </component>

@@ -22,7 +22,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MobileBankingApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
