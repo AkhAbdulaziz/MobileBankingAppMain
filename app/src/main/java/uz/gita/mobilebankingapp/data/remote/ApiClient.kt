@@ -35,7 +35,7 @@ object ApiClient {
 }
 
 fun OkHttpClient.Builder.addLogging(): OkHttpClient.Builder {
-    HttpLoggingInterceptor.Level.BODY
+    HttpLoggingInterceptor.Level.HEADERS
     val logging = object : HttpLoggingInterceptor.Logger {
         override fun log(message: String) {
             timber(message, "HTTP")

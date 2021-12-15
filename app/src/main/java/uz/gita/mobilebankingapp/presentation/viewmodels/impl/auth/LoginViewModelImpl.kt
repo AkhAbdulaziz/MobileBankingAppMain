@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -43,7 +42,7 @@ class LoginViewModelImpl @Inject constructor(private val repository: AuthReposit
                 hideProgressLiveData.value = Unit
             }
         }.catch { throwable ->
-           timber("${throwable.message}")
+            timber("${throwable.message}")
         }.launchIn(viewModelScope)
     }
 }

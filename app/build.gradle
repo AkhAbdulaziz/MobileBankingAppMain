@@ -15,7 +15,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField('String', 'BASE_URL', '"http://47e8-37-110-210-239.ngrok.io/api/v1/"')
+        buildConfigField('String', 'BASE_URL', '"http://775f-31-148-160-38.ngrok.io/api/v1/"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
