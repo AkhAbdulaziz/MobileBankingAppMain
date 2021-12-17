@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enum.PaymentPageEnum
 import uz.gita.mobilebankingapp.databinding.PageMainBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.pages.MainPageViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.pages.MainPageViewModelImpl
@@ -69,7 +70,9 @@ class MainPage : Fragment(R.layout.page_main) {
 
         sendMoneyBtn.setOnClickListener {
             viewModel.getAllCardList()
-            findNavController().navigate(R.id.action_basicScreen_to_fillSendMoneyScreen)
+            val bundle = Bundle()
+            bundle.putString("direction_type", PaymentPageEnum.FROM_PAYMENT_SCREEN.name)
+            findNavController().navigate(R.id.action_basicScreen_to_paymentPage, )
         }
 
         viewModel.totalSumLiveData.observe(viewLifecycleOwner, totalSumObserver)

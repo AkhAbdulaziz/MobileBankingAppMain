@@ -44,14 +44,17 @@
             android:id="@+id/action_basicScreen_to_profileScreen"
             app:destination="@id/profileScreen" />
         <action
-            android:id="@+id/action_basicScreen_to_fillSendMoneyScreen"
-            app:destination="@id/fillSendMoneyScreen" />
+            android:id="@+id/action_basicScreen_to_paymentPage"
+            app:destination="@id/paymentPage" />
         <action
             android:id="@+id/action_basicScreen_to_myCardsScreen"
             app:destination="@id/myCardsScreen" />
         <action
             android:id="@+id/action_basicScreen_to_resetPasswordScreen"
             app:destination="@id/resetPasswordScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_sendMoneyScreen"
+            app:destination="@id/sendMoneyScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
@@ -106,7 +109,7 @@
         android:label="screen_profile"
         tools:layout="@layout/screen_profile" />
     <fragment
-        android:id="@+id/sendMoneyScreen2"
+        android:id="@+id/sendMoneyScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SendMoneyScreen"
         android:label="screen_send_money"
         tools:layout="@layout/screen_send_money">
@@ -120,7 +123,7 @@
             android:name="receiverName"
             app:argType="string" />
         <action
-            android:id="@+id/action_sendMoneyScreen2_to_waitingMoneySendScreen"
+            android:id="@+id/action_sendMoneyScreen_to_waitingMoneySendScreen"
             app:destination="@id/waitingMoneySendScreen" />
     </fragment>
     <fragment
@@ -138,13 +141,13 @@
             app:argType="uz.gita.mobilebankingapp.data.remote.card_req_res.CardData" />
     </fragment>
     <fragment
-        android:id="@+id/fillSendMoneyScreen"
+        android:id="@+id/paymentPage"
         android:name="uz.gita.mobilebankingapp.presentation.ui.pages.PaymentPage"
-        android:label="screen_fill_send_money"
+        android:label="page_payment"
         tools:layout="@layout/page_payment">
         <action
-            android:id="@+id/action_fillSendMoneyScreen_to_sendMoneyScreen2"
-            app:destination="@id/sendMoneyScreen2" />
+            android:id="@+id/action_paymentPage_to_sendMoneyScreen"
+            app:destination="@id/sendMoneyScreen" />
     </fragment>
     <fragment
         android:id="@+id/waitingMoneySendScreen"

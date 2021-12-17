@@ -1,10 +1,7 @@
 package uz.gita.mobilebankingapp.data.remote.api
 
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
@@ -32,7 +29,7 @@ interface CardApi {
     ): Response<UserMessageResponse>
 
     @GET("card/all")
-    suspend fun getAllCards(
+    suspend fun getAllCards(@Header("token") token: String
     ): Response<AllCardsResponse>
 
     //    @HTTP(method = "GET", path = "card/owner-by-pan", hasBody = true)

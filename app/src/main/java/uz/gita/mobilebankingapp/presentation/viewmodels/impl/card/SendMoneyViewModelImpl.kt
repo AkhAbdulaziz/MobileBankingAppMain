@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.viewmodels.impl.card
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -61,7 +62,7 @@ class SendMoneyViewModelImpl @Inject constructor(
             it.onSuccess {
                 feeLiveData.value = it.message
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun checkInternet() {

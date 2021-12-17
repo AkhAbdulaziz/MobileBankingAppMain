@@ -93,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:counterMaxLength="16"
+        app:counterMaxLength="10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardOwnerNameText">
@@ -108,7 +108,7 @@
             android:ems="10"
             android:hint="O'tkazma summasi"
             android:inputType="number"
-            android:maxLength="16" />
+            android:maxLength="10" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -2,7 +2,6 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.card
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,29 +40,23 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
 
         val mainCardData: CardData? = viewModel.getMyMainCardData()
         if (mainCardData != null) {
-            viewModel.getFee(
+            // Fee ni olishda ham backend da xatolik bor, api ni Body qabul qilmaydi deyapti.
+            /* viewModel.getFee(
                 MoneyRequest(
                     mainCardData.id!!,
                     args.cardNumber,
                     args.amount
                 )
-            )
+            )*/
 
-            if (mainCardData.color == null) {
-                cardBg.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.default_card_bg_color
-                    )
-                )
-            } else {
-                cardBg.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        mainCardData.color
-                    )
-                )
-            }
+            // Card bg ham berib bo'lmayapti
+            /* cardBg.setBackgroundColor(
+                 ContextCompat.getColor(
+                     App.instance,
+                     mainCardData.color
+                 )
+             )*/
+
             senderName.text = mainCardData.cardName
             senderBalance.text = "Balance: ${mainCardData.balance} so'm"
             senderCardNumber.text = "**** ${mainCardData.pan!!.substring(12)}"
@@ -82,7 +75,7 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
 
         sendBtn.setOnClickListener {
             findNavController().navigate(
-                SendMoneyScreenDirections.actionSendMoneyScreen2ToWaitingMoneySendScreen(
+                SendMoneyScreenDirections.actionSendMoneyScreenToWaitingMoneySendScreen(
                     MoneyRequest(
                         mainCardData!!.id!!,
                         args.cardNumber,

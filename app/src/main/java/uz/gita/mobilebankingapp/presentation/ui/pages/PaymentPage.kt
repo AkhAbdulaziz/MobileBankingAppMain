@@ -10,8 +10,9 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByPanRequest
+import uz.gita.mobilebankingapp.data.enum.PaymentPageEnum
 import uz.gita.mobilebankingapp.databinding.PagePaymentBinding
+import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.PaymentViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
@@ -26,9 +27,14 @@ class PaymentPage : Fragment(R.layout.page_payment) {
     private var isReadyCardNumber = false
     private var isReadyMoney = false
     private var receiverName: String = ""
+    private var directionType = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            directionType = it.getString("direction_type")!!
+        }
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -42,11 +48,11 @@ class PaymentPage : Fragment(R.layout.page_payment) {
             if (isReadyCardNumber) {
 //                 Shu joyida crash beryatgandi
 
-               /* viewModel.getOwnerByPan(
-                    OwnerByPanRequest(
-                        it.toString()
-                    )
-                )*/
+                /* viewModel.getOwnerByPan(
+                     OwnerByPanRequest(
+                         it.toString()
+                     )
+                 )*/
             }
         }
 
@@ -55,20 +61,30 @@ class PaymentPage : Fragment(R.layout.page_payment) {
                 isReadyMoney = if (it.toString().isEmpty()) {
                     false
                 } else {
-                    Integer.parseInt(it.toString()) >= 500
+                    (it.toString()).toLong() >= 500
                 }
                 check()
             }
         }
 
         nextBtn.setOnClickListener {
-            findNavController().navigate(
-                PaymentPageDirections.actionFillSendMoneyScreenToSendMoneyScreen2(
-                    cardNumberEditText.text.toString(),
-                    moneyAmountEditText.text.toString().toLong(),
-                    receiverName
+            if (directionType == PaymentPageEnum.FROM_BASE_SCREEN.name) {
+                findNavController().navigate(
+                    BasicScreenDirections.actionBasicScreenToSendMoneyScreen(
+                        cardNumberEditText.text.toString(),
+                        moneyAmountEditText.text.toString().toLong(),
+                        receiverName
+                    )
                 )
-            )
+            } else {
+                findNavController().navigate(
+                    PaymentPageDirections.actionPaymentPageToSendMoneyScreen(
+                        cardNumberEditText.text.toString(),
+                        moneyAmountEditText.text.toString().toLong(),
+                        receiverName
+                    )
+                )
+            }
         }
 
         viewModel.enableNextButton.observe(viewLifecycleOwner, enableNextObserver)

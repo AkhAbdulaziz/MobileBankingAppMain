@@ -14,6 +14,7 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
+import uz.gita.mobilebankingapp.utils.timber
 import javax.inject.Inject
 
 class CardRepositoryImpl @Inject constructor(
@@ -32,6 +33,10 @@ class CardRepositoryImpl @Inject constructor(
         savePanToPref(data.pan)
         val response = cardApi.addCard(data)
         if (response.isSuccessful) {
+            getAllCardsList()
+            if (cardsList!!.size == 1) {
+                pref.mainCardPan = data.pan
+            }
             emit(Result.success(response.body()!!.message))
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
@@ -43,11 +48,11 @@ class CardRepositoryImpl @Inject constructor(
         }
 
     }.catch { throwable ->
-        Log.d("TTT", throwable.message.toString())
+        timber(throwable.message.toString())
     }.flowOn(Dispatchers.IO)
 
     override fun getAllCardsList(): Flow<Result<GetCardsData?>?> = flow {
-        val response = cardApi.getAllCards()
+        val response = cardApi.getAllCards(pref.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
             cardsList = response.body()!!.data?.data
