@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.domain.repository.impl
 
-import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -107,21 +106,28 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerByPan(data: OwnerByPanRequest): Flow<Result<OwnerByPanResponse>> = flow {
-        val response = cardApi.getOwnerByPan(data)
+        val response = cardApi.getOwnerByPan(data.pan)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerById(data: OwnerByIdRequest): Flow<Result<OwnerByIdResponse>> = flow {
-        val response = cardApi.getOwnerById(data)
+        val response = cardApi.getOwnerById(data.id)
+        if (response.isSuccessful) {
+            emit(Result.success(response.body()!!))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override fun getPanById(data: PanByIdRequest): Flow<Result<PanByIdResponse>> = flow {
+        val response = cardApi.getPanById(data.id)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getFee(data: MoneyRequest): Flow<Result<BaseResponse>> = flow {
-        val response = cardApi.getFee(data)
+        val response = cardApi.getFee(data.sender, data.receiverPan, data.amount)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }

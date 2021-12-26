@@ -22,6 +22,7 @@ class PaymentViewModelImpl @Inject constructor(private val repository: CardRepos
 
     override fun getOwnerByPan(data: OwnerByPanRequest) {
         checkInternet()
+
         repository.getOwnerByPan(data).onEach {
             it.onFailure { throwable ->
                 errorLiveData.value = throwable.message

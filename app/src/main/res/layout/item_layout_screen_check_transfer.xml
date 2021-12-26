@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightGreyColor"
+    android:paddingBottom="8dp">
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/greyColor"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgRetry"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_restart"
+        app:layout_constraintBottom_toTopOf="@id/txtRetry"
+        app:layout_constraintLeft_toLeftOf="@id/txtRetry"
+        app:layout_constraintRight_toRightOf="@id/txtRetry" />
+
+    <TextView
+        android:id="@+id/txtRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Takrorlash"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/txtSave" />
+
+
+    <ImageView
+        android:id="@+id/imgSave"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_star"
+        app:layout_constraintBottom_toTopOf="@id/txtSave"
+        app:layout_constraintLeft_toLeftOf="@id/txtSave"
+        app:layout_constraintRight_toRightOf="@id/txtSave" />
+
+    <TextView
+        android:id="@+id/txtSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Saqlash"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/txtRetry"
+        app:layout_constraintRight_toLeftOf="@id/txtCheck" />
+
+
+    <ImageView
+        android:id="@+id/imgCheck"
+        android:layout_width="28dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_document"
+        app:layout_constraintBottom_toTopOf="@id/txtCheck"
+        app:layout_constraintLeft_toLeftOf="@id/txtCheck"
+        app:layout_constraintRight_toRightOf="@id/txtCheck" />
+
+    <TextView
+        android:id="@+id/txtCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Kvitansiya"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/txtSave"
+        app:layout_constraintRight_toLeftOf="@id/txtCancel" />
+
+    <ImageView
+        android:id="@+id/imgCancel"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toTopOf="@id/txtCancel"
+        app:layout_constraintLeft_toLeftOf="@id/txtCancel"
+        app:layout_constraintRight_toRightOf="@id/txtCancel"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Bekor qilish"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/txtCheck"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

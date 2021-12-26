@@ -7,6 +7,7 @@ import retrofit2.http.Query
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
 
 interface MoneyTransferApi {
+
     @GET("money-transfer/history")
     suspend fun getMoneyTransferHistory(
         @Header("token") token: String,

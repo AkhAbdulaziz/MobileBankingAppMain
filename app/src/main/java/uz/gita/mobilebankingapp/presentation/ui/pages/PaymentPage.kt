@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.enum.PaymentPageEnum
+import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
 import uz.gita.mobilebankingapp.databinding.PagePaymentBinding
 import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel

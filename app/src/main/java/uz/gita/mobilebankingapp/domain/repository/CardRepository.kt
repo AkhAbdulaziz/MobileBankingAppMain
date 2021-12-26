@@ -29,6 +29,8 @@ interface CardRepository {
 
     fun getOwnerById(data: OwnerByIdRequest): Flow<Result<OwnerByIdResponse>>
 
+    fun getPanById(data: PanByIdRequest): Flow<Result<PanByIdResponse>>
+
     fun getFee(data: MoneyRequest): Flow<Result<BaseResponse>>
 
     fun getHistory(data: HistoryRequest): Flow<Result<BaseResponse>>

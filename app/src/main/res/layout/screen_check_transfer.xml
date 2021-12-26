@@ -1,70 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lightGreyColor"
+    tools:context=".presentation.ui.screens.main.CheckTransferScreen">
 
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/white"
-        android:gravity="top|center"
-        android:orientation="horizontal"
-        android:paddingBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chek"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgReceiverCompanyLogo"
-        android:layout_width="140dp"
+        android:id="@+id/backBtn"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/infinbank_logo"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textSize="18sp"
-        android:text="Invest Finance Bank"
-        android:textColor="@color/greyColor"
+        android:layout_marginTop="16dp"
+        android:text="Chek"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgReceiverCompanyLogo" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/greyColor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="36dp"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/imgReceiverCompanyLogo"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/infinbank_logo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtPoweredByPayme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Powered by  "
+                android:textColor="@color/greyColor"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="@id/imgReceiverCompanyLogo"
+                app:layout_constraintRight_toLeftOf="@id/paymeMiniLogo"
+                app:layout_constraintTop_toBottomOf="@id/imgReceiverCompanyLogo" />
+
+            <ImageView
+                android:id="@+id/paymeMiniLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/payme_logo"
+                app:layout_constraintBottom_toBottomOf="@id/txtPoweredByPayme"
+                app:layout_constraintLeft_toRightOf="@id/txtPoweredByPayme"
+                app:layout_constraintRight_toRightOf="@id/imgReceiverCompanyLogo"
+                app:layout_constraintTop_toTopOf="@id/txtPoweredByPayme" />
+
+            <TextView
+                android:id="@+id/typePayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/baseColor"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="o'tkazma"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgReceiverCompanyLogo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgReceiverCompanyLogo" />
+
+            <TextView
+                android:id="@+id/nameReceiverCompanyLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:text="Invest-Finance Bank"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgReceiverCompanyLogo" />
+
+            <TextView
+                android:id="@+id/txtReceiverPan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:text="Qabul qiluvchi kartasi:"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameReceiverCompanyLogo" />
+
+            <TextView
+                android:id="@+id/receiverPan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:text="860011******2233"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameReceiverCompanyLogo" />
+
+            <TextView
+                android:id="@+id/txtReceiverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Qabul qiluvchi:"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtReceiverPan" />
+
+            <TextView
+                android:id="@+id/receiverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Ben Affleck"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtReceiverPan" />
+
+            <TextView
+                android:id="@+id/txtCostService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Xizmat narxi:"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtReceiverName" />
+
+            <TextView
+                android:id="@+id/costService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="8 800.00 so'm"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtReceiverName" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/greyColor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtCostService" />
+
+            <TextView
+                android:id="@+id/txtSenderPan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Karta:"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/line2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line1" />
+
+            <TextView
+                android:id="@+id/senderPan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="**** 1756"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line1" />
+
+            <ImageView
+                android:id="@+id/cardLogo"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/uzcard_logo"
+                app:layout_constraintBottom_toBottomOf="@id/senderPan"
+                app:layout_constraintRight_toLeftOf="@id/senderPan"
+                app:layout_constraintTop_toTopOf="@id/senderPan" />
+
+
+            <TextView
+                android:id="@+id/typeCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Main"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/senderPan" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/greyColor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeCard" />
+
+            <TextView
+                android:id="@+id/txtAmountPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="To'lov summasi:"
+                android:textColor="@color/greyColor"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line2" />
+
+            <ImageView
+                android:id="@+id/imgPaidStatus"
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_check"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtAmountPayment" />
+
+            <TextView
+                android:id="@+id/txtPaidStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="To'landi"
+                android:textColor="@color/lightBaseColor"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgPaidStatus"
+                app:layout_constraintLeft_toRightOf="@id/imgPaidStatus"
+                app:layout_constraintTop_toTopOf="@id/imgPaidStatus" />
+
+            <TextView
+                android:id="@+id/amountPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                android:text="888 800"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintRight_toLeftOf="@id/txtCurrency"
+                app:layout_constraintTop_toBottomOf="@id/line2" />
+
+            <TextView
+                android:id="@+id/dateAndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="31.12.2021 23:59"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/amountPayment" />
+
+            <TextView
+                android:id="@+id/txtCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="so'm"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/amountPayment"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/greyColor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dateAndTime" />
+
+            <ImageView
+                android:id="@+id/imgFilter"
+                android:layout_width="26dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_filter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line3" />
+
+            <TextView
+                android:id="@+id/txtFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:text="Barcha pul o'tkazmalarini ko'rish"
+                android:textColor="@color/lightBaseColor"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toRightOf="@id/imgFilter"
+                app:layout_constraintTop_toBottomOf="@id/line3" />
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/lightGreyColor"
+                app:layout_constraintTop_toBottomOf="@id/txtFilter" />
+
+            <ImageView
+                android:id="@+id/imgNote"
+                android:layout_width="26dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_pencil"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line4" />
+
+            <TextView
+                android:id="@+id/txtNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:text="Eslatma mavjud emas"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toRightOf="@id/imgFilter"
+                app:layout_constraintTop_toBottomOf="@id/line4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/item_layout_screen_check_transfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

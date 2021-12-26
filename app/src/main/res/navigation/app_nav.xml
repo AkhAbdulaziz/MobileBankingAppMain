@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_basicScreen_to_sendMoneyScreen"
             app:destination="@id/sendMoneyScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_checkTransferScreen"
+            app:destination="@id/checkTransferScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
@@ -170,5 +173,14 @@
             android:id="@+id/action_succeedMoneySendScreen_to_basicScreen"
             app:destination="@id/basicScreen"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkTransferScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.CheckTransferScreen"
+        android:label="screen_check_transfer"
+        tools:layout="@layout/screen_check_transfer" >
+        <argument
+            android:name="checkData"
+            app:argType="uz.gita.mobilebankingapp.data.CheckData" />
     </fragment>
 </navigation>

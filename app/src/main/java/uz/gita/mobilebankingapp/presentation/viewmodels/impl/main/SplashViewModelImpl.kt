@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.domain.repository.AppRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.SplashViewModel
 import javax.inject.Inject

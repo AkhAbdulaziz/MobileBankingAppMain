@@ -2,7 +2,7 @@ package uz.gita.mobilebankingapp.data.local
 
 import android.content.Context
 import uz.gita.mobilebankingapp.app.App
-import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.utils.BooleanPreference
 import uz.gita.mobilebankingapp.utils.StringPreference
 import uz.gita.mobilebankingapp.utils.startScreen

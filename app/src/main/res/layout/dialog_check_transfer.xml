@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".presentation.dialog.main.CheckTransferDialog">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="6dp"
+        android:background="@drawable/bg_dialog"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:text="Receipt"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/innerCheckView"
+        layout="@layout/view_check_pdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <ImageView
+        android:id="@+id/btnDownload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="#E6E6E6"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="36dp"
+        android:src="@drawable/ic_download"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnShare"
+        app:layout_constraintTop_toBottomOf="@id/innerCheckView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Download"
+        android:textColor="@color/greyColor"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/btnDownload"
+        app:layout_constraintRight_toRightOf="@id/btnDownload"
+        app:layout_constraintTop_toBottomOf="@id/btnDownload" />
+
+    <ImageView
+        android:id="@+id/btnShare"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="#E6E6E6"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="34dp"
+        android:src="@drawable/ic_share"
+        app:layout_constraintLeft_toRightOf="@id/btnDownload"
+        app:layout_constraintRight_toLeftOf="@id/btnPrintQR"
+        app:layout_constraintTop_toBottomOf="@id/innerCheckView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Share"
+        android:textColor="@color/greyColor"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/btnShare"
+        app:layout_constraintRight_toRightOf="@id/btnShare"
+        app:layout_constraintTop_toBottomOf="@id/btnShare" />
+
+    <ImageView
+        android:id="@+id/btnPrintQR"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="#E6E6E6"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="30dp"
+        android:src="@drawable/ic_printer"
+        app:layout_constraintLeft_toRightOf="@id/btnShare"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/innerCheckView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Print QR"
+        android:textColor="@color/greyColor"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/btnPrintQR"
+        app:layout_constraintRight_toRightOf="@id/btnPrintQR"
+        app:layout_constraintTop_toBottomOf="@id/btnPrintQR" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package uz.gita.mobilebankingapp.data.remote.card_req_res.response
 
+import java.io.Serializable
+
 sealed class MoneyTransferResponse {
     data class TransferResponse(
         val data: TransferHistory
@@ -18,6 +20,6 @@ sealed class MoneyTransferResponse {
         val amount: Float,
         val time: Long,
         val fee: Float,
-        val status : Int = 0
-    )
+        val status: Int = 0
+    ) : Serializable
 }

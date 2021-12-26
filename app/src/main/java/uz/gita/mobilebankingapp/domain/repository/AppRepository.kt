@@ -1,6 +1,6 @@
 package uz.gita.mobilebankingapp.domain.repository
 
-import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 
 interface AppRepository {
     fun startScreen(): StartScreenEnum

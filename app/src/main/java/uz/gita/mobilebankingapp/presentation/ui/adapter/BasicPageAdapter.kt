@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.gita.mobilebankingapp.data.enum.PaymentPageEnum
+import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
 import uz.gita.mobilebankingapp.presentation.ui.pages.*
 
 class BasicPageAdapter(fm: FragmentManager, lifecycle: Lifecycle) :

@@ -1,4 +1,4 @@
-package uz.gita.mobilebankingapp.data.enum
+package uz.gita.mobilebankingapp.data.enums
 
 enum class StartScreenEnum {
     LOGIN, MAIN

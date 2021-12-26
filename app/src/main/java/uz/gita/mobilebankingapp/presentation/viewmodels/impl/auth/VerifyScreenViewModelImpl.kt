@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.ResendRequest
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.VerifyUserRequest
 import uz.gita.mobilebankingapp.domain.repository.AppRepository

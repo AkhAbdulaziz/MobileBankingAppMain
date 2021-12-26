@@ -3,4 +3,28 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="verify_screen_info_text">Tekshiruv kodi quyidagi\nraqamga yuborildi\n+998 91 *** ** 87</string>
+
+    <!--Russian-->
+    <!--
+      <string name="check_service_point">Пункт обслуживания:</string>
+      <string name="check_terminal">Терминал:</string>
+      <string name="check_receiver_card">Карта получателя:</string>
+      <string name="check_receiver">Получатель:</string>
+      <string name="check_time_created">Время создания:</string>
+      <string name="check_time_payment">Время оплаты:</string>
+      <string name="check_sender_card">Карта:</string>
+      <string name="check_service_cost">Стоимость услуги:</string>
+      <string name="check_payment_cost">Сумма платежа:</string>
+    -->
+
+    <!--English-->
+    <string name="check_service_point">Service point:</string>
+    <string name="check_terminal">Terminal:</string>
+    <string name="check_receiver_card">Recipient\'s card:</string>
+    <string name="check_receiver">Recipient:</string>
+    <string name="check_time_created">Time of creation:</string>
+    <string name="check_time_payment">Time of payment:</string>
+    <string name="check_sender_card">Sender card:</string>
+    <string name="check_service_cost">Service cost:</string>
+    <string name="check_payment_cost">Payment amount:</string>
 </resources>

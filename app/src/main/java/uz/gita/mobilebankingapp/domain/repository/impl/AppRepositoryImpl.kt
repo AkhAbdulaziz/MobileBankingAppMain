@@ -1,6 +1,6 @@
 package uz.gita.mobilebankingapp.domain.repository.impl
 
-import uz.gita.mobilebankingapp.data.enum.StartScreenEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 import uz.gita.mobilebankingapp.domain.repository.AppRepository
 import javax.inject.Inject

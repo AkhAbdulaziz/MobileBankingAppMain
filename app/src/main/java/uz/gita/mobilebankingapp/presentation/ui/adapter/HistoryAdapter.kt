@@ -16,6 +16,11 @@ class HistoryAdapter :
         MyDiffUtil
     ) {
 
+    private var itemClickListener: ((MoneyTransferResponse.HistoryData) -> Unit)? = null
+    fun setItemClickListener(block: (MoneyTransferResponse.HistoryData) -> Unit) {
+        itemClickListener = block
+    }
+
     object MyDiffUtil : DiffUtil.ItemCallback<MoneyTransferResponse.HistoryData>() {
         override fun areItemsTheSame(
             oldItem: MoneyTransferResponse.HistoryData,
@@ -35,6 +40,12 @@ class HistoryAdapter :
     inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val textMoney = view.findViewById<TextView>(R.id.textMoney)
         private val textFee = view.findViewById<TextView>(R.id.textFee)
+
+        init {
+            itemView.setOnClickListener {
+                itemClickListener?.invoke(getItem(absoluteAdapterPosition)!!)
+            }
+        }
 
         //status 0 -> pul tushdi, else -> pul yechib olindi
         fun bind() {

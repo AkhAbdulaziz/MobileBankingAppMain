@@ -8,6 +8,7 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.UserMessageResponse
 
 interface CardApi {
+
     @POST("card/add-card")
     suspend fun addCard(
         @Body data: AddCardRequest
@@ -29,19 +30,31 @@ interface CardApi {
     ): Response<UserMessageResponse>
 
     @GET("card/all")
-    suspend fun getAllCards(@Header("token") token: String
+    suspend fun getAllCards(
+        @Header("token") token: String
     ): Response<AllCardsResponse>
 
     //    @HTTP(method = "GET", path = "card/owner-by-pan", hasBody = true)
     @GET("card/owner-by-pan")
     suspend fun getOwnerByPan(
-        @Body data: OwnerByPanRequest
+        @Query("pan") pan: String
+//        @Body data: OwnerByPanRequest
     ): Response<OwnerByPanResponse>
 
     @GET("card/owner-by-id")
     suspend fun getOwnerById(
-        @Body data: OwnerByIdRequest
+        @Query("id") id: Int
+//        @Body data: OwnerByIdRequest
     ): Response<OwnerByIdResponse>
+
+    @GET("card/pan-by-id")
+    suspend fun getPanById(
+        @Query("id") id: Int
+    ): Response<PanByIdResponse>
+
+    /* fun groupList(
+         @Path("id") groupId: Int
+     ): List<User?>?*/
 
     @POST("money-transfer/send-money")
     suspend fun sendMoney(
@@ -50,8 +63,17 @@ interface CardApi {
 
     @GET("money-transfer/fee")
     suspend fun getFee(
-        @Body data: MoneyRequest
+        @Query("sender") sender: Int,
+        @Query("receiverPan") receiverPan: String,
+        @Query("amount") amount: Long
+//        @Body data: MoneyRequest
     ): Response<BaseResponse>
+
+    /**
+    val sender: Int,
+    val receiverPan: String,
+    val amount: Long
+     **/
 
     @GET("money-transfer/history")
     suspend fun getHistory(
