@@ -4,7 +4,6 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import uz.gita.mobilebankingapp.BuildConfig
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 
 @HiltAndroidApp
 class App : Application() {

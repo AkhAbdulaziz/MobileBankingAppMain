@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.main
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -17,7 +18,7 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.databinding.ScreenBasicNavBinding
 import uz.gita.mobilebankingapp.presentation.dialog.auth.ClarifyLogoutDialog
-import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicPageAdapter
+import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicScreenAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
@@ -31,21 +32,22 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-        val adapter = BasicPageAdapter(childFragmentManager, lifecycle)
+        val adapter = BasicScreenAdapter(childFragmentManager, lifecycle)
         innerLayout.pager.adapter = adapter
         innerLayout.pager.isUserInputEnabled = false
 
         innerLayout.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.main -> innerLayout.pager.currentItem = 0
-                R.id.payment -> innerLayout.pager.currentItem = 1
-                R.id.map -> innerLayout.pager.currentItem = 2
-                R.id.service -> innerLayout.pager.currentItem = 3
-                else -> innerLayout.pager.currentItem = 4
+                R.id.home -> innerLayout.pager.setCurrentItem(0, false)
+                R.id.transfer -> innerLayout.pager.setCurrentItem(1, false)
+                R.id.payment -> innerLayout.pager.setCurrentItem(2, false)
+                R.id.services -> innerLayout.pager.setCurrentItem(3, false)
+                else -> innerLayout.pager.setCurrentItem(4, false)
             }
             return@setOnItemSelectedListener true
         }
         adapter.setOnClickHomeButtonListener {
+            Log.d("HOME_BTN", "basic screenda bosildi")
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
@@ -73,6 +75,9 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
         lineSupport.setOnClickListener {
             showToast("Support")
         }
+        lineDescriptions.setOnClickListener {
+            findNavController().navigate(BasicScreenDirections.actionBasicScreenToDescriptionsScreen())
+        }
         lineLogout.setOnClickListener {
             val clarifyLogoutDialog = ClarifyLogoutDialog()
             clarifyLogoutDialog.setPositiveBtnListener {
@@ -90,5 +95,4 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean = true
-
 }

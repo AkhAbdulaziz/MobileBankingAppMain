@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
 
-class HistoryAdapter :
-    PagingDataAdapter<MoneyTransferResponse.HistoryData, HistoryAdapter.HistoryViewHolder>(
-        MyDiffUtil
-    ) {
+class HistoryAdapter : PagingDataAdapter<MoneyTransferResponse.HistoryData, HistoryAdapter.HistoryViewHolder>(MyDiffUtil
+) {
 
     private var itemClickListener: ((MoneyTransferResponse.HistoryData) -> Unit)? = null
     fun setItemClickListener(block: (MoneyTransferResponse.HistoryData) -> Unit) {

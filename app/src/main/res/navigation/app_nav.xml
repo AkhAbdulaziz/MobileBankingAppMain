@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_basicScreen_to_checkTransferScreen"
             app:destination="@id/checkTransferScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_descriptionsScreen"
+            app:destination="@id/descriptionsScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
@@ -145,9 +148,9 @@
     </fragment>
     <fragment
         android:id="@+id/paymentPage"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.pages.PaymentPage"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.pages.TransferPage"
         android:label="page_payment"
-        tools:layout="@layout/page_payment">
+        tools:layout="@layout/page_transfer">
         <action
             android:id="@+id/action_paymentPage_to_sendMoneyScreen"
             app:destination="@id/sendMoneyScreen" />
@@ -181,6 +184,11 @@
         tools:layout="@layout/screen_check_transfer" >
         <argument
             android:name="checkData"
-            app:argType="uz.gita.mobilebankingapp.data.CheckData" />
+            app:argType="uz.gita.mobilebankingapp.data.entities.CheckData" />
     </fragment>
+    <fragment
+        android:id="@+id/descriptionsScreen"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.DescriptionsScreen"
+        android:label="screen_descriptions"
+        tools:layout="@layout/screen_descriptions" />
 </navigation>

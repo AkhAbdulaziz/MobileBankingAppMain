@@ -1,5 +1,9 @@
 package uz.gita.mobilebankingapp.utils
 
+import android.content.res.Resources
+import android.util.DisplayMetrics
+import android.util.TypedValue
+import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 
 fun List<CardData>.sortMainCard(mainCard: CardData?): List<CardData> {
@@ -22,3 +26,18 @@ fun List<CardData>.sortMainCard(mainCard: CardData?): List<CardData> {
     }
     return list
 }
+
+fun Float.toPx(): Int {
+    val r: Resources = App.instance.resources
+    val px = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this,
+        r.displayMetrics
+    ).toInt()
+
+    return px
+}
+
+fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
+
+fun Int.pxToDp(displayMetrics: DisplayMetrics): Int = (this / displayMetrics.density).toInt()

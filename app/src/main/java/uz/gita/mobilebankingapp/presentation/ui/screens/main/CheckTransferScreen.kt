@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -20,6 +22,7 @@ import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfPage
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.borders.Border
@@ -27,14 +30,17 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
+import org.vudroid.core.DecodeServiceBase
+import org.vudroid.pdfdroid.codec.PdfContext
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.CheckData
+import uz.gita.mobilebankingapp.data.entities.CheckData
 import uz.gita.mobilebankingapp.data.enums.CheckDialogButtonsEnum
 import uz.gita.mobilebankingapp.databinding.ScreenCheckTransferBinding
 import uz.gita.mobilebankingapp.presentation.dialog.main.CheckTransferDialog
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*
+
 
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
     private val binding by viewBinding(ScreenCheckTransferBinding::bind)
@@ -126,7 +132,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         val pdfPath: String =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 .toString()
-        val file = File(pdfPath, "myPDF.pdf")
+        val file = File(pdfPath, "receiptPdf.pdf")
         val outputStream: OutputStream = FileOutputStream(file)
 
         val writer = PdfWriter(file)
@@ -282,7 +288,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
         table.addCell(
             Cell().add(
-                Paragraph(Text("${checkData.fee} so'm")).setBold()
+                Paragraph(Text("${checkData.fee} sum")).setBold()
                     .setTextAlignment(TextAlignment.RIGHT)
             ).setBorder(Border.NO_BORDER)
         )
@@ -297,7 +303,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
         table.addCell(
             Cell().add(
-                Paragraph(Text("${checkData.totalCost} so'm")).setBold()
+                Paragraph(Text("${checkData.totalCost} sum")).setBold()
                     .setTextAlignment(TextAlignment.RIGHT)
             ).setBorder(Border.NO_BORDER)
         )
@@ -337,12 +343,12 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
 
         intentShareFile.putExtra(
             Intent.EXTRA_SUBJECT,
-            "Check"
+            "Receipt"
         )
 
         intentShareFile.putExtra(
             Intent.EXTRA_TEXT,
-            "Check"
+            "Your Receipt"
         )
 
         requireContext().startActivity(
@@ -352,4 +358,61 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             )
         )
     }
+
+    private fun sharePdf2(file: File) {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("email@example.com"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "subject here")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "body text")
+        val root = Environment.getExternalStorageDirectory()
+        val pathToMyAttachedFile = "temp/attachement.xml"
+        val file = File(root, pathToMyAttachedFile)
+        if (!file.exists() || !file.canRead()) {
+            return
+        }
+        val uri: Uri = Uri.fromFile(file)
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"))
+    }
+
+   /* private fun generateImageOfPdf(pdf : File) {
+        val decodeService : DecodeServiceBase = DecodeServiceBase(PdfContext())
+        decodeService.setContentResolver(requireContext().contentResolver)
+
+        // a bit long running
+        decodeService.open(Uri.fromFile(pdf))
+
+        val pageCount: Int = decodeService.pageCount
+        for (i in 0 until pageCount) {
+            val page: PdfPage = decodeService.getPage(i)
+            val rectF = RectF(0f, 0f, 1f, 1f)
+
+            // do a fit center to 1920x1080
+            val scaleBy: Double = Math.min(
+                AndroidUtils.PHOTO_WIDTH_PIXELS / page.getWidth() as Double,  //
+                AndroidUtils.PHOTO_HEIGHT_PIXELS / page.getHeight() as Double
+            )
+
+            // you can change these values as you to zoom in/out
+            // and even distort (scale without maintaining the aspect ratio)
+            // the resulting images
+
+            // Long running
+            val bitmap: Bitmap = page.renderBitmap(
+                (page.getWidth() * scaleBy),
+                (page.getHeight() * scaleBy), rectF
+            )
+            try {
+                val outputFile = File(mOutputDir, System.currentTimeMillis() + FileUtils.DOT_JPEG)
+                val outputStream = FileOutputStream(outputFile)
+
+                // a bit long running
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                outputStream.close()
+            } catch (e: IOException) {
+                LogWrapper.fatalError(e)
+            }
+        }
+    }*/
 }

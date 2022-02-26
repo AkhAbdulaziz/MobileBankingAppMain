@@ -13,11 +13,10 @@
         android:id="@+id/textTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:background="@color/white"
         android:gravity="top|center"
         android:orientation="horizontal"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kartaning sozlamalari"
+            android:text="Card settings"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -52,82 +51,382 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/cardBackgroundsViewPager"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@id/textTop" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTop">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/cardBackgroundsTabLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardBackgroundsViewPager"
-        app:tabBackground="@drawable/tab_indicator_shape"
-        app:tabGravity="center"
-        app:tabIndicator="@null"
-        app:tabPaddingEnd="6dp"
-        app:tabPaddingStart="6dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/card_name_text_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        app:counterMaxLength="50"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardBackgroundsTabLayout">
-
-        <EditText
-            android:id="@+id/textCardName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="Kartaning nomi"
-            android:inputType="text"
-            android:maxLength="50" />
+            android:paddingTop="4dp"
+            android:paddingBottom="80dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/cardBackgroundsViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/setCardMainLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_name_text_input_layout">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/cardBackgroundsTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginTop="6dp"
+                android:clickable="false"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBackgroundsViewPager"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
 
-        <TextView
-            android:id="@+id/txtIsChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asosiy qilish"
-            android:textColor="@color/greyColor"
-            android:textSize="18sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/card_name_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                app:counterMaxLength="50"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBackgroundsTabLayout">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+                <EditText
+                    android:id="@+id/textCardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:hint="Card name"
+                    android:inputType="text"
+                    android:maxLength="50" />
 
-        <ImageView
-            android:id="@+id/imgIsChecked"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_unchecked" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="30dp"
+                android:text="Лимиты карты"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_name_text_input_layout" />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="Остаток лимита на перевод"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/txt2_answer"
+                app:layout_constraintTop_toBottomOf="@id/txt1" />
+
+            <TextView
+                android:id="@+id/txt2_answer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="end"
+                android:text="999 900 000.00 сум"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt2"
+                app:layout_constraintLeft_toRightOf="@id/txt2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txt2" />
+
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="Остаток лимита на запрос"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/txt3_answer"
+                app:layout_constraintTop_toBottomOf="@id/txt2" />
+
+            <TextView
+                android:id="@+id/txt3_answer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="end"
+                android:text="999 930 000.00 сум"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt3"
+                app:layout_constraintLeft_toRightOf="@id/txt3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txt3" />
+
+            <TextView
+                android:id="@+id/txt4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="Статус карты"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/txt4_answer"
+                app:layout_constraintTop_toBottomOf="@id/txt3" />
+
+            <TextView
+                android:id="@+id/txt4_answer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="end"
+                android:text="Активная"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt4"
+                app:layout_constraintLeft_toRightOf="@id/txt4"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txt4" />
+
+            <TextView
+                android:id="@+id/txt5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="Тип счета"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/txt5_answer"
+                app:layout_constraintTop_toBottomOf="@id/txt4" />
+
+            <TextView
+                android:id="@+id/txt5_answer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="end"
+                android:text="Физическое лицо"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt5"
+                app:layout_constraintLeft_toRightOf="@id/txt5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txt5" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/greyColor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt5" />
+
+            <TextView
+                android:id="@+id/txt_hide_card_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Hide card balance"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <TextView
+                android:id="@+id/txt_hide_card_balance_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Not counted in the total balance and expense on the cards"
+                android:textColor="@color/greyColor"
+                android:textSize="10sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_hide_card_balance" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/switch_btn_hide_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:checked="false"
+                app:layout_constraintBottom_toBottomOf="@id/txt_hide_card_balance_description"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txt_hide_card_balance"
+                app:kswThumbColor="@color/white"
+                app:kswBackColor="@color/greyBg"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_accounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/txt_hide_card_balance_description">
+
+                <TextView
+                    android:id="@+id/txt_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accounts"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_account_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Accounts that are connected to this card"
+                    android:textColor="@color/greyColor"
+                    android:textSize="10sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_account" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="1"
+                    android:textColor="@color/greyColor"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txt_account_description"
+                    app:layout_constraintRight_toLeftOf="@id/arrow"
+                    app:layout_constraintTop_toTopOf="@id/txt_account" />
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:adjustViewBounds="true"
+                    android:rotationY="180"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="@id/txt_account_description"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txt_account" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_accounts">
+
+                <TextView
+                    android:id="@+id/txt_services"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Services"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_services_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Services to which the card connected"
+                    android:textColor="@color/greyColor"
+                    android:textSize="10sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_services" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="1"
+                    android:textColor="@color/greyColor"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txt_services_description"
+                    app:layout_constraintRight_toLeftOf="@id/arrow2"
+                    app:layout_constraintTop_toTopOf="@id/txt_services" />
+
+                <ImageView
+                    android:id="@+id/arrow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:adjustViewBounds="true"
+                    android:rotationY="180"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="@id/txt_services_description"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txt_services" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/setCardMainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_services">
+
+                <TextView
+                    android:id="@+id/txtIsChecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make main"
+                    android:textColor="@color/greyColor"
+                    android:textSize="18sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/imgIsChecked"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_unchecked" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/readyChangesBtn"
@@ -135,10 +434,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/button_bg"
+        android:backgroundTint="@color/baseColor"
         android:enabled="true"
-        android:paddingHorizontal="40dp"
-        android:text="Tayyor"
+        android:paddingHorizontal="100dp"
+        android:text="Done"
+        android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

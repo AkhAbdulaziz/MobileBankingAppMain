@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/main"
-        android:icon="@drawable/main_menu"
-        android:title="Main" />
+        android:id="@+id/home"
+        android:icon="@drawable/ic_bottom_home"
+        android:iconTint="@color/greyColor"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/transfer"
+        android:icon="@drawable/ic_bottom_transfer"
+        android:iconTint="@color/greyColor"
+        android:title="Transfer" />
 
     <item
         android:id="@+id/payment"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/ic_wallet"
+        android:iconTint="@color/greyColor"
         android:title="Payment" />
 
-    <item
-        android:id="@+id/map"
-        android:icon="@drawable/map"
-        android:title="Map" />
-
 
     <item
-        android:id="@+id/service"
-        android:icon="@drawable/service"
-        android:title="Service" />
+        android:id="@+id/services"
+        android:icon="@drawable/ic_bottom_services"
+        android:iconTint="@color/greyColor"
+        android:title="Services" />
 
     <item
         android:id="@+id/history"
-        android:icon="@drawable/history"
-        android:title="History" />
+        android:icon="@drawable/ic_bottom_cash_flow"
+        android:iconTint="@color/greyColor"
+        android:title="Cash flow" />
 </menu>

@@ -15,7 +15,7 @@ class CardBgFragment : Fragment(R.layout.fragment_card_bg) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        var bg = R.drawable.card_bg1
+        var bg = R.drawable.card_theme1
         arguments?.let {
             bg = it.getInt("BG")
         }

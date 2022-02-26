@@ -1,5 +1,7 @@
 package uz.gita.mobilebankingapp.presentation.dialog.main
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.CheckData
+import uz.gita.mobilebankingapp.data.entities.CheckData
 import uz.gita.mobilebankingapp.data.enums.CheckDialogButtonsEnum
 import uz.gita.mobilebankingapp.databinding.DialogCheckTransferBinding
 import uz.gita.mobilebankingapp.utils.scope
@@ -30,7 +32,8 @@ class CheckTransferDialog(private val checkData: CheckData) : BottomSheetDialogF
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+//        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         innerCheckView.apply {
             txtReceiverCard.text = checkData.receiverPan

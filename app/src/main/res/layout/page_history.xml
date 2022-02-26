@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.pages.HistoryPage">
 
     <ImageView
         android:id="@+id/topBg"
@@ -79,24 +80,18 @@
         app:layout_constraintLeft_toLeftOf="@id/outcomes_title"
         app:layout_constraintTop_toBottomOf="@id/outcomes_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/historyList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBg"
-        tools:listitem="@layout/item_history" />
-
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBg">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contactList"
+            android:id="@+id/historyList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_history" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

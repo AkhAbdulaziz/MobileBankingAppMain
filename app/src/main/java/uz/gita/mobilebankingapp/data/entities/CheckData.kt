@@ -1,4 +1,4 @@
-package uz.gita.mobilebankingapp.data
+package uz.gita.mobilebankingapp.data.entities
 
 import java.io.Serializable
 

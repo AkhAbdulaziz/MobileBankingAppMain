@@ -11,8 +11,7 @@ class CardBackgroundsPagerAdapter(
     private val bgsList: List<Int>,
     fm: FragmentManager,
     lifecycle: Lifecycle
-) :
-    FragmentStateAdapter(fm, lifecycle) {
+) : FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int = bgsList.size
 
     override fun createFragment(position: Int): Fragment =

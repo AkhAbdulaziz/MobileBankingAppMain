@@ -4,20 +4,67 @@
     <string name="close">Close</string>
     <string name="verify_screen_info_text">Tekshiruv kodi quyidagi\nraqamga yuborildi\n+998 91 *** ** 87</string>
 
-    <!--Russian-->
-    <!--
-      <string name="check_service_point">Пункт обслуживания:</string>
-      <string name="check_terminal">Терминал:</string>
-      <string name="check_receiver_card">Карта получателя:</string>
-      <string name="check_receiver">Получатель:</string>
-      <string name="check_time_created">Время создания:</string>
-      <string name="check_time_payment">Время оплаты:</string>
-      <string name="check_sender_card">Карта:</string>
-      <string name="check_service_cost">Стоимость услуги:</string>
-      <string name="check_payment_cost">Сумма платежа:</string>
-    -->
+    <!--RUSSIAN-->
 
-    <!--English-->
+    <!--check-->
+    <string name="ru_check_service_point">Пункт обслуживания:</string>
+    <string name="ru_check_terminal">Терминал:</string>
+    <string name="ru_check_receiver_card">Карта получателя:</string>
+    <string name="ru_check_receiver">Получатель:</string>
+    <string name="ru_check_time_created">Время создания:</string>
+    <string name="ru_check_time_payment">Время оплаты:</string>
+    <string name="ru_check_sender_card">Карта:</string>
+    <string name="ru_check_service_cost">Стоимость услуги:</string>
+    <string name="ru_check_payment_cost">Сумма платежа:</string>
+
+    <!--ads-->
+    <string name="ru_ad1_title">Виртуальная карта Visa</string>
+    <string name="ru_ad1_description">для онлайн покупок</string>
+    <string name="ru_ad2_title">USSD *505#</string>
+    <string name="ru_ad2_description">Оплаты и переводы\nбез интернета</string>
+    <string name="ru_ad3_title">Оплата на\nрасчетный счет</string>
+    <string name="ru_ad3_description">Оплачивайте прямо из дома</string>
+    <string name="ru_ad4_title">Оплата штрафов ГУБДД</string>
+    <string name="ru_ad4_description">Оплачивайте со скидкой\n30% в первые 15 дней</string>
+    <string name="ru_ad5_title">Мой дом</string>
+    <string name="ru_ad5_description">Коммунальные платежи\nв одном месте</string>
+    <string name="ru_ad6_title">Откройте кошелек</string>
+    <string name="ru_ad6_description">в одно мгновение</string>
+
+    <!--transaction types-->
+    <string name="ru_transaction_air">авиа</string>
+    <string name="ru_transaction_auto">авто</string>
+    <string name="ru_transaction_accessories">аксессуары</string>
+    <string name="ru_transaction_rent">аренда</string>
+    <string name="ru_transaction_conversion">конверсия</string>
+    <string name="ru_transaction_credit">кредит</string>
+    <string name="ru_transaction_shop">магазин</string>
+    <string name="ru_transaction_rest">отдых</string>
+    <string name="ru_transaction_taxi">такси</string>
+    <string name="ru_transaction_transport">транспорт</string>
+
+
+    <string name="ru_payment_for_service_popular">Популярное</string>
+    <string name="ru_payment_for_service_mobile_operators">Мобильные операторы</string>
+    <string name="ru_payment_for_service_internet_providers">Интернет провайдеры</string>
+    <string name="ru_payment_for_service_communal">Коммунальн\nые услуги</string>
+    <string name="ru_payment_for_service_government">Государственные услуги и штрафы ГАИ</string>
+    <string name="ru_payment_for_service_telephone">Телефония</string>
+    <string name="ru_payment_for_service_tv">Телевидение и онлайн вещание</string>
+    <string name="ru_payment_for_service_online_service">Онлайн сервисы</string>
+    <string name="ru_payment_for_service_poster">Объявления и реклама</string>
+    <string name="ru_payment_for_service_bank">Погашение банковских кредитов</string>
+    <string name="ru_payment_for_service_credit">Погашение кредитов и рассрочек</string>
+    <string name="ru_payment_for_service_transport">Транспорт</string>
+    <string name="ru_payment_for_service_charity">Благотворительность</string>
+    <string name="ru_payment_for_service_education">Обучение</string>
+    <string name="ru_payment_for_service_electronic_wallet">Электронны\nе кошельки</string>
+    <string name="ru_payment_for_service_insurance">Страхование</string>
+    <string name="ru_payment_for_service_game_social_media">Игры и социальные сети</string>
+    <string name="ru_payment_for_service_airplane">Авиа и ЖД билеты</string>
+
+
+    <!--ENGLISH-->
     <string name="check_service_point">Service point:</string>
     <string name="check_terminal">Terminal:</string>
     <string name="check_receiver_card">Recipient\'s card:</string>
@@ -27,4 +74,19 @@
     <string name="check_sender_card">Sender card:</string>
     <string name="check_service_cost">Service cost:</string>
     <string name="check_payment_cost">Payment amount:</string>
+
+    <!-- Location Payments -->
+    <string name="alert_text">You have to enable geolocation for correct operation of this section</string>
+    <string name="location_c_space_name">C-SPACE</string>
+    <string name="location_c_space_address">г. Ташкент, ул. Чуст 1</string>
+    <string name="location_rukkola_name">RUKKOLA</string>
+    <string name="location_rukkola_address">г. Ташкент, ул. Чуст 1</string>
+    <string name="location_candy_dance_studio_name">Candy Dance Studio</string>
+    <string name="location_candy_dance_studio_address">ул. Мирзо Улугбека 69</string>
+
+
+    <!-- Custom Dimensions -->
+    <dimen name="radius_cards">12dp</dimen>
+    <dimen name="viewpager_next_item_visible">26dp</dimen>
+    <dimen name="viewpager_current_item_horizontal_margin">42dp</dimen>
 </resources>

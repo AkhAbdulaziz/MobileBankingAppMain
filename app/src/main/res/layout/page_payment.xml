@@ -1,129 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
     tools:context=".presentation.ui.pages.PaymentPage">
 
     <LinearLayout
-        android:id="@+id/topBar"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:gravity="top|center"
-        android:orientation="horizontal"
-        android:paddingBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/skjdksjdksjkdjs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pul o'tkazmasi"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="16dp"
+            android:text="Payment"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <Space
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_search"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                app:closeIcon="@drawable/ic_baseline_cancel"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search"
+                app:searchIcon="@drawable/ic_search"
+                app:showDividers="middle" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cardNumberLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        app:counterMaxLength="16"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
-
-        <EditText
-            android:id="@+id/cardNumberEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="Kartaning raqami"
-            android:inputType="number"
-            android:maxLength="16" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/cardOwnerNameText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Kartaning egasi: "
-        android:textColor="#818181"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/moneyAmountLayout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardNumberLayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/moneyAmountLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:counterMaxLength="10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardOwnerNameText">
-
-        <EditText
-            android:id="@+id/moneyAmountEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="O'tkazma summasi"
-            android:inputType="number"
-            android:maxLength="10" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_bg"
-        android:enabled="false"
-        android:paddingVertical="12dp"
-        android:text="Oldinga"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/title">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_saved_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Saved payments"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_more_saved_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="More"
+                android:textColor="@color/baseColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_saved_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="102dp"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_saved_payments"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_saved_payments"
+                tools:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/txt_payment_for_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Payment for services"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_saved_payments" />
+
+            <TextView
+                android:id="@+id/txt_more_payment_for_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="More"
+                android:textColor="@color/baseColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_saved_payments" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_payment_for_services"
+                android:layout_width="wrap_content"
+                android:layout_height="102dp"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_payment_for_services"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_payment_for_services"
+                tools:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/txt_my_homes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="My homes"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_payment_for_services" />
+
+            <TextView
+                android:id="@+id/txt_more_my_homes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="More"
+                android:textColor="@color/baseColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_payment_for_services" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_homes"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_my_homes"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_my_homes"
+                tools:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/txt_location_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Location payments"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_my_homes" />
+
+            <TextView
+                android:id="@+id/txt_more_location_payments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="More"
+                android:textColor="@color/baseColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_my_homes" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_location_payments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_location_payments"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_location_payments"
+                tools:orientation="vertical" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

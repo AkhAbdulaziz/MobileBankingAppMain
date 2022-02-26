@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByIdRequest
@@ -26,6 +25,8 @@ class HistoryViewModelImpl @Inject constructor(
     override val receiverPanByIdLiveData = MutableLiveData<String>()
     override val errorLiveData = MutableLiveData<String>()
     override val ownerNameLiveData = MutableLiveData<String>()
+    override val historyPagingLiveData =
+        MutableLiveData<PagingData<MoneyTransferResponse.HistoryData>>()
 
     override fun getSenderPanById(data: PanByIdRequest) {
         checkInternet()
@@ -34,7 +35,7 @@ class HistoryViewModelImpl @Inject constructor(
                 errorLiveData.value = throwable.message
             }
             it.onSuccess { data ->
-                senderPanByIdLiveData.value = data.data
+                senderPanByIdLiveData.value = data.data!!
             }
         }.launchIn(viewModelScope)
     }
@@ -46,7 +47,7 @@ class HistoryViewModelImpl @Inject constructor(
                 errorLiveData.value = throwable.message
             }
             it.onSuccess { data ->
-                receiverPanByIdLiveData.value = data.data
+                receiverPanByIdLiveData.value = data.data!!
             }
         }.launchIn(viewModelScope)
     }
@@ -59,13 +60,16 @@ class HistoryViewModelImpl @Inject constructor(
                 errorLiveData.value = throwable.message
             }
             it.onSuccess { data ->
-                ownerNameLiveData.value = data.data!!.fio
+                ownerNameLiveData.value = data.data!!.fio!!
             }
         }.launchIn(viewModelScope)
     }
 
-    override fun getHistoryPagingData(): Flow<PagingData<MoneyTransferResponse.HistoryData>> =
-        repository.getHistoryPagingData(viewModelScope)
+    override fun getHistoryPagingData() {
+        repository.getHistoryPagingData(viewModelScope).onEach {
+            historyPagingLiveData.value = it
+        }.launchIn(viewModelScope)
+    }
 
     private fun checkInternet() {
         if (!isConnected()) {

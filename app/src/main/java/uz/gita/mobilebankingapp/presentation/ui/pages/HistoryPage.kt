@@ -5,17 +5,17 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.CheckData
-import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByIdRequest
-import uz.gita.mobilebankingapp.data.remote.card_req_res.request.PanByIdRequest
+import uz.gita.mobilebankingapp.data.entities.CheckData
+import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
 import uz.gita.mobilebankingapp.databinding.PageHistoryBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.HistoryAdapter
 import uz.gita.mobilebankingapp.presentation.ui.adapter.PassengersLoadStateAdapter
@@ -35,13 +35,10 @@ class HistoryPage : Fragment(R.layout.page_history) {
     private var senderPan = "86003344"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-        refresh.isRefreshing = true
 
+        getHistoryData()
         refresh.setOnRefreshListener {
-            viewModel.getHistoryPagingData().onEach {
-                adapter.submitData(it)
-                refresh.isRefreshing = true
-            }.launchIn(lifecycleScope)
+            getHistoryData()
         }
 
         historyList.adapter = adapter
@@ -52,9 +49,9 @@ class HistoryPage : Fragment(R.layout.page_history) {
 
         adapter.setItemClickListener { historyData ->
             // TODO: getSenderPanById, getReceiverPanById, getOwnerById lar ishlamayapti
-           /* viewModel.getSenderPanById(PanByIdRequest((historyData.sender)))
-            viewModel.getReceiverPanById(PanByIdRequest(historyData.receiver))
-            viewModel.getOwnerById(OwnerByIdRequest(historyData.receiver))*/
+            /* viewModel.getSenderPanById(PanByIdRequest((historyData.sender)))
+             viewModel.getReceiverPanById(PanByIdRequest(historyData.receiver))
+             viewModel.getOwnerById(OwnerByIdRequest(historyData.receiver))*/
 
             findNavController().navigate(
                 BasicScreenDirections.actionBasicScreenToCheckTransferScreen(
@@ -71,15 +68,17 @@ class HistoryPage : Fragment(R.layout.page_history) {
         }
 
         historyList.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.getHistoryPagingData().onEach {
-            adapter.submitData(it)
-            binding.refresh.isRefreshing = false
-        }.launchIn(lifecycleScope)
 
         viewModel.senderPanByIdLiveData.observe(viewLifecycleOwner, senderPanByIdObserver)
         viewModel.receiverPanByIdLiveData.observe(viewLifecycleOwner, receiverPanByIdObserver)
         viewModel.errorLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.ownerNameLiveData.observe(viewLifecycleOwner, ownerNameObserver)
+        viewModel.historyPagingLiveData.observe(viewLifecycleOwner, historyPagingDataObserver)
+    }
+
+    private fun getHistoryData() = binding.scope {
+        refresh.isRefreshing = true
+        viewModel.getHistoryPagingData()
     }
 
     private val senderPanByIdObserver = Observer<String> { pan ->
@@ -97,4 +96,12 @@ class HistoryPage : Fragment(R.layout.page_history) {
     private val errorMessageObserver = Observer<String> {
         showToast(it)
     }
+
+    private val historyPagingDataObserver =
+        Observer<PagingData<MoneyTransferResponse.HistoryData>> {
+            CoroutineScope(Dispatchers.IO).launch {
+                adapter.submitData(it)
+            }
+            binding.refresh.isRefreshing = false
+        }
 }

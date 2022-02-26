@@ -6,17 +6,27 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FAFAFA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white2">#FAFAFA</color>
     <color name="colorDisable">#4D000000</color>
+    <color name="yellow">#FFE600</color>
+    <color name="yellow2">#FFBF00</color>
+    <color name="brown">#653008</color>
+    <color name="orange">#FF7920</color>
+    <color name="light_orange">#9EFBF680</color>
 
     <color name="baseColor">#109771</color>
     <color name="lightBaseColor">#33EAB6</color>
     <color name="greyColor">#424242</color>
-    <color name="lightGreyColor">#F4F4F4</color>
+    <color name="greyBg">#B3B3B3</color>
+    <color name="lightGreyColor">#FAFAFA</color>
+    <color name="blue_grey">#436764</color>
+
 
     <color name="colorGreen">#00B512</color>
     <color name="colorRed">#BD0707</color>
     <color name="colorErrorRed">#D81818</color>
 
     <color name="default_card_bg_color">#0E2865</color>
+    <color name="ads_bg_color">#EEEFF3</color>
 </resources>

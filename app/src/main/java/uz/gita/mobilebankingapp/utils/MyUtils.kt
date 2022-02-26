@@ -42,8 +42,18 @@ fun Fragment.putArguments(block: Bundle.() -> Unit): Fragment {
 fun hideKeyboardFrom(context: Context, view: View) {
     val imm: InputMethodManager =
         context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
     view.clearFocus()
+}
+
+fun View.showKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+}
+
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
 fun File.toRequestData(): MultipartBody.Part {

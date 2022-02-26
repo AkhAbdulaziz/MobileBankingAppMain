@@ -31,5 +31,4 @@ class NetworkModule {
     @Singleton
     fun getMoneyTransferApi(): MoneyTransferApi =
         ApiClient.retrofit.create(MoneyTransferApi::class.java)
-
 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/img_error_alert"
+        android:layout_width="28dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_alert"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/orange" />
+
+    <TextView
+        android:id="@+id/txt_error_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/alert_text"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/img_error_alert"
+        app:layout_constraintLeft_toRightOf="@id/img_error_alert"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_error_alert" />
+
+    <TextView
+        android:id="@+id/txt_error_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Enable"
+        android:textColor="@color/baseColor"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_error_description" />
+
+    <ImageView
+        android:id="@+id/img_location"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_c_space"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_name_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/location_c_space_name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/img_location"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_address_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/location_c_space_address"
+        android:textColor="@color/greyColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/img_location"
+        app:layout_constraintTop_toBottomOf="@id/txt_name_location" />
+
+    <TextView
+        android:id="@+id/txt_distance_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_dialog"
+        android:backgroundTint="#DFB6B6B6"
+        android:padding="4dp"
+        android:text="150 m"
+        android:textColor="#4A4A4A"
+        android:textSize="10sp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/img_location"
+        app:layout_constraintTop_toBottomOf="@id/txt_address_location" />
+
+    <TextView
+        android:id="@+id/txt_tag_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_dialog"
+        android:backgroundTint="#612DB1ED"
+        android:padding="4dp"
+        android:text="Products"
+        android:textColor="#065B9C"
+        android:textSize="10sp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/txt_distance_location"
+        app:layout_constraintTop_toBottomOf="@id/txt_address_location" />
+
+    <View
+        android:id="@+id/underline_location"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/greyColor"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/img_location"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_distance_location" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

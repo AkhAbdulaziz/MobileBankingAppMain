@@ -14,10 +14,11 @@ interface HistoryViewModel {
     val receiverPanByIdLiveData: LiveData<String>
     val errorLiveData: LiveData<String>
     val ownerNameLiveData : LiveData<String>
+    val historyPagingLiveData : LiveData<PagingData<MoneyTransferResponse.HistoryData>>
 
     fun getSenderPanById(data: PanByIdRequest)
     fun getReceiverPanById(data: PanByIdRequest)
     fun getOwnerById(data : OwnerByIdRequest)
 
-    fun getHistoryPagingData(): Flow<PagingData<MoneyTransferResponse.HistoryData>>
+    fun getHistoryPagingData()
 }
