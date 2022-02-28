@@ -154,7 +154,7 @@ class CardRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun putColor(data: ColorRequest): Flow<Result<String>> = flow {
+    override fun putColor(data: ColorRequest): Flow<Result<PutColorResponse>> = flow {
         val response = cardApi.putColor(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))

@@ -1,16 +1,15 @@
 package uz.gita.mobilebankingapp.presentation.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
+import uz.gita.mobilebankingapp.utils.cardBgImagesList
+import java.util.*
 
 class MyCardsAdapter(private val list: List<CardData>) :
     RecyclerView.Adapter<MyCardsAdapter.VH>() {
@@ -42,16 +41,10 @@ class MyCardsAdapter(private val list: List<CardData>) :
             cardOwner.text = data.owner
             cardNumber.text = data.pan
             cardValidate.text = data.exp
-            if (data.color == 0) {
-                cardBg.setBackgroundColor(
-                    ContextCompat.getColor(
-                        App.instance,
-                        R.color.default_card_bg_color
-                    )
-                )
+            if (data.color != null) {
+                cardBg.setImageResource(cardBgImagesList[data.color])
             } else {
-                Log.d("FFFF", "OnThis")
-                cardBg.setBackgroundColor(ContextCompat.getColor(App.instance, data.color))
+                cardBg.setImageResource(cardBgImagesList[Random().nextInt(16)])
             }
         }
     }

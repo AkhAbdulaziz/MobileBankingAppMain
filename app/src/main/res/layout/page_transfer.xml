@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="16dp"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".presentation.ui.pages.TransferPage">
 
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@color/white"
         android:gravity="top|center"
         android:orientation="horizontal"
@@ -50,15 +52,44 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txtToWhom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="To whom:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <ImageView
+        android:id="@+id/imgScanCardNumber"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_scan_cardnumber"
+        app:layout_constraintBottom_toBottomOf="@id/txtToWhom"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtToWhom"
+        app:tint="@color/baseColor" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/cardNumberLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         app:counterMaxLength="16"
+        app:endIconMode="clear_text"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintRight_toLeftOf="@id/imgContact"
+        app:layout_constraintTop_toBottomOf="@id/txtToWhom">
 
         <EditText
             android:id="@+id/cardNumberEditText"
@@ -68,11 +99,26 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Card number"
+            android:hint="Card or phone number"
             android:inputType="phone"
             android:maxLength="16" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imgContact"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_person"
+        app:layout_constraintBottom_toBottomOf="@id/cardNumberLayout"
+        app:layout_constraintLeft_toRightOf="@id/cardNumberLayout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardNumberLayout"
+        app:tint="@color/baseColor" />
 
     <TextView
         android:id="@+id/cardOwnerNameText"
@@ -92,6 +138,7 @@
         android:id="@+id/moneyAmountLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         app:counterMaxLength="10"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -104,6 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="Transfer amount"
@@ -112,10 +160,85 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecipients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moneyAmountLayout"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_recipients" />
+
+    <TextView
+        android:id="@+id/btnMoreRecipients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="More"
+        android:textColor="@color/baseColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvRecipients" />
+
+    <LinearLayout
+        android:id="@+id/btn_transfer_to_my_cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_transfer_buttons"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/nextBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_credit_card_my_cards"
+            app:tint="@color/darkerGreyColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Transfer to my card"
+            android:textColor="@color/darkerGreyColor"
+            android:textSize="18sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:rotationY="180"
+            app:tint="@color/darkerGreyColor"
+            android:src="@drawable/ic_back" />
+
+
+    </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@drawable/button_bg"
         android:enabled="false"
         android:paddingVertical="12dp"

@@ -7,7 +7,7 @@ interface VerifyCardViewModel {
     val errorMessageLiveData: LiveData<String>
     val exitScreenLiveData: LiveData<Unit>
 
-    fun verifyCard(data: VerifyCardRequest)
+    fun verifyCard(data: VerifyCardRequest, bgColor: Int)
 
     fun getCurrentPan() : String
 

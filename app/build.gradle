@@ -180,10 +180,5 @@ dependencies {
      * SwitchButton
      */
     implementation 'com.kyleduo.switchbutton:library:2.1.0'
-
-    /**
-     * Image generator from PDF
-     */
-    implementation 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
 }
 

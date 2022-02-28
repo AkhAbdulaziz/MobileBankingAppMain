@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGreyColor"
     tools:context=".presentation.ui.pages.HistoryPage">
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/topBg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#F8F8F8"
         app:layout_constraintBottom_toBottomOf="@id/incomes_text"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/topBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="To'lovlar monitoringi"
+        android:text="Cash flow"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Tushum"
+        android:text="Income"
         android:textColor="@color/greyColor"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:text="+100 000 so'm"
+        android:text="+100 000 sum"
         android:textColor="@color/baseColor"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/incomes_title"
@@ -63,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Chiqim"
+        android:text="Expenditure"
         android:textColor="@color/greyColor"
         android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@id/top_middle_view"
@@ -74,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:text="-105 700 so'm"
+        android:text="-105 700 sum"
         android:textColor="#B80909"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/outcomes_title"
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBg">
+        app:layout_constraintTop_toBottomOf="@id/incomes_text">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/historyList"
@@ -94,5 +95,34 @@
             tools:listitem="@layout/item_history" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnStatistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:elevation="8dp"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/baseColor"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="10dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:padding="16dp"
+            android:rotationY="180"
+            android:src="@drawable/ic_bar_chart2"
+            app:tint="@color/white" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

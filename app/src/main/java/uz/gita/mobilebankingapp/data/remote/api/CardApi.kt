@@ -93,7 +93,7 @@ interface CardApi {
     @PUT("card/color")
     suspend fun putColor(
         @Body data: ColorRequest
-    ): Response<String>
+    ): Response<PutColorResponse>
 
     @PUT("card/ignore-balance")
     suspend fun putIgnoreBalance(

@@ -15,9 +15,10 @@
     <color name="orange">#FF7920</color>
     <color name="light_orange">#9EFBF680</color>
 
-    <color name="baseColor">#109771</color>
+    <color name="baseColor">#11B587</color>
     <color name="lightBaseColor">#33EAB6</color>
     <color name="greyColor">#424242</color>
+    <color name="darkerGreyColor">#393939</color>
     <color name="greyBg">#B3B3B3</color>
     <color name="lightGreyColor">#FAFAFA</color>
     <color name="blue_grey">#436764</color>

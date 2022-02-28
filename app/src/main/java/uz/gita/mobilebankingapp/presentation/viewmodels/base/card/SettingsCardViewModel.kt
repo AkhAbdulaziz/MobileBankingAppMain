@@ -8,7 +8,7 @@ interface SettingsCardViewModel {
     val closeScreenLiveData: LiveData<Unit>
     val errorMessageLiveData: LiveData<String>
 
-    fun editCard(data: EditCardRequest)
+    fun editCard(data: EditCardRequest, cardId: Int, bgColor: Int)
 
     fun getMainCardData(): CardData?
 

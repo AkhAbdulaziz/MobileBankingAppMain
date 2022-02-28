@@ -39,7 +39,7 @@ interface CardRepository {
 
     fun getOutcomes(data: HistoryRequest): Flow<Result<BaseResponse>>
 
-    fun putColor(data: ColorRequest): Flow<Result<String>>
+    fun putColor(data: ColorRequest): Flow<Result<PutColorResponse>>
 
     fun putIgnoreBalance(data: IgnoreBalanceRequest): Flow<Result<String>>
 

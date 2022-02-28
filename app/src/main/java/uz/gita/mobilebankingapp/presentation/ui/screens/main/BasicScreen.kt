@@ -47,8 +47,9 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             return@setOnItemSelectedListener true
         }
         adapter.setOnClickHomeButtonListener {
-            Log.d("HOME_BTN", "basic screenda bosildi")
+            drawerLayout.closeDrawer(GravityCompat.START)
             drawerLayout.openDrawer(GravityCompat.START)
+            Log.d("HOME_BTN", "basic screenda bosildi")
         }
 
         textUserName.text = "John Smith"

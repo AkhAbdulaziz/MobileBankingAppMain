@@ -4,9 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -22,7 +20,6 @@ import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfPage
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.borders.Border
@@ -30,8 +27,10 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
-import org.vudroid.core.DecodeServiceBase
-import org.vudroid.pdfdroid.codec.PdfContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.CheckData
 import uz.gita.mobilebankingapp.data.enums.CheckDialogButtonsEnum
@@ -40,7 +39,6 @@ import uz.gita.mobilebankingapp.presentation.dialog.main.CheckTransferDialog
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*
-
 
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
     private val binding by viewBinding(ScreenCheckTransferBinding::bind)
@@ -310,7 +308,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
 
         document.add(table)
         document.close()
-        Toast.makeText(requireContext(), "PDF created", Toast.LENGTH_LONG).show()
+//        Toast.makeText(requireContext(), "PDF created", Toast.LENGTH_LONG).show()
         sharePdf(file)
     }
 
@@ -337,7 +335,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         intentShareFile.type = "application/pdf"
 
         intentShareFile.putExtra(
-            Intent.EXTRA_STREAM,
+            Intent.EXTRA_INTENT,
             file
         )
 
@@ -346,10 +344,10 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             "Receipt"
         )
 
-        intentShareFile.putExtra(
+        /*intentShareFile.putExtra(
             Intent.EXTRA_TEXT,
             "Your Receipt"
-        )
+        )*/
 
         requireContext().startActivity(
             Intent.createChooser(
@@ -359,7 +357,9 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
     }
 
-    private fun sharePdf2(file: File) {
+    /*
+
+    private fun sharePdfWithEmail(file: File) {
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = "text/plain"
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("email@example.com"))
@@ -376,43 +376,26 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"))
     }
 
-   /* private fun generateImageOfPdf(pdf : File) {
-        val decodeService : DecodeServiceBase = DecodeServiceBase(PdfContext())
-        decodeService.setContentResolver(requireContext().contentResolver)
-
-        // a bit long running
-        decodeService.open(Uri.fromFile(pdf))
-
-        val pageCount: Int = decodeService.pageCount
-        for (i in 0 until pageCount) {
-            val page: PdfPage = decodeService.getPage(i)
-            val rectF = RectF(0f, 0f, 1f, 1f)
-
-            // do a fit center to 1920x1080
-            val scaleBy: Double = Math.min(
-                AndroidUtils.PHOTO_WIDTH_PIXELS / page.getWidth() as Double,  //
-                AndroidUtils.PHOTO_HEIGHT_PIXELS / page.getHeight() as Double
-            )
-
-            // you can change these values as you to zoom in/out
-            // and even distort (scale without maintaining the aspect ratio)
-            // the resulting images
-
-            // Long running
-            val bitmap: Bitmap = page.renderBitmap(
-                (page.getWidth() * scaleBy),
-                (page.getHeight() * scaleBy), rectF
-            )
-            try {
-                val outputFile = File(mOutputDir, System.currentTimeMillis() + FileUtils.DOT_JPEG)
-                val outputStream = FileOutputStream(outputFile)
-
-                // a bit long running
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                outputStream.close()
-            } catch (e: IOException) {
-                LogWrapper.fatalError(e)
-            }
+    private fun shareImageOfPdf(pdfPath:String) {
+        val icon: Bitmap = BitmapFactory.decodeFile(pdfPath)
+        val share = Intent(Intent.ACTION_SEND)
+        share.type = "image/jpg"
+        val bytes = ByteArrayOutputStream()
+        icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val f =
+            File("${Environment.getExternalStorageDirectory()}${File.separator.toString()}receiptImage.jpg")
+        try {
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-    }*/
+        share.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/receiptImage.jpg"))
+        startActivity(Intent.createChooser(share, "Share Receipt"))
+    }
+
+    private fun generateImageOfPdf(pdf: File): File{ }
+
+    */
 }

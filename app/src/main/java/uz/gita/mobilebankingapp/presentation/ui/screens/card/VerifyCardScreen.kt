@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
@@ -22,6 +23,7 @@ import uz.gita.mobilebankingapp.utils.showToast
 class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
     private val binding by viewBinding(ScreenVerifyCardBinding::bind)
     private val viewModel: VerifyCardViewModel by viewModels<VerifyCardViewModelImpl>()
+    private val args: VerifyCardScreenArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         val phoneNumber998 = "${viewModel.getUserPhoneNumber().substring(0, 4)}"
@@ -47,7 +49,8 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
                 VerifyCardRequest(
                     viewModel.getCurrentPan(),
                     verificationCodeEditText.text.toString()
-                )
+                ),
+                args.colorIndex
             )
         }
 

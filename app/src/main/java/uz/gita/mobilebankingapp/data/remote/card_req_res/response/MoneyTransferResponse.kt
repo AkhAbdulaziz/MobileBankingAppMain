@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.data.remote.card_req_res.response
 
+import uz.gita.mobilebankingapp.data.enums.TransactionTypes
 import java.io.Serializable
 
 sealed class MoneyTransferResponse {

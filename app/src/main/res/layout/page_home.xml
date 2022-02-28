@@ -36,8 +36,23 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:src="@drawable/ic_menu"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:tint="@color/white" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/btnBell"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_bell"
+                app:tint="@color/white" />
 
         </LinearLayout>
 

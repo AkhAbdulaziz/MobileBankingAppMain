@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.data.remote.card_req_res
 
-import uz.gita.mobilebankingapp.R
 import java.io.Serializable
 
 data class CardData(
@@ -10,9 +9,9 @@ data class CardData(
     val owner: String? = null,
     val cardName: String? = null,
     val balance: Int? = null,
-    val color: Int = R.color.default_card_bg_color,
+    val color: Int? = null,
     val ignoreBalance: Boolean = false,
     val status: Int? = null
-
 ) : Serializable
+
 

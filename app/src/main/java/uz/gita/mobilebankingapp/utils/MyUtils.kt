@@ -12,6 +12,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import timber.log.Timber
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import java.io.File
 
@@ -60,3 +61,22 @@ fun File.toRequestData(): MultipartBody.Part {
     val requestFile = this.asRequestBody("image/jpeg".toMediaTypeOrNull())
     return MultipartBody.Part.createFormData("avatar", name, requestFile)
 }
+
+val cardBgImagesList = arrayOf(
+    R.drawable.card_theme1,
+    R.drawable.card_theme2,
+    R.drawable.card_theme3,
+    R.drawable.card_theme4,
+    R.drawable.card_theme5,
+    R.drawable.card_theme6,
+    R.drawable.card_theme7,
+    R.drawable.card_theme8,
+    R.drawable.card_theme9,
+    R.drawable.card_theme10,
+    R.drawable.card_theme11,
+    R.drawable.card_theme12,
+    R.drawable.card_theme13,
+    R.drawable.card_theme14,
+    R.drawable.card_theme15,
+    R.drawable.card_theme16
+).toList()

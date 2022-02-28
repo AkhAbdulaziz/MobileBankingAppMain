@@ -42,8 +42,9 @@
     <string name="ru_transaction_rest">отдых</string>
     <string name="ru_transaction_taxi">такси</string>
     <string name="ru_transaction_transport">транспорт</string>
+    <string name="ru_transaction_transfer">перевод</string>
 
-
+    <!-- payment for services -->
     <string name="ru_payment_for_service_popular">Популярное</string>
     <string name="ru_payment_for_service_mobile_operators">Мобильные операторы</string>
     <string name="ru_payment_for_service_internet_providers">Интернет провайдеры</string>
@@ -62,6 +63,22 @@
     <string name="ru_payment_for_service_insurance">Страхование</string>
     <string name="ru_payment_for_service_game_social_media">Игры и социальные сети</string>
     <string name="ru_payment_for_service_airplane">Авиа и ЖД билеты</string>
+
+    <!-- services -->
+    <string name="ru_services_title_payme_avia">Payme Avia</string>
+    <string name="ru_services_description_payme_avia">Покупка авиабилетов</string>
+    <string name="ru_services_title_payment_for_checking_account">Оплата на расчётный счёт</string>
+    <string name="ru_services_description_payment_for_checking_account"> </string>
+    <string name="ru_services_title_iib_debt_checking">Проверка задолженности МИБ</string>
+    <string name="ru_services_description_iib_debt_checking"> </string>
+    <string name="ru_services_title_gold_crown">Золотая корона</string>
+    <string name="ru_services_description_gold_crown">Получайте международные переводы прямо на карту</string>
+    <string name="ru_services_title_payment_monitoring">Мониторинг платежей</string>
+    <string name="ru_services_description_payment_monitoring">Enabled</string>
+    <string name="ru_services_title_traffic_fine_notices">Уведомления о штрафах ГУБДД</string>
+    <string name="ru_services_description_traffic_fine_notices">Disabled</string>
+    <string name="ru_services_title_auto_insurance">Автострахование</string>
+    <string name="ru_services_description_auto_insurance">Покупка Е-полиса объятельного автострахования</string>
 
 
     <!--ENGLISH-->

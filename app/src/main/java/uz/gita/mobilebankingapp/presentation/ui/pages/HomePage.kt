@@ -56,7 +56,6 @@ class HomePage : Fragment(R.layout.page_home) {
         refresh.isRefreshing = true
         viewModel.getTotalSum()
 
-
         if (isFirstTime) {
             fillSavedPaymentsList()
             fillAdsList()
@@ -157,8 +156,8 @@ class HomePage : Fragment(R.layout.page_home) {
         }
 
         homeBtn.setOnClickListener {
-            Log.d("HOME_BTN", "home pageds bosildi")
             clickHomeButtonListener?.invoke()
+            Log.d("HOME_BTN", "home pageds bosildi")
         }
 
         myCardsImg.setOnClickListener {
@@ -177,6 +176,11 @@ class HomePage : Fragment(R.layout.page_home) {
 
         viewModel.totalSumLiveData.observe(viewLifecycleOwner, totalSumObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
+    }
+
+    override fun onResume(){
+        super.onResume()
+        viewModel.getAllCardList()
     }
 
     private fun fillSavedPaymentsList() {

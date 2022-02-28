@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginBottom="2dp"
+    android:background="@color/white"
+    android:padding="16dp">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:adjustViewBounds="true"
         android:src="@drawable/infinbank_logo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,41 +21,61 @@
         android:id="@+id/textMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="4dp"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/txtSum"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="+100 000 so'm" />
+        tools:text="+100 000" />
 
     <TextView
-        android:id="@+id/textFee"
+        android:id="@+id/txtSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/greyColor"
-        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/textMoney"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textMoney"
-        tools:text="1 000 so'm" />
+        app:layout_constraintTop_toTopOf="@id/textMoney"
+        tools:text="sum" />
+
+    <!--  <TextView
+          android:id="@+id/textFee"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:textColor="@color/greyColor"
+          android:textSize="14sp"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/textMoney"
+          tools:text="1 000 so'm" />-->
+
+    <TextView
+        android:id="@+id/txt_transaction_type_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/baseColor"
+        android:gravity="center"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="2dp"
+        android:text="@string/ru_transaction_transfer"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintRight_toLeftOf="@id/textTime"
+        app:layout_constraintTop_toBottomOf="@id/textMoney" />
 
     <TextView
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:text="14:56"
         android:textColor="@color/greyColor"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/txt_transaction_type_history"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textFee" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/greyColor"
-        app:layout_constraintTop_toBottomOf="@id/textTime" />
+        app:layout_constraintTop_toTopOf="@id/txt_transaction_type_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

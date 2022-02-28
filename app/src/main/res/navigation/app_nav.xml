@@ -136,7 +136,11 @@
         android:id="@+id/verifyCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.VerifyCardScreen"
         android:label="screen_verify_card"
-        tools:layout="@layout/screen_verify_card" />
+        tools:layout="@layout/screen_verify_card" >
+        <argument
+            android:name="colorIndex"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/settingsCardScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SettingsCardScreen"
