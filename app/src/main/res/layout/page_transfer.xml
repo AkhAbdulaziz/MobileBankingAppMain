@@ -204,10 +204,10 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:layout_width="36dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_credit_card_my_cards"
+            android:src="@drawable/ic_wallet"
             app:tint="@color/darkerGreyColor" />
 
         <TextView
@@ -216,7 +216,7 @@
             android:layout_marginStart="16dp"
             android:text="Transfer to my card"
             android:textColor="@color/darkerGreyColor"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Space
             android:layout_width="0dp"
@@ -243,6 +243,7 @@
         android:enabled="false"
         android:paddingVertical="12dp"
         android:text="Next"
+        android:textSize="16sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

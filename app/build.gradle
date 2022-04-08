@@ -14,8 +14,8 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
-        buildConfigField('String', 'BASE_URL', '"http://7e82-31-148-160-38.ngrok.io/api/v1/"')
+        versionName "1.0.0"
+        buildConfigField('String', 'BASE_URL', '"http://4d77-31-148-160-38.ngrok.io/api/v1/"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -180,5 +180,10 @@ dependencies {
      * SwitchButton
      */
     implementation 'com.kyleduo.switchbutton:library:2.1.0'
+
+    /**
+     * ProgressBar
+     */
+    implementation "com.github.skydoves:progressview:1.1.3"
 }
 

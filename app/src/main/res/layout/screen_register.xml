@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="left"
-        android:text="Ro'yxatdan o'tish"
+        android:text="Register"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Ism"
+            android:hint="First name"
             android:inputType="text"
             android:textColor="@color/black" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Familiya"
+            android:hint="Second name"
             android:inputType="text"
             android:textColor="@color/black" />
 
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Telefon raqami"
+            android:hint="Phone"
             android:inputType="numberSigned"
             android:text="+998"
             android:textColor="@color/black" />
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Parol"
+            android:hint="Password"
             android:inputType="numberPassword"
             android:textColor="@color/black" />
 
@@ -118,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:hint="Parolni tasdiqlash"
+            android:hint="Verify password"
             android:inputType="numberPassword"
             android:textColor="@color/black" />
 
@@ -134,7 +134,7 @@
         android:enabled="false"
         android:paddingVertical="12dp"
         android:textColor="@color/white"
-        android:text="Ro'yxatdan o'tish"
+        android:text="Register"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,27 +32,25 @@ class VerifyScreenViewModelImpl @Inject constructor(
             errorMessageLiveData.value = "Internet mavjud emas"
             return
         }
-
         authRepository.verifyUser(data).onEach {
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-                appRepository.setStartScreen(StartScreenEnum.LOGIN)
-            }
             it.onSuccess {
                 openMainScreenLiveData.value = Unit
                 appRepository.setStartScreen(StartScreenEnum.MAIN)
+            }
+            it.onFailure { throwable ->
+                errorMessageLiveData.value = throwable.message
+                appRepository.setStartScreen(StartScreenEnum.LOGIN)
             }
         }.launchIn(viewModelScope)
     }
 
     override fun resendCode(data: ResendRequest) {
-        Log.d("GGG", "Viewmodelga kirdi")
         authRepository.resend(data).onEach {
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-            }
             it.onSuccess {
                 resendCodeLiveData.value = Unit
+            }
+            it.onFailure { throwable ->
+                errorMessageLiveData.value = throwable.message
             }
         }.launchIn(viewModelScope)
     }

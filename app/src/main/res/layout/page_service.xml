@@ -35,6 +35,7 @@
         android:id="@+id/rv_services"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingBottom="16dp"
         android:paddingHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"

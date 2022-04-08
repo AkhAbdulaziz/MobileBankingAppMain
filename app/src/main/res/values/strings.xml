@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MobileBankingApp</string>
+    <string name="app_name">My Payme</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="verify_screen_info_text">Tekshiruv kodi quyidagi\nraqamga yuborildi\n+998 91 *** ** 87</string>
+    <string name="verify_screen_info_text">The verification code was sent to the following number\n+998 91 *** ** 87</string>
 
     <!--RUSSIAN-->
 
@@ -16,6 +16,10 @@
     <string name="ru_check_sender_card">Карта:</string>
     <string name="ru_check_service_cost">Стоимость услуги:</string>
     <string name="ru_check_payment_cost">Сумма платежа:</string>
+    <string name="ru_check_all">Всего:</string>
+    <string name="ru_check_paid">Оплаченный</string>
+    <string name="ru_check_all_transfers">Все трансферы</string>
+    <string name="ru_check_no_notes">Нет заметок</string>
 
     <!--ads-->
     <string name="ru_ad1_title">Виртуальная карта Visa</string>
@@ -48,7 +52,7 @@
     <string name="ru_payment_for_service_popular">Популярное</string>
     <string name="ru_payment_for_service_mobile_operators">Мобильные операторы</string>
     <string name="ru_payment_for_service_internet_providers">Интернет провайдеры</string>
-    <string name="ru_payment_for_service_communal">Коммунальн\nые услуги</string>
+    <string name="ru_payment_for_service_communal">Коммунальные услуги</string>
     <string name="ru_payment_for_service_government">Государственные услуги и штрафы ГАИ</string>
     <string name="ru_payment_for_service_telephone">Телефония</string>
     <string name="ru_payment_for_service_tv">Телевидение и онлайн вещание</string>
@@ -59,7 +63,7 @@
     <string name="ru_payment_for_service_transport">Транспорт</string>
     <string name="ru_payment_for_service_charity">Благотворительность</string>
     <string name="ru_payment_for_service_education">Обучение</string>
-    <string name="ru_payment_for_service_electronic_wallet">Электронны\nе кошельки</string>
+    <string name="ru_payment_for_service_electronic_wallet">Электронные кошельки</string>
     <string name="ru_payment_for_service_insurance">Страхование</string>
     <string name="ru_payment_for_service_game_social_media">Игры и социальные сети</string>
     <string name="ru_payment_for_service_airplane">Авиа и ЖД билеты</string>
@@ -90,7 +94,11 @@
     <string name="check_time_payment">Time of payment:</string>
     <string name="check_sender_card">Sender card:</string>
     <string name="check_service_cost">Service cost:</string>
+    <string name="check_all">All:</string>
     <string name="check_payment_cost">Payment amount:</string>
+    <string name="check_paid">Paid</string>
+    <string name="check_all_transfers">All transfers</string>
+    <string name="check_no_notes">No notes</string>
 
     <!-- Location Payments -->
     <string name="alert_text">You have to enable geolocation for correct operation of this section</string>
@@ -101,9 +109,9 @@
     <string name="location_candy_dance_studio_name">Candy Dance Studio</string>
     <string name="location_candy_dance_studio_address">ул. Мирзо Улугбека 69</string>
 
-
     <!-- Custom Dimensions -->
     <dimen name="radius_cards">12dp</dimen>
     <dimen name="viewpager_next_item_visible">26dp</dimen>
     <dimen name="viewpager_current_item_horizontal_margin">42dp</dimen>
+    <dimen name="view_line_height">0.5dp</dimen>
 </resources>

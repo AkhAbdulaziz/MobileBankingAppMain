@@ -15,9 +15,11 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.request.MoneyRequest
 import uz.gita.mobilebankingapp.databinding.ScreenSendMoneyBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SendMoneyViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.SendMoneyViewModelImpl
+import uz.gita.mobilebankingapp.utils.cardBgImagesList
 import uz.gita.mobilebankingapp.utils.gone
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.visible
+import java.util.*
 
 @AndroidEntryPoint
 class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
@@ -57,6 +59,11 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
                  )
              )*/
 
+            if (mainCardData.color != null) {
+                cardBg.setImageResource(cardBgImagesList[mainCardData.color])
+            } else {
+                cardBg.setImageResource(cardBgImagesList[Random().nextInt(16)])
+            }
             senderName.text = mainCardData.cardName
             senderBalance.text = "Balance: ${mainCardData.balance} so'm"
             senderCardNumber.text = "**** ${mainCardData.pan!!.substring(12)}"

@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Karta qo'shish"
+            android:text="Add card"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -77,8 +77,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        app:counterMaxLength="16"
         android:layout_marginTop="12dp"
+        app:counterMaxLength="16"
+        app:endIconDrawable="@drawable/ic_scan_cardnumber"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardBackgroundsTabLayout">
@@ -91,7 +94,7 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Kartaning raqami"
+            android:hint="Card number"
             android:inputType="number"
             android:maxLength="16" />
 
@@ -115,7 +118,7 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Kartaning amal qilish muddati"
+            android:hint="Card expire"
             android:inputType="text"
             android:maxLength="5" />
 
@@ -139,7 +142,7 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Kartaning nomi"
+            android:hint="Card name"
             android:inputType="text"
             android:maxLength="50" />
 
@@ -152,12 +155,11 @@
         android:layout_margin="16dp"
         android:background="@drawable/button_bg"
         android:enabled="false"
-        android:paddingHorizontal="30dp"
-        android:text="Kartani qo'shish"
+        android:paddingHorizontal="100dp"
+        android:text="Add card"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

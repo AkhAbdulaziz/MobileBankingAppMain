@@ -23,6 +23,7 @@ import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.VerifyScreenVi
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth.VerifyScreenViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.timber
 
 @AndroidEntryPoint
 class VerifyScreen : Fragment(R.layout.screen_verify) {
@@ -73,7 +74,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
                     userPassword
                 )
             )
-            Log.d("GGG", "phone = $phoneNumber password = $userPassword")
+            timber("phone = $phoneNumber password = $userPassword","GGG")
         }
 
         viewModel.openMainScreenLiveData.observe(viewLifecycleOwner, openMainScreenObserver)
@@ -92,7 +93,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
     }
 
     private val resendCodeObserver = Observer<Unit> {
-        Log.d("GGG", "RESEND CODE OBSERVER")
+        timber("RESEND CODE OBSERVER","GGG")
         binding.waitingCodeTime.text = "Qayta yuboring 1:00"
         isBreak = true
         startTime()
@@ -111,8 +112,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
         phoneNumberCode = phoneNumber.substring(4, 6)
         phoneNumberLast = phoneNumber.substring(11)
         binding.infoText.text =
-            "Tekshiruv kodi quyidagi\nraqamga yuborildi\n$phoneNumber998 $phoneNumberCode *** ** $phoneNumberLast"
-
+            "The verification code was sent to the following number\n$phoneNumber998 $phoneNumberCode *** ** $phoneNumberLast"
     }
 
     private val userPasswordObserver = Observer<String> { password ->
@@ -133,9 +133,9 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
                 minute -= 1
 
                 if (minute < 10) {
-                    waitingCodeTime.text = "Qayta yuboring 0:0$minute"
+                    waitingCodeTime.text = "Resend 0:0$minute"
                 } else {
-                    waitingCodeTime.text = "Qayta yuboring 0:$minute"
+                    waitingCodeTime.text = "Resend 0:$minute"
                 }
             }
             if (minute == 0) {
@@ -146,7 +146,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
                         R.color.baseColor
                     )
                 )
-                waitingCodeTime.text = "Qayta yuboring"
+                waitingCodeTime.text = "Resend"
             }
         }
     }

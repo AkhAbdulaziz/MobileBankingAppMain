@@ -15,8 +15,6 @@ class MySharedPreferences @Inject constructor() {
 
     var userPhone: String by StringPreference(pref)
 
-    var cardToken: String by StringPreference(pref)
-
     var userFullName: String by StringPreference(pref)
 
     var userPassword: String by StringPreference(pref)
@@ -36,4 +34,13 @@ class MySharedPreferences @Inject constructor() {
     var lastAllMoneyAmount: String by StringPreference(pref, "")
 
     var mainCardPan: String by StringPreference(pref)
+
+    var userFirstName: String by StringPreference(pref)
+    var userLastName: String by StringPreference(pref)
+    var userNickName: String by StringPreference(pref)
+    var userPhoneNumber1: String by StringPreference(pref)
+    var userPhoneNumber2: String by StringPreference(pref)
+    var userGender: String by StringPreference(pref)
+    var userBirthday: String by StringPreference(pref)
+
 }

@@ -4,12 +4,8 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
-import uz.gita.mobilebankingapp.data.remote.VerifyResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.UserMessageResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.*
 
 interface AuthApi {
     @POST("auth/register")
@@ -18,7 +14,7 @@ interface AuthApi {
     @POST("auth/verify")
     suspend fun verifyUser(
         @Body data: VerifyUserRequest
-    ): Response<VerifyResponse>
+    ): Response<VerifyUserResponse>
 
     @POST("auth/login")
     suspend fun login(@Body data: LoginRequest): Response<UserMessageResponse>

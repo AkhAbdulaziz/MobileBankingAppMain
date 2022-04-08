@@ -3,7 +3,6 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.card
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kyleduo.switchbutton.SwitchButton
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
@@ -21,25 +19,26 @@ import uz.gita.mobilebankingapp.databinding.ScreenCardSettingsBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SettingsCardViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.SettingsCardViewModelImpl
-import uz.gita.mobilebankingapp.utils.cardBgImagesList
-import uz.gita.mobilebankingapp.utils.dpToPx
-import uz.gita.mobilebankingapp.utils.hideKeyboardFrom
-import uz.gita.mobilebankingapp.utils.scope
+import uz.gita.mobilebankingapp.utils.*
 
 @AndroidEntryPoint
 class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
     private val binding by viewBinding(ScreenCardSettingsBinding::bind)
     private val viewModel: SettingsCardViewModel by viewModels<SettingsCardViewModelImpl>()
-//    private val bgsList = ArrayList<Int>()
+
     private lateinit var pagerAdapter: CardBackgroundsPagerAdapter
     private val args: SettingsCardScreenArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
 
-        pagerAdapter = CardBackgroundsPagerAdapter(cardBgImagesList, childFragmentManager, lifecycle)
+        pagerAdapter =
+            CardBackgroundsPagerAdapter(cardBgImagesList, childFragmentManager, lifecycle)
         cardBackgroundsViewPager.apply {
             adapter = pagerAdapter
+            if (args.cardData.color != null) {
+                setCurrentItem(args.cardData.color!!, true)
+            } else setCurrentItem(0, true)
             clipToPadding = false   // allow full width shown with padding
             clipChildren = false    // allow left/right item is not clipped
             offscreenPageLimit = 2  // make sure left/right item is rendered
@@ -69,14 +68,14 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
 
         setCardMainLayout.setOnClickListener {
             if (mainCard == null) {
-                txtIsChecked.text = "Remove from main"
-                imgIsChecked.setImageResource(R.drawable.ic_checked)
-            } else if (mainCard.pan != args.cardData.pan) {
-                txtIsChecked.text = "Remove from main"
-                imgIsChecked.setImageResource(R.drawable.ic_checked)
-            } else {
                 txtIsChecked.text = "Make main"
                 imgIsChecked.setImageResource(R.drawable.ic_unchecked)
+            } else if (mainCard.pan != args.cardData.pan) {
+                txtIsChecked.text = "Make main"
+                imgIsChecked.setImageResource(R.drawable.ic_unchecked)
+            } else {
+                txtIsChecked.text = "Remove main"
+                imgIsChecked.setImageResource(R.drawable.ic_checked)
             }
             viewModel.changeMainCard(args.cardData.pan!!)
         }
@@ -115,27 +114,6 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
         viewModel.closeScreenLiveData.observe(viewLifecycleOwner, closeScreenObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
     }
-
-    /*private fun fillBgList() {
-        bgsList.apply {
-            add(R.drawable.card_theme1)
-            add(R.drawable.card_theme2)
-            add(R.drawable.card_theme3)
-            add(R.drawable.card_theme4)
-            add(R.drawable.card_theme5)
-            add(R.drawable.card_theme6)
-            add(R.drawable.card_theme7)
-            add(R.drawable.card_theme8)
-            add(R.drawable.card_theme9)
-            add(R.drawable.card_theme10)
-            add(R.drawable.card_theme11)
-            add(R.drawable.card_theme12)
-            add(R.drawable.card_theme13)
-            add(R.drawable.card_theme14)
-            add(R.drawable.card_theme15)
-            add(R.drawable.card_theme16)
-        }
-    }*/
 
     private val closeScreenObserver = Observer<Unit> {
         findNavController().popBackStack()

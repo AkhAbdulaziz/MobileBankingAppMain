@@ -157,7 +157,7 @@ class HomePage : Fragment(R.layout.page_home) {
 
         homeBtn.setOnClickListener {
             clickHomeButtonListener?.invoke()
-            Log.d("HOME_BTN", "home pageds bosildi")
+           timber("home pageds bosildi","HOME_BTN")
         }
 
         myCardsImg.setOnClickListener {
@@ -178,7 +178,7 @@ class HomePage : Fragment(R.layout.page_home) {
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         viewModel.getAllCardList()
     }

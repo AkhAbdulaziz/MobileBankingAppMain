@@ -42,12 +42,23 @@ class LoginScreen : Fragment(R.layout.screen_login) {
         loginButton.isEnabled = false
         loginButton.setOnClickListener {
             viewModel.userLogin(
-               LoginRequest(
+                LoginRequest(
                     phoneNumberEditText.text.toString(),
                     passwordEditText.text.toString()
                 )
             )
         }
+
+        switchBtnUntrustedDevice.apply {
+            setOnCheckedChangeListener { _, checked ->
+                if (checked) {
+                    this.setBackColorRes(R.color.baseColor)
+                } else {
+                    this.setBackColorRes(R.color.greyBg)
+                }
+            }
+        }
+
         viewModel.enableLoginButtonLiveData.observe(viewLifecycleOwner, enableLoginButtonObserver)
         viewModel.disableLoginButtonLiveData.observe(viewLifecycleOwner, disableLoginButtonObserver)
         viewModel.showProgressLiveData.observe(viewLifecycleOwner, showProgressObserver)
@@ -58,7 +69,7 @@ class LoginScreen : Fragment(R.layout.screen_login) {
 
     private fun check() {
         binding.loginButton.isEnabled =
-             isReadyPassword && isReadyPhoneNumber
+            isReadyPassword && isReadyPhoneNumber
     }
 
     private val enableLoginButtonObserver = Observer<Unit> {

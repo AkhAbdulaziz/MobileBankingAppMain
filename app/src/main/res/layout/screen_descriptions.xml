@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Shartnoma va havolalar"
+        android:text="Descriptions"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"

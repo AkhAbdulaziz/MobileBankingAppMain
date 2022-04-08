@@ -19,66 +19,131 @@
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:backgroundTint="@color/lightGreyColor"
         android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userImg"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="16dp"
+            <TextView
+                android:id="@+id/textFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/circle_person_image"
-                app:layout_constraintLeft_toLeftOf="parent"
+                android:padding="16dp"
+                android:paddingTop="8dp"
+                android:text="John Williams"
+                android:textColor="@color/black"
+                android:textSize="32sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textUserName"
+            <LinearLayout
+                android:id="@+id/layoutUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:text="A A"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/textPhoneNumber"
-                app:layout_constraintLeft_toRightOf="@id/userImg"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/userImg" />
+                android:layout_marginStart="16dp"
+                android:background="@drawable/bg_username"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textFullName">
 
-            <TextView
-                android:id="@+id/textPhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:text="+998 ** *** ** **"
-                android:textColor="@color/baseColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/userImg"
-                app:layout_constraintLeft_toRightOf="@id/userImg"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textUserName" />
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_email"
+                    app:tint="@color/lightBaseColor" />
 
-            <ImageView
-                android:id="@+id/switchToProfileVew"
+                <TextView
+                    android:id="@+id/txtUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="softdeveloper"
+                    android:textColor="@color/lightBaseColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/viewPaymePeople"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="@id/userImg"
-                app:layout_constraintTop_toTopOf="@id/userImg" />
+                android:layout_height="68dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/baseColor"
+                android:padding="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutUsername">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start|center"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_hexagon" />
+
+                <TextView
+                    android:id="@+id/txt_number_payme_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="18dp"
+                    android:text="4"
+                    android:textColor="@color/yellow"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Payme People"
+                    android:textColor="@color/lightGreyColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/progressViewPaymePeople"
+                    android:layout_width="120dp"
+                    android:layout_height="6dp"
+                    android:layout_gravity="bottom|start"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginBottom="8dp"
+                    app:progressView_autoAnimate="true"
+                    app:progressView_colorBackground="@color/lightGreyColor"
+                    app:progressView_colorProgress="@color/yellow2"
+                    app:progressView_max="100"
+                    app:progressView_min="15"
+                    app:progressView_padding="1dp"
+                    app:progressView_progress="80"
+                    app:progressView_progressFromPrevious="true"
+                    app:progressView_radius="12dp" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:adjustViewBounds="true"
+                    android:rotationY="180"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/lightGreyColor" />
+
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/lineSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="16dp"
                 android:background="?android:selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -87,7 +152,7 @@
                 android:padding="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userImg">
+                app:layout_constraintTop_toBottomOf="@id/viewPaymePeople">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Sozlamalar"
+                    android:text="Settings"
                     android:textColor="@color/greyColor"
                     android:textSize="18sp" />
 
@@ -129,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Mavzu"
+                    android:text="Themes"
                     android:textColor="@color/greyColor"
                     android:textSize="18sp" />
 
@@ -159,7 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Do'stlar bilan ulashing"
+                    android:text="Share"
                     android:textColor="@color/greyColor"
                     android:textSize="18sp" />
 
@@ -190,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Qo'llab-quvvatlash xizmati"
+                    android:text="Support"
                     android:textColor="@color/greyColor"
                     android:textSize="18sp" />
 
@@ -221,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Shartnoma va havolalar"
+                    android:text="Description"
                     android:textColor="@color/greyColor"
                     android:textSize="18sp" />
 
@@ -246,13 +311,14 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:rotation="180"
+                    app:tint="#818181"
                     android:src="@drawable/ic_logout" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Yopish"
+                    android:text="Close"
                     android:textColor="@color/greyColor"
                     android:textSize="16sp" />
 
@@ -262,10 +328,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Talqin 2.27.14"
+                android:text="Version 2.31"
+                android:textColor="#818181"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -20,6 +20,7 @@
     <color name="greyColor">#424242</color>
     <color name="darkerGreyColor">#393939</color>
     <color name="greyBg">#B3B3B3</color>
+    <color name="lightGreyBg">#ECECEC</color>
     <color name="lightGreyColor">#FAFAFA</color>
     <color name="blue_grey">#436764</color>
 

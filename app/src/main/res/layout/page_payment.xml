@@ -66,6 +66,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingBottom="16dp"
             android:layout_height="wrap_content">
 
             <TextView

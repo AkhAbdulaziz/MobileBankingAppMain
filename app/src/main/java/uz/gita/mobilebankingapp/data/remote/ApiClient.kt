@@ -15,6 +15,7 @@ import uz.gita.mobilebankingapp.BuildConfig.BASE_URL
 import uz.gita.mobilebankingapp.BuildConfig.LOGGING
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import uz.gita.mobilebankingapp.utils.timber
 
 object ApiClient {
@@ -83,9 +84,9 @@ fun refreshInterceptor() = Interceptor { chain ->
 
         if (responseRefresh.code == 200) {
             responseRefresh.body?.let {
-                val data = Gson().fromJson(it.string(), VerifyResponse::class.java)
-                pref.accessToken = data.data.accessToken
-                pref.refreshToken = data.data.refreshToken
+                val data = Gson().fromJson(it.string(), VerifyUserResponse::class.java)
+                pref.accessToken = data.data?.access_token!!
+                pref.refreshToken = data.data.refresh_token!!
             }
 
             responseRefresh.close()

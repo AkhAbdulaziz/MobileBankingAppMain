@@ -1,6 +1,7 @@
 package uz.gita.mobilebankingapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import uz.gita.mobilebankingapp.data.entities.UserLocalData
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequest
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarResponse
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
@@ -8,12 +9,13 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import java.io.File
 
 interface AuthRepository {
     fun registerUser(data: RegisterRequest): Flow<Result<String>>
 
-    fun verifyUser(data: VerifyUserRequest): Flow<Result<Unit>>
+    fun verifyUser(data: VerifyUserRequest): Flow<Result<VerifyUserResponse>>
 
     fun loginUser(data: LoginRequest): Flow<Result<String>>
 
@@ -39,7 +41,13 @@ interface AuthRepository {
 
     fun getProfileInfo(): Flow<Result<ProfileInfoResponse>>
 
-    fun getUserFullName() : String
+    fun getUserFullName(): String
 
-    fun getUserPassword() : String
+    fun getUserPassword(): String
+
+    fun getUserLocalData(): UserLocalData
+
+    fun setUserLocalData(userLocalData: UserLocalData)
+
+    fun setUserLocalDataListener(f: () -> Unit)
 }

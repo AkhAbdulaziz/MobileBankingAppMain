@@ -10,14 +10,15 @@
 
     <TextView
         android:id="@+id/txtAbbreviationName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:background="@drawable/ic_circle"
         android:backgroundTint="@color/colorRed"
-        android:padding="20dp"
+        android:padding="16dp"
+        android:gravity="center"
         android:text="AA"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

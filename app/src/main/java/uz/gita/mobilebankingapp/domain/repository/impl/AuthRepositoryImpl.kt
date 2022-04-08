@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import uz.gita.mobilebankingapp.data.entities.UserLocalData
 import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 import uz.gita.mobilebankingapp.data.remote.api.AuthApi
 import uz.gita.mobilebankingapp.data.remote.api.ProfileApi
@@ -16,7 +17,9 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
+import uz.gita.mobilebankingapp.utils.timber
 import java.io.File
 import javax.inject.Inject
 
@@ -26,6 +29,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val pref: MySharedPreferences
 ) : AuthRepository {
     private val gson = Gson()
+
+    private var userLocalDataListener: (() -> Unit)? = null
+    override fun setUserLocalDataListener(f: () -> Unit) {
+        userLocalDataListener = f
+    }
 
     override fun registerUser(data: RegisterRequest): Flow<Result<String>> = flow {
         val response = authApi.register(data)
@@ -95,20 +103,20 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun verifyUser(request: VerifyUserRequest): Flow<Result<Unit>> = flow {
-        val response = authApi.verifyUser(request)
+    override fun verifyUser(data: VerifyUserRequest): Flow<Result<VerifyUserResponse>> = flow {
+        val response = authApi.verifyUser(data)
         if (response.isSuccessful) {
             response.body()?.let {
-                pref.refreshToken = it.data.refreshToken
-                pref.accessToken = it.data.accessToken
+                pref.refreshToken = it.data?.refresh_token!!
+                pref.accessToken = it.data.access_token!!
             }
-            emit(Result.success(Unit))
+            emit(Result.success(response.body()!!))
         } else {
             var message = "Xatolik yuzaga keldi"
             response.errorBody()?.let {
                 message = gson.fromJson(it.toString(), BaseResponse::class.java).message
             }
-            emit(Result.failure<Unit>(Throwable(message)))
+            emit(Result.failure(Throwable(message)))
         }
     }
 
@@ -154,5 +162,30 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun getUserPassword(): String {
         return pref.userPassword
+    }
+
+    override fun getUserLocalData(): UserLocalData {
+        return UserLocalData(
+            pref.userFirstName,
+            pref.userLastName,
+            pref.userNickName,
+            pref.userPhoneNumber1,
+            pref.userPhoneNumber2,
+            pref.userGender,
+            pref.userBirthday
+        )
+    }
+
+    override fun setUserLocalData(userLocalData: UserLocalData) {
+        pref.userFirstName = userLocalData.firstName
+        pref.userLastName = userLocalData.lastName
+        pref.userNickName = userLocalData.nickname
+        pref.userPhoneNumber1 = userLocalData.phoneNumber1
+        pref.userPhoneNumber2 = userLocalData.phoneNumber2
+        pref.userGender = userLocalData.gender
+        pref.userBirthday = userLocalData.birthday
+
+        timber("DataSaved Repository", "DATA_SAVED_00")
+        userLocalDataListener?.invoke()
     }
 }

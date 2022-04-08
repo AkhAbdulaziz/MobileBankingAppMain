@@ -113,7 +113,11 @@
         android:id="@+id/profileScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.ProfileScreen"
         android:label="screen_profile"
-        tools:layout="@layout/screen_profile" />
+        tools:layout="@layout/screen_profile" >
+        <action
+            android:id="@+id/action_profileScreen_to_profileSettings"
+            app:destination="@id/profileSettings" />
+    </fragment>
     <fragment
         android:id="@+id/sendMoneyScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.card.SendMoneyScreen"
@@ -195,4 +199,9 @@
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.DescriptionsScreen"
         android:label="screen_descriptions"
         tools:layout="@layout/screen_descriptions" />
+    <fragment
+        android:id="@+id/profileSettings"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.ProfileSettings"
+        android:label="screen_profile_settings"
+        tools:layout="@layout/screen_profile_settings" />
 </navigation>

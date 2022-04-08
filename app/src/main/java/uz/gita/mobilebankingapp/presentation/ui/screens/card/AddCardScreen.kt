@@ -24,7 +24,6 @@ import uz.gita.mobilebankingapp.utils.*
 class AddCardScreen : Fragment(R.layout.screen_add_card) {
     private val binding by viewBinding(ScreenAddCardBinding::bind)
     private val viewModel: AddCardViewModel by viewModels<AddCardViewModelImpl>()
-//    private lateinit var bgsList: ArrayList<Int>
     private lateinit var pagerAdapter: CardBackgroundsPagerAdapter
     private var isReadyCardNumber = false
     private var isReadyCardValidate = false
