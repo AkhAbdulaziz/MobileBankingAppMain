@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.ResendRequest
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.VerifyUserRequest
@@ -29,30 +30,34 @@ class VerifyScreenViewModelImpl @Inject constructor(
 
     override fun userVerify(data: VerifyUserRequest) {
         if (!isConnected()) {
-            errorMessageLiveData.value = "Internet mavjud emas"
-            return
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            authRepository.verifyUser(data).onEach {
+                it.onSuccess {
+                    openMainScreenLiveData.value = Unit
+                    appRepository.setStartScreen(StartScreenEnum.MAIN)
+                }
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
+                    appRepository.setStartScreen(StartScreenEnum.LOGIN)
+                }
+            }.launchIn(viewModelScope)
         }
-        authRepository.verifyUser(data).onEach {
-            it.onSuccess {
-                openMainScreenLiveData.value = Unit
-                appRepository.setStartScreen(StartScreenEnum.MAIN)
-            }
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-                appRepository.setStartScreen(StartScreenEnum.LOGIN)
-            }
-        }.launchIn(viewModelScope)
     }
 
     override fun resendCode(data: ResendRequest) {
-        authRepository.resend(data).onEach {
-            it.onSuccess {
-                resendCodeLiveData.value = Unit
-            }
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            authRepository.resend(data).onEach {
+                it.onSuccess {
+                    resendCodeLiveData.value = Unit
+                }
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     override fun getUserPhoneNumber() {

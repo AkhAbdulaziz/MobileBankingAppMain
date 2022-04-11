@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -27,15 +26,11 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.CheckData
 import uz.gita.mobilebankingapp.data.enums.CheckDialogButtonsEnum
 import uz.gita.mobilebankingapp.databinding.ScreenCheckTransferBinding
-import uz.gita.mobilebankingapp.presentation.dialog.main.CheckTransferDialog
+import uz.gita.mobilebankingapp.presentation.ui.dialog.main.CheckTransferDialog
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*

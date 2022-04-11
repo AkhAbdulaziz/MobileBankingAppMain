@@ -9,7 +9,7 @@ interface AddCardViewModel {
     val openVerifyCardScreenLiveData: LiveData<Unit>
     val errorMessageLiveData: LiveData<String>
     val closeScreenLiveData: LiveData<Unit>
+    val openLoginScreenLiveData: LiveData<Unit>
 
     fun addCard(cardData: AddCardRequest)
-
 }

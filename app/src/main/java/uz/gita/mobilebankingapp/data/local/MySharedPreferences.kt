@@ -42,5 +42,4 @@ class MySharedPreferences @Inject constructor() {
     var userPhoneNumber2: String by StringPreference(pref)
     var userGender: String by StringPreference(pref)
     var userBirthday: String by StringPreference(pref)
-
 }

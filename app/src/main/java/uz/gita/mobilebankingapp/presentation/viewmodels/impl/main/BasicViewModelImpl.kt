@@ -6,10 +6,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.request.LogoutRequest
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
+import uz.gita.mobilebankingapp.utils.isConnected
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +18,14 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
     ViewModel(), BasicViewModel {
     override val openProfileScreenLiveData = MutableLiveData<Unit>()
     override val profileInfoLiveData = MutableLiveData<ProfileInfoResponse>()
+    override val errorMessageLiveData = MutableLiveData<String>()
+    override val openLoginScreenLiveData = MutableLiveData<Unit>()
+
+    init {
+        authRepository.setOpenLoginScreenListener {
+            openLoginScreenLiveData.postValue(Unit)
+        }
+    }
 
     override fun openProfileScreen() {
         openProfileScreenLiveData.value = Unit
@@ -27,14 +36,22 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
     }
 
     override fun logout() {
-        authRepository.logoutUser()
+        if (!isConnected()) {
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            authRepository.logoutUser()
+        }
     }
 
     override fun getProfileInfo() {
-        authRepository.getProfileInfo().onEach {
-            it.onSuccess {
-                profileInfoLiveData.value = it
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            authRepository.getProfileInfo().onEach {
+                it.onSuccess {
+                    profileInfoLiveData.value = it
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 }

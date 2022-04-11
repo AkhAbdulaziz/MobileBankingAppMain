@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.data.remote
 
+import android.util.Log
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
@@ -17,6 +18,11 @@ import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.local.MySharedPreferences
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import uz.gita.mobilebankingapp.utils.timber
+
+private var openLoginScreenListener: (() -> Unit)? = null
+fun setApiClientOpenLoginScreenListener(block: () -> Unit) {
+    openLoginScreenListener = block
+}
 
 object ApiClient {
     val retrofit: Retrofit = Retrofit.Builder()
@@ -37,11 +43,7 @@ object ApiClient {
 
 fun OkHttpClient.Builder.addLogging(): OkHttpClient.Builder {
     HttpLoggingInterceptor.Level.HEADERS
-    val logging = object : HttpLoggingInterceptor.Logger {
-        override fun log(message: String) {
-            timber(message, "HTTP")
-        }
-    }
+    val logging = HttpLoggingInterceptor.Logger { message -> timber(message, "HTTP") }
     if (LOGGING) {
         addInterceptor(ChuckInterceptor(App.instance))
         addInterceptor(HttpLoggingInterceptor(logging))
@@ -64,6 +66,7 @@ fun refreshInterceptor() = Interceptor { chain ->
     val request = chain.request()
     val response = chain.proceed(request)
     if (response.code == 401) {
+        Log.d("TOKEN_ApiClient", "Access Token eskirgan")
         response.close()
         val pref = MySharedPreferences()
         val data = JSONObject()
@@ -79,7 +82,10 @@ fun refreshInterceptor() = Interceptor { chain ->
 
         val responseRefresh = chain.proceed(requestRefresh)
         if (responseRefresh.code == 401) {
-            return@Interceptor responseRefresh// refresh token ham eskirdi login screen navigate
+            Log.d("TOKEN_ApiClient", "Refresh Token eskirgan")
+            openLoginScreenListener?.invoke()
+            // refresh token ham eskirdi login screen navigate
+            return@Interceptor responseRefresh
         }
 
         if (responseRefresh.code == 200) {
@@ -87,6 +93,10 @@ fun refreshInterceptor() = Interceptor { chain ->
                 val data = Gson().fromJson(it.string(), VerifyUserResponse::class.java)
                 pref.accessToken = data.data?.access_token!!
                 pref.refreshToken = data.data.refresh_token!!
+                Log.d(
+                    "TOKEN_ApiClient", "Token yangilandi api:\n Access${data.data.access_token}\n" +
+                            "Refresh ${data.data.refresh_token}"
+                )
             }
 
             responseRefresh.close()

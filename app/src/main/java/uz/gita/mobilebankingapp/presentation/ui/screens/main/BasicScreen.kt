@@ -2,10 +2,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -21,11 +18,10 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
 import uz.gita.mobilebankingapp.databinding.ScreenBasicNavBinding
-import uz.gita.mobilebankingapp.presentation.dialog.auth.ClarifyLogoutDialog
+import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicScreenAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
-import uz.gita.mobilebankingapp.utils.CheckInternetReceiver
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 
@@ -34,7 +30,6 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
     NavigationView.OnNavigationItemSelectedListener {
     private val binding by viewBinding(ScreenBasicNavBinding::bind)
     private val viewModel: BasicViewModel by viewModels<BasicViewModelImpl>()
-    private val checkInternetReceiver = CheckInternetReceiver()
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
@@ -61,10 +56,10 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             }
             return@setOnItemSelectedListener true
         }
-        adapter.setOnClickHomeButtonListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-            drawerLayout.openDrawer(GravityCompat.START)
-            Log.d("HOME_BTN", "basic screenda bosildi")
+        adapter.apply {
+            setOnClickHomeButtonListener {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
         }
 
         textFullName.apply {
@@ -106,10 +101,15 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
 
         viewModel.openProfileScreenLiveData.observe(this@BasicScreen, openProfileScreenObserver)
         viewModel.profileInfoLiveData.observe(viewLifecycleOwner, profileInfoObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+    }
+
+    private val openLoginScreenObserver = Observer<Unit> {
+        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
     }
 
     private val profileInfoObserver = Observer<ProfileInfoResponse>() {
-        val profileData  = it.data
+        val profileData = it.data
         binding.textFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
     }
 
@@ -119,16 +119,4 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean = true
-
-
-    override fun onStart() {
-        val filter: IntentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        requireContext().registerReceiver(checkInternetReceiver, filter)
-        super.onStart()
-    }
-
-    override fun onDestroy() {
-        requireContext().unregisterReceiver(checkInternetReceiver)
-        super.onDestroy()
-    }
 }

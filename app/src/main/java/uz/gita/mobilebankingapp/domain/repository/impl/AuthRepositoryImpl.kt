@@ -1,6 +1,5 @@
 package uz.gita.mobilebankingapp.domain.repository.impl
 
-import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,13 +12,13 @@ import uz.gita.mobilebankingapp.data.remote.api.ProfileApi
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequest
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarResponse
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.setApiClientOpenLoginScreenListener
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
-import uz.gita.mobilebankingapp.utils.timber
 import java.io.File
 import javax.inject.Inject
 
@@ -33,6 +32,17 @@ class AuthRepositoryImpl @Inject constructor(
     private var userLocalDataListener: (() -> Unit)? = null
     override fun setUserLocalDataListener(f: () -> Unit) {
         userLocalDataListener = f
+    }
+
+    private var openLoginScreenListener: (() -> Unit)? = null
+    override fun setOpenLoginScreenListener(f: () -> Unit) {
+        openLoginScreenListener = f
+    }
+
+    init {
+        setApiClientOpenLoginScreenListener {
+            openLoginScreenListener?.invoke()
+        }
     }
 
     override fun registerUser(data: RegisterRequest): Flow<Result<String>> = flow {
@@ -75,7 +85,6 @@ class AuthRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun resend(data: ResendRequest): Flow<Result<BaseResponse>> = flow {
-        Log.d("GGG", "Repositoryga kirdi")
         val response = authApi.resend(data)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
@@ -184,8 +193,6 @@ class AuthRepositoryImpl @Inject constructor(
         pref.userPhoneNumber2 = userLocalData.phoneNumber2
         pref.userGender = userLocalData.gender
         pref.userBirthday = userLocalData.birthday
-
-        timber("DataSaved Repository", "DATA_SAVED_00")
         userLocalDataListener?.invoke()
     }
 }

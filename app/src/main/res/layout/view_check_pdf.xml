@@ -50,7 +50,7 @@
         android:id="@+id/txtReceiverCompanyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Invest-Finance bank"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_service_point"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -73,7 +73,7 @@
         android:id="@+id/txtServicePoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="90530004214"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -83,7 +83,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_terminal"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -94,7 +94,7 @@
         android:id="@+id/txtTerminal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="92600042"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="4dp"
-        android:background="@color/greyColor"
+        android:background="@color/greyBg"
         app:layout_constraintTop_toBottomOf="@id/txtTerminal" />
 
     <TextView
@@ -133,7 +133,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_receiver"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -144,7 +144,7 @@
         android:id="@+id/txtReceiverName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="JOHN SMITH"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="4dp"
-        android:background="@color/greyColor"
+        android:background="@color/greyBg"
         app:layout_constraintTop_toBottomOf="@id/txtReceiverName" />
 
     <TextView
@@ -183,7 +183,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_time_payment"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -194,7 +194,7 @@
         android:id="@+id/txtTimePayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="18.12.2021 12:07:34"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -206,7 +206,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="4dp"
-        android:background="@color/greyColor"
+        android:background="@color/greyBg"
         app:layout_constraintTop_toBottomOf="@id/txtTimePayment" />
 
     <TextView
@@ -233,7 +233,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_service_cost"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -244,7 +244,7 @@
         android:id="@+id/txtServiceCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="500.00 cум"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -255,7 +255,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/check_payment_cost"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -266,7 +266,7 @@
         android:id="@+id/txtPaymentCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="50 500.00 cум"
         android:textColor="@color/black"
         android:textStyle="bold"

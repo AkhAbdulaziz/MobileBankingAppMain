@@ -8,6 +8,7 @@ interface MyCardsViewModel {
     val cardsListLiveData: LiveData<List<CardData>>
     val errorMessageLiveData: LiveData<String>
     val closeDialogLiveData: LiveData<Unit>
+    val openLoginScreenLiveData: LiveData<Unit>
 
     fun getAllCardList()
 

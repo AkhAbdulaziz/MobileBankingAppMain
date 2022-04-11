@@ -8,6 +8,7 @@ interface PaymentViewModel {
     val errorLiveData : LiveData<String>
     val successLiveData : LiveData<String>
     val ownerNameLiveData : LiveData<String>
+    val openLoginScreenLiveData: LiveData<Unit>
 
     fun getOwnerByPan(data : OwnerByPanRequest)
 }

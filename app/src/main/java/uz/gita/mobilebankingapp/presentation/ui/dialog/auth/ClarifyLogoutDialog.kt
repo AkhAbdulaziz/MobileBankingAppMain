@@ -1,4 +1,4 @@
-package uz.gita.mobilebankingapp.presentation.dialog.card
+package uz.gita.mobilebankingapp.presentation.ui.dialog.auth
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClarifyDeleteCardDialog : DialogFragment() {
+class ClarifyLogoutDialog : DialogFragment() {
 
     private var positiveBtnListener: (() -> Unit)? = null
     fun setPositiveBtnListener(block: () -> Unit) {
@@ -19,9 +19,8 @@ class ClarifyDeleteCardDialog : DialogFragment() {
         return activity?.let {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
-            builder.setTitle("Kartani o'chirish")
-                .setMessage("Kartani o'chirilishiga ishonchingiz komilmi?")
-                .setPositiveButton("Olib tashlash",
+            builder.setTitle("Chindan ham ilovadan\nchiqishni hohlaysizmi?")
+                .setPositiveButton("Ha",
                     DialogInterface.OnClickListener { dialog, id ->
                         positiveBtnListener?.invoke()
                     })

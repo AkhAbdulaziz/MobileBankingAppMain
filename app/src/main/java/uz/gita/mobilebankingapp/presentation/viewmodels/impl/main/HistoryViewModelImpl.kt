@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByIdRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.PanByIdRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
@@ -21,6 +22,7 @@ class HistoryViewModelImpl @Inject constructor(
     private val repository: HistoryRepository,
     private val cardRepository: CardRepository
 ) : ViewModel(), HistoryViewModel {
+
     override val senderPanByIdLiveData = MutableLiveData<String>()
     override val receiverPanByIdLiveData = MutableLiveData<String>()
     override val errorLiveData = MutableLiveData<String>()
@@ -29,52 +31,57 @@ class HistoryViewModelImpl @Inject constructor(
         MutableLiveData<PagingData<MoneyTransferResponse.HistoryData>>()
 
     override fun getSenderPanById(data: PanByIdRequest) {
-        checkInternet()
-        cardRepository.getPanById(data).onEach {
-            it.onFailure { throwable ->
-                errorLiveData.value = throwable.message
-            }
-            it.onSuccess { data ->
-                senderPanByIdLiveData.value = data.data!!
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.getPanById(data).onEach {
+                it.onFailure { throwable ->
+                    errorLiveData.value = throwable.message
+                }
+                it.onSuccess { data ->
+                    senderPanByIdLiveData.value = data.data!!
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     override fun getReceiverPanById(data: PanByIdRequest) {
-        checkInternet()
-        cardRepository.getPanById(data).onEach {
-            it.onFailure { throwable ->
-                errorLiveData.value = throwable.message
-            }
-            it.onSuccess { data ->
-                receiverPanByIdLiveData.value = data.data!!
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.getPanById(data).onEach {
+                it.onFailure { throwable ->
+                    errorLiveData.value = throwable.message
+                }
+                it.onSuccess { data ->
+                    receiverPanByIdLiveData.value = data.data!!
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     override fun getOwnerById(data: OwnerByIdRequest) {
-        checkInternet()
-
-        cardRepository.getOwnerById(data).onEach {
-            it.onFailure { throwable ->
-                errorLiveData.value = throwable.message
-            }
-            it.onSuccess { data ->
-                ownerNameLiveData.value = data.data!!.fio!!
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.getOwnerById(data).onEach {
+                it.onFailure { throwable ->
+                    errorLiveData.value = throwable.message
+                }
+                it.onSuccess { data ->
+                    ownerNameLiveData.value = data.data!!.fio!!
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     override fun getHistoryPagingData() {
-        repository.getHistoryPagingData(viewModelScope).onEach {
-            historyPagingLiveData.value = it
-        }.launchIn(viewModelScope)
-    }
-
-    private fun checkInternet() {
         if (!isConnected()) {
-            errorLiveData.value = "Internetga ulanib qayta urining"
-            return
+            errorLiveData.value = "${R.string.no_internet}"
+        } else {
+            repository.getHistoryPagingData(viewModelScope).onEach {
+                historyPagingLiveData.value = it
+            }.launchIn(viewModelScope)
         }
     }
 }

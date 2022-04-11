@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.LoginRequest
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.LoginViewModel
@@ -26,23 +27,22 @@ class LoginViewModelImpl @Inject constructor(private val repository: AuthReposit
 
     override fun userLogin(data: LoginRequest) {
         if (!isConnected()) {
-            errorMessageLiveData.value = "Internet mavjud emas"
-            return
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            disableLoginButtonLiveData.value = Unit
+            showProgressLiveData.value = Unit
+            repository.loginUser(data).onEach {
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
+                    hideProgressLiveData.value = Unit
+                }
+                it.onSuccess {
+                    openVerifyScreenLiveData.value = Unit
+                    hideProgressLiveData.value = Unit
+                }
+            }.catch { throwable ->
+                timber("${throwable.message}")
+            }.launchIn(viewModelScope)
         }
-
-        disableLoginButtonLiveData.value = Unit
-        showProgressLiveData.value = Unit
-        repository.loginUser(data).onEach {
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-                hideProgressLiveData.value = Unit
-            }
-            it.onSuccess {
-                openVerifyScreenLiveData.value = Unit
-                hideProgressLiveData.value = Unit
-            }
-        }.catch { throwable ->
-            timber("${throwable.message}")
-        }.launchIn(viewModelScope)
     }
 }

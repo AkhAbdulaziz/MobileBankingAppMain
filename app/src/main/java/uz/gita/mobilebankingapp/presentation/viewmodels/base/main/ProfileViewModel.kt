@@ -10,6 +10,7 @@ interface ProfileViewModel {
     val profileInfoLiveData: LiveData<ProfileInfoResponse>
     val userLocalDataLiveData: LiveData<UserLocalData>
     val userLocalDataSavedLiveData : LiveData<Unit>
+    val errorLiveData : LiveData<String>
 
     fun setAvatar(imageUri: Uri)
 

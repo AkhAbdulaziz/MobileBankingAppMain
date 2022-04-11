@@ -16,6 +16,7 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.AddCardRequest
 import uz.gita.mobilebankingapp.databinding.ScreenAddCardBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
+import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.AddCardViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.AddCardViewModelImpl
 import uz.gita.mobilebankingapp.utils.*
@@ -94,6 +95,11 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
             openVerifyCardScreenObserver
         )
         viewModel.closeScreenLiveData.observe(viewLifecycleOwner, closeScreenObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+    }
+
+    private val openLoginScreenObserver = Observer<Unit> {
+        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
     }
 
     private fun check() {

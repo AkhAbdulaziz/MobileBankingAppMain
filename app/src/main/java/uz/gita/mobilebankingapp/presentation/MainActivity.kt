@@ -1,7 +1,9 @@
 package uz.gita.mobilebankingapp.presentation
 
 import android.content.Context
+import android.content.IntentFilter
 import android.graphics.Rect
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -12,12 +14,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.utils.CheckInternetReceiver
 
-
-/*@AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.activity_main)*/
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val checkInternetReceiver = CheckInternetReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val navHost = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         val graph = navHost.navController.navInflater.inflate(R.navigation.app_nav)
         navHost.navController.graph = graph
+
     }
 
     // For hiding keyboard when focus changed
@@ -44,5 +47,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun onStart() {
+        val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(checkInternetReceiver, intent)
+        super.onStart()
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(checkInternetReceiver)
+        super.onDestroy()
     }
 }

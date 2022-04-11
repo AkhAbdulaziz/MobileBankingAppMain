@@ -2,16 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_event_coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="16dp"
-    android:padding="16dp"
-    tools:context=".presentation.dialog.card.EventDialog">
+    android:layout_height="wrap_content"
+    tools:context=".presentation.ui.dialog.card.EventDialog">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/closeDialogBtn"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_margin="16dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_close"
@@ -61,7 +68,6 @@
         app:layout_constraintRight_toRightOf="@id/btnShareQr"
         app:layout_constraintTop_toBottomOf="@id/btnShareQr" />
 
-
     <ImageView
         android:id="@+id/btnShareLink"
         android:layout_width="80dp"
@@ -94,6 +100,7 @@
         android:id="@+id/depositCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="?android:selectableItemBackground"
         android:padding="8dp"
@@ -121,6 +128,7 @@
         android:id="@+id/cashFlowCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="?android:selectableItemBackground"
         android:padding="8dp"
@@ -148,6 +156,7 @@
         android:id="@+id/settingsCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="?android:selectableItemBackground"
         android:padding="8dp"
@@ -175,6 +184,7 @@
         android:id="@+id/blockCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="?android:selectableItemBackground"
         android:padding="8dp"
@@ -202,9 +212,12 @@
         android:id="@+id/deleteCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="?android:selectableItemBackground"
         android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/blockCard">
 

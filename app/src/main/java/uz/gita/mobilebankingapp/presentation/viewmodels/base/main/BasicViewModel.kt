@@ -7,6 +7,8 @@ interface BasicViewModel {
 
     val openProfileScreenLiveData: LiveData<Unit>
     val profileInfoLiveData: LiveData<ProfileInfoResponse>
+    val errorMessageLiveData: LiveData<String>
+    val openLoginScreenLiveData: LiveData<Unit>
 
     fun openProfileScreen()
 

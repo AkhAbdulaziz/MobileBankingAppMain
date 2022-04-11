@@ -13,26 +13,30 @@ import uz.gita.mobilebankingapp.R
 class CheckInternetReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
+        val builder: AlertDialog.Builder =
+            AlertDialog.Builder(context, R.style.myFullscreenAlertDialogStyle)
+        val layoutDialog: View =
+            LayoutInflater.from(context).inflate(R.layout.screen_offline_mode, null)
+        builder.setView(layoutDialog)
+
+        val btnRepeat: AppCompatButton = layoutDialog.findViewById(R.id.btnRepeat)
+
+        // Show dialog
+        val dialog: AlertDialog = builder.create()
+        dialog.setCancelable(false)
+        dialog.window!!.setGravity(Gravity.CENTER)
+
+        btnRepeat.setOnClickListener {
+            checkConnection(dialog)
+        }
+        checkConnection(dialog)
+    }
+
+    private fun checkConnection(dialog: AlertDialog) {
         if (!isConnected()) {
-            val builder: AlertDialog.Builder =
-                AlertDialog.Builder(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-            val layoutDialog: View =
-                LayoutInflater.from(context).inflate(R.layout.screen_offline_mode, null)
-            builder.setView(layoutDialog)
-
-            val btnRepeat: AppCompatButton = layoutDialog.findViewById(R.id.btnRepeat)
-
-            // Show dialog
-            val dialog: AlertDialog = builder.create()
             dialog.show()
-            dialog.setCancelable(false)
-
-            dialog.window!!.setGravity(Gravity.CENTER)
-
-            btnRepeat.setOnClickListener {
-                dialog.dismiss()
-                onReceive(context, intent)
-            }
+        } else {
+            dialog.dismiss()
         }
     }
 }

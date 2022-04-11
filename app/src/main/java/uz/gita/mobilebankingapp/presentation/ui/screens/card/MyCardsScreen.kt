@@ -12,11 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.DeleteCardRequest
-import uz.gita.mobilebankingapp.data.remote.card_req_res.response.GetCardsData
 import uz.gita.mobilebankingapp.databinding.ScreenMyCardsBinding
-import uz.gita.mobilebankingapp.presentation.dialog.card.ClarifyDeleteCardDialog
-import uz.gita.mobilebankingapp.presentation.dialog.card.EventDialog
+import uz.gita.mobilebankingapp.presentation.ui.dialog.card.ClarifyDeleteCardDialog
+import uz.gita.mobilebankingapp.presentation.ui.dialog.card.EventDialog
 import uz.gita.mobilebankingapp.presentation.ui.adapter.MyCardsAdapter
+import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.MyCardsViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
@@ -43,6 +43,7 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
         viewModel.cardsListLiveData.observe(viewLifecycleOwner, cardsListObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.closeDialogLiveData.observe(viewLifecycleOwner, closeDialogObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
 
         cardsRecyclerView.adapter = adapter
         cardsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -81,6 +82,10 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
             }
             eventDialog.show(childFragmentManager, "event")
         }
+    }
+
+    private val openLoginScreenObserver = Observer<Unit> {
+        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
     }
 
     private val cardsListObserver = Observer<List<CardData>> {

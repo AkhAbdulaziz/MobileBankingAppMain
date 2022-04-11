@@ -38,7 +38,6 @@ class TransferPage : Fragment(R.layout.page_transfer) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-
         if (directionType != null && directionType == PaymentPageEnum.FROM_BASE_SCREEN.name) {
             backBtn.invisible()
         } else {
@@ -102,7 +101,7 @@ class TransferPage : Fragment(R.layout.page_transfer) {
                 )
             } else {
                 findNavController().navigate(
-                    TransferPageDirections.actionPaymentPageToSendMoneyScreen(
+                    TransferPageDirections.actionTransferPageToSendMoneyScreen(
                         cardNumberEditText.text.toString(),
                         moneyAmountEditText.text.toString().toLong(),
                         receiverName
@@ -115,6 +114,11 @@ class TransferPage : Fragment(R.layout.page_transfer) {
         viewModel.errorLiveData.observe(viewLifecycleOwner, errorObserver)
         viewModel.successLiveData.observe(viewLifecycleOwner, successObserver)
         viewModel.ownerNameLiveData.observe(viewLifecycleOwner, ownerNameObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+    }
+
+    private val openLoginScreenObserver = Observer<Unit> {
+        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
     }
 
     private fun fillRecipientsList() {

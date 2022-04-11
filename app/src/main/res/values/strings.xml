@@ -109,6 +109,9 @@
     <string name="location_candy_dance_studio_name">Candy Dance Studio</string>
     <string name="location_candy_dance_studio_address">ул. Мирзо Улугбека 69</string>
 
+
+    <string name="no_internet">Internet mavjud emas</string>
+
     <!-- Custom Dimensions -->
     <dimen name="radius_cards">12dp</dimen>
     <dimen name="viewpager_next_item_visible">26dp</dimen>

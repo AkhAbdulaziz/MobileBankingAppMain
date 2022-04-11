@@ -41,15 +41,27 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
             findNavController().popBackStack()
         }
 
-        secondPhoneNumberCardView.setOnClickListener {
-            if (secondPhoneNumberPreview.isVisible) {
-                secondPhoneNumberEditTextLayout.visible()
-                secondPhoneNumberPreview.invisible()
+        phoneNumber2CardView.setOnClickListener {
+            if (phoneNumber2Preview.isVisible) {
+                phoneNumber2EditTextLayout.visible()
+                phoneNumber2Preview.invisible()
             } else {
-                secondPhoneNumberPreview.visible()
-                secondPhoneNumberEditTextLayout.invisible()
+                phoneNumber2Preview.visible()
+                phoneNumber2EditTextLayout.invisible()
             }
         }
+        phoneNumber2CardView.setOnFocusChangeListener { view, b ->
+            if (!b) {
+                if (!phoneNumber2Preview.isVisible) {
+                    phoneNumber2EditTextLayout.visible()
+                    phoneNumber2Preview.invisible()
+                } else {
+                    phoneNumber2Preview.visible()
+                    phoneNumber2EditTextLayout.invisible()
+                }
+            }
+        }
+
         genderCardView.setOnClickListener {
 
         }
@@ -61,13 +73,13 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
             timber("DataSaved Screen", "DATA_SAVED_00")
             viewModel.setUserLocalData(
                 UserLocalData(
-                    firstName,
-                    lastName,
-                    nickname,
-                    phone1,
-                    phone2,
-                    gender,
-                    birthday
+                    firstNameEditText.text.toString(),
+                    lastNameEditText.text.toString(),
+                    nickNameEditText.text.toString(),
+                    phoneNumber1EditText.text.toString(),
+                    phoneNumber2EditText.text.toString(),
+                    txtGender.text.toString(),
+                    txtBirthday.text.toString()
                 )
             )
             findNavController().popBackStack()
@@ -83,12 +95,11 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         binding.lastNameEditText.setText("${userLocalData.lastName}")
         binding.txtBirthday.text = "${userLocalData.birthday}"
         binding.nickNameEditText.setText("${userLocalData.nickname}")
-        binding.phoneNumberEditText.setText("${userLocalData.phoneNumber1}")
+        binding.phoneNumber1EditText.setText("${userLocalData.phoneNumber1}")
         if (userLocalData.phoneNumber2.isNotEmpty()) {
-            binding.secondPhoneNumberEditTextLayout.visible()
-
+            binding.phoneNumber2EditTextLayout.visible()
         }
-        binding.secondPhoneNumbereEditText.setText("${userLocalData.phoneNumber2}")
+        binding.phoneNumber2EditText.setText("${userLocalData.phoneNumber2}")
         binding.txtGender.text = "${userLocalData.gender}"
 
         firstName = "${userLocalData.firstName}"
@@ -106,8 +117,7 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         val profileData = it.data
         binding.firstNameEditText.setText("${profileData!!.firstName}")
         binding.lastNameEditText.setText("${profileData.lastName}")
-        binding.nickNameEditText.setText("softdeveloper")
-        binding.phoneNumberEditText.setText("${profileData.phone}")
+        binding.phoneNumber1EditText.setText("${profileData.phone}")
         binding.progressBar.invisible()
     }
 

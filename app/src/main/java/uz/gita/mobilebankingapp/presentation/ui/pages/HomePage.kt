@@ -1,7 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.pages
 
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -51,7 +50,7 @@ class HomePage : Fragment(R.layout.page_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-//        balanceText.text = viewModel.getTotalSumFromLocal()
+//        balanceText.text = viewModel.getTotalSumFromLocal(
         balanceText.text = "131 202"
         refresh.isRefreshing = true
         viewModel.getTotalSum()
@@ -118,6 +117,7 @@ class HomePage : Fragment(R.layout.page_home) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(rvMyHomes)
+
         myHomesAdapter.setHomeOnClickListener {
             showToast("My Home $it")
         }
@@ -157,7 +157,7 @@ class HomePage : Fragment(R.layout.page_home) {
 
         homeBtn.setOnClickListener {
             clickHomeButtonListener?.invoke()
-           timber("home pageds bosildi","HOME_BTN")
+            timber("home pageds bosildi", "HOME_BTN")
         }
 
         myCardsImg.setOnClickListener {
@@ -168,7 +168,7 @@ class HomePage : Fragment(R.layout.page_home) {
             viewModel.getAllCardList()
             val bundle = Bundle()
             bundle.putString("direction_type", PaymentPageEnum.FROM_PAYMENT_SCREEN.name)
-            findNavController().navigate(R.id.action_basicScreen_to_paymentPage)
+            findNavController().navigate(R.id.action_basicScreen_to_transferPage)
         }
         btnRequestMoney.setOnClickListener {
             showToast("Request Money")

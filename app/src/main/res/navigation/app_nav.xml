@@ -44,9 +44,6 @@
             android:id="@+id/action_basicScreen_to_profileScreen"
             app:destination="@id/profileScreen" />
         <action
-            android:id="@+id/action_basicScreen_to_paymentPage"
-            app:destination="@id/paymentPage" />
-        <action
             android:id="@+id/action_basicScreen_to_myCardsScreen"
             app:destination="@id/myCardsScreen" />
         <action
@@ -61,6 +58,12 @@
         <action
             android:id="@+id/action_basicScreen_to_descriptionsScreen"
             app:destination="@id/descriptionsScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_transferPage"
+            app:destination="@id/transferPage" />
+        <action
+            android:id="@+id/action_basicScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/authScreen"
@@ -99,6 +102,9 @@
         <action
             android:id="@+id/action_myCardsScreen_to_settingsCardScreen"
             app:destination="@id/settingsCardScreen" />
+        <action
+            android:id="@+id/action_myCardsScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/addCardScreen"
@@ -108,6 +114,9 @@
         <action
             android:id="@+id/action_addCardScreen_to_verifyCardScreen"
             app:destination="@id/verifyCardScreen" />
+        <action
+            android:id="@+id/action_addCardScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/profileScreen"
@@ -155,15 +164,6 @@
             app:argType="uz.gita.mobilebankingapp.data.remote.card_req_res.CardData" />
     </fragment>
     <fragment
-        android:id="@+id/paymentPage"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.pages.TransferPage"
-        android:label="page_payment"
-        tools:layout="@layout/page_transfer">
-        <action
-            android:id="@+id/action_paymentPage_to_sendMoneyScreen"
-            app:destination="@id/sendMoneyScreen" />
-    </fragment>
-    <fragment
         android:id="@+id/waitingMoneySendScreen"
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.WaitingMoneySendScreen"
         android:label="WaitingMoneySendScreen"
@@ -204,4 +204,16 @@
         android:name="uz.gita.mobilebankingapp.presentation.ui.screens.main.ProfileSettings"
         android:label="screen_profile_settings"
         tools:layout="@layout/screen_profile_settings" />
+    <fragment
+        android:id="@+id/transferPage"
+        android:name="uz.gita.mobilebankingapp.presentation.ui.pages.TransferPage"
+        android:label="page_transfer"
+        tools:layout="@layout/page_transfer" >
+        <action
+            android:id="@+id/action_transferPage_to_sendMoneyScreen"
+            app:destination="@id/sendMoneyScreen" />
+        <action
+            android:id="@+id/action_transferPage_to_loginScreen"
+            app:destination="@id/loginScreen" />
+    </fragment>
 </navigation>

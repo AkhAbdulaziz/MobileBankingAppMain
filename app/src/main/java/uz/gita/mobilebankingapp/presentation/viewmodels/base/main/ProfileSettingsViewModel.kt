@@ -8,6 +8,7 @@ interface ProfileSettingsViewModel {
     val profileInfoLiveData: LiveData<ProfileInfoResponse>
     val userLocalDataLiveData: LiveData<UserLocalData>
     val userLocalDataSavedLiveData : LiveData<Unit>
+    val errorLiveData : LiveData<String>
 
     fun getProfileInfo()
 

@@ -15,14 +15,15 @@
 
     <ImageView
         android:id="@+id/imgRetry"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginVertical="8dp"
         android:adjustViewBounds="true"
         android:src="@drawable/img_restart"
         app:layout_constraintBottom_toTopOf="@id/txtRetry"
         app:layout_constraintLeft_toLeftOf="@id/txtRetry"
-        app:layout_constraintRight_toRightOf="@id/txtRetry" />
+        app:layout_constraintRight_toRightOf="@id/txtRetry"
+        app:layout_constraintTop_toBottomOf="@id/line1" />
 
     <TextView
         android:id="@+id/txtRetry"
@@ -40,14 +41,15 @@
 
     <ImageView
         android:id="@+id/imgSave"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginVertical="8dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_star"
         app:layout_constraintBottom_toTopOf="@id/txtSave"
         app:layout_constraintLeft_toLeftOf="@id/txtSave"
-        app:layout_constraintRight_toRightOf="@id/txtSave" />
+        app:layout_constraintRight_toRightOf="@id/txtSave"
+        app:layout_constraintTop_toBottomOf="@id/line1" />
 
     <TextView
         android:id="@+id/txtSave"
@@ -65,14 +67,15 @@
 
     <ImageView
         android:id="@+id/imgCheck"
-        android:layout_width="28dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginVertical="8dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_document"
         app:layout_constraintBottom_toTopOf="@id/txtCheck"
         app:layout_constraintLeft_toLeftOf="@id/txtCheck"
-        app:layout_constraintRight_toRightOf="@id/txtCheck" />
+        app:layout_constraintRight_toRightOf="@id/txtCheck"
+        app:layout_constraintTop_toBottomOf="@id/line1" />
 
     <TextView
         android:id="@+id/txtCheck"
@@ -89,14 +92,15 @@
 
     <ImageView
         android:id="@+id/imgCancel"
-        android:layout_width="44dp"
-        android:layout_height="wrap_content"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginVertical="8dp"
         android:adjustViewBounds="true"
-        android:paddingTop="4dp"
-        android:src="@drawable/ic_close"
+        android:src="@drawable/ic_close_svgrepo_com"
         app:layout_constraintBottom_toTopOf="@id/txtCancel"
         app:layout_constraintLeft_toLeftOf="@id/txtCancel"
         app:layout_constraintRight_toRightOf="@id/txtCancel"
+        app:layout_constraintTop_toBottomOf="@id/line1"
         app:tint="@color/black" />
 
     <TextView
@@ -111,6 +115,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/txtCheck"
         app:layout_constraintRight_toRightOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

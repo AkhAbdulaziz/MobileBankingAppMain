@@ -1,16 +1,17 @@
 package uz.gita.mobilebankingapp.presentation.ui.adapter
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
 import uz.gita.mobilebankingapp.presentation.ui.pages.*
+import uz.gita.mobilebankingapp.utils.timber
 
 class BasicScreenAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
+
     private var clickHomeButtonListener: (() -> Unit)? = null
     fun setOnClickHomeButtonListener(block: () -> Unit) {
         clickHomeButtonListener = block
@@ -28,7 +29,7 @@ class BasicScreenAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
             0 -> HomePage().apply {
                 setOnClickHomeButtonListener {
                     clickHomeButtonListener?.invoke()
-                    Log.d("HOME_BTN", "adapterda bosildi")
+                    timber("adapterda bosildi", "HOME_BTN")
                 }
             }
             1 -> paymentPage

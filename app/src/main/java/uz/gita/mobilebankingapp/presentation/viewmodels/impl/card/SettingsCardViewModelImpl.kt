@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.ColorRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.EditCardRequest
@@ -21,22 +22,17 @@ class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: 
     override val errorMessageLiveData = MutableLiveData<String>()
 
     override fun editCard(data: EditCardRequest, cardId: Int, bgColor: Int) {
-        checkInternet()
-
-        cardRepository.editCard(data).onEach {
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-            }
-            it.onSuccess {
-                putColor(cardId, bgColor)
-            }
-        }.launchIn(viewModelScope)
-    }
-
-    private fun checkInternet() {
         if (!isConnected()) {
-            errorMessageLiveData.value = "Internet mavjud emas"
-            return
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.editCard(data).onEach {
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
+                }
+                it.onSuccess {
+                    putColor(cardId, bgColor)
+                }
+            }.launchIn(viewModelScope)
         }
     }
 
@@ -49,13 +45,17 @@ class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: 
     }
 
     private fun putColor(cardId: Int, bgColor: Int) {
-        cardRepository.putColor(ColorRequest(cardId, bgColor)).onEach {
-            it.onFailure { throwable ->
-                errorMessageLiveData.value = throwable.message
-            }
-            it.onSuccess {
-                closeScreenLiveData.value = Unit
-            }
-        }.launchIn(viewModelScope)
+        if (!isConnected()) {
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.putColor(ColorRequest(cardId, bgColor)).onEach {
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
+                }
+                it.onSuccess {
+                    closeScreenLiveData.value = Unit
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 }

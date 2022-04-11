@@ -50,4 +50,6 @@ interface AuthRepository {
     fun setUserLocalData(userLocalData: UserLocalData)
 
     fun setUserLocalDataListener(f: () -> Unit)
+
+    fun setOpenLoginScreenListener(f : () -> Unit)
 }
