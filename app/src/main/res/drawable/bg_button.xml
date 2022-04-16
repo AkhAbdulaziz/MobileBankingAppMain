@@ -5,21 +5,21 @@
             <item android:state_pressed="true">
                 <shape>
                     <solid android:color="#5CD1AF" />
-                    <corners android:radius="24dp" />
+                    <corners android:radius="26dp" />
                 </shape>
             </item>
             <item android:state_pressed="false">
                 <shape>
                     <solid android:color="@color/lightBaseColor" />
-                    <corners android:radius="24dp" />
+                    <corners android:radius="26dp" />
                 </shape>
             </item>
         </selector>
     </item>
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="@color/colorDisable" />
-            <corners android:radius="24dp" />
+            <solid android:color="@color/greyBg" />
+            <corners android:radius="26dp" />
         </shape>
     </item>
 </selector>

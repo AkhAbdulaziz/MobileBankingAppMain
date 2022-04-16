@@ -17,9 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenBasicNavBinding
-import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicScreenAdapter
+import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
 import uz.gita.mobilebankingapp.utils.scope
@@ -63,13 +64,10 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
         }
 
         textFullName.apply {
-            text = "John Williams"
             setOnClickListener {
                 viewModel.openProfileScreen()
             }
         }
-//        txtUserName.text = viewModel.getUserPhoneNumber()
-        txtUserName.text = "softdeveloper"
 
         lineSettings.setOnClickListener {
             showToast("Settings")
@@ -104,13 +102,14 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
         viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
     }
 
-    private val openLoginScreenObserver = Observer<Unit> {
+    private val openLoginScreenObserver = Observer<LogoutResponse> {
         findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
     }
 
-    private val profileInfoObserver = Observer<ProfileInfoResponse>() {
+    private val profileInfoObserver = Observer<ProfileInfoResponse> {
         val profileData = it.data
         binding.textFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
+        binding.txtUserName.text = profileData.username
     }
 
     private val openProfileScreenObserver = Observer<Unit> {

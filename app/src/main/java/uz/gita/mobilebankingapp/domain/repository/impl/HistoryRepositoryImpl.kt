@@ -7,14 +7,14 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import uz.gita.mobilebankingapp.data.datasource.HistoryDataSource
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.api.MoneyTransferApi
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
 import uz.gita.mobilebankingapp.domain.repository.HistoryRepository
 import javax.inject.Inject
 
 class HistoryRepositoryImpl @Inject constructor(
-    private val pref: MySharedPreferences,
+    private val pref: LocalStorage,
     val api: MoneyTransferApi
 ) : HistoryRepository {
     private val config = PagingConfig(10)

@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MySharedPreferences @Inject constructor() {
+class LocalStorage @Inject constructor() {
     private val pref = App.instance.getSharedPreferences("MobileBankingApp", Context.MODE_PRIVATE)
 
     var userPhone: String by StringPreference(pref)

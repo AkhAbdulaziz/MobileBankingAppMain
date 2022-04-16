@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.mobilebankingapp.BuildConfig.BASE_URL
 import uz.gita.mobilebankingapp.BuildConfig.LOGGING
 import uz.gita.mobilebankingapp.app.App
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
 import uz.gita.mobilebankingapp.utils.timber
 
@@ -52,7 +52,7 @@ fun OkHttpClient.Builder.addLogging(): OkHttpClient.Builder {
 }
 
 fun tokenInterceptor() = Interceptor { chain ->
-    val pref = MySharedPreferences()
+    val pref = LocalStorage()
 
     val chainRequest = chain.request()
     val newRequest =
@@ -68,7 +68,7 @@ fun refreshInterceptor() = Interceptor { chain ->
     if (response.code == 401) {
         Log.d("TOKEN_ApiClient", "Access Token eskirgan")
         response.close()
-        val pref = MySharedPreferences()
+        val pref = LocalStorage()
         val data = JSONObject()
         data.put("phone", pref.userPhone)
         val body =

@@ -2,14 +2,14 @@ package uz.gita.mobilebankingapp.data.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.api.MoneyTransferApi
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
 import uz.gita.mobilebankingapp.utils.timber
 
 class HistoryDataSource(
     private val api: MoneyTransferApi,
-    private val pref: MySharedPreferences
+    private val pref: LocalStorage
 ) : PagingSource<Int, MoneyTransferResponse.HistoryData>() {
     override fun getRefreshKey(state: PagingState<Int, MoneyTransferResponse.HistoryData>): Int? {
         return state.anchorPosition

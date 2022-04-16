@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/txt_eye_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:outlineAmbientShadowColor="@color/black"
@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/txt_menu_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:outlineAmbientShadowColor="@color/black"
@@ -65,7 +65,7 @@
 
     <TextView
         android:id="@+id/txt_transfer_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:outlineAmbientShadowColor="@color/black"

@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/button_bg"
+                android:background="@drawable/bg_button"
                 android:backgroundTint="@color/baseColor"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"

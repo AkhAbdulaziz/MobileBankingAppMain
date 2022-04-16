@@ -16,8 +16,10 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.request.VerifyCardReque
 import uz.gita.mobilebankingapp.databinding.ScreenVerifyCardBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.VerifyCardViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.VerifyCardViewModelImpl
+import uz.gita.mobilebankingapp.utils.invisible
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
@@ -45,6 +47,7 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
         }
 
         verifyBtn.setOnClickListener {
+            progressBar.visible()
             viewModel.verifyCard(
                 VerifyCardRequest(
                     viewModel.getCurrentPan(),
@@ -63,6 +66,7 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
     }
 
     private val exitScreenObserver = Observer<Unit> {
+        binding.progressBar.invisible()
         findNavController().popBackStack()
     }
 

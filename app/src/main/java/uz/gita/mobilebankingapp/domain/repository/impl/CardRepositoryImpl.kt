@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.api.CardApi
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.*
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class CardRepositoryImpl @Inject constructor(
     private val cardApi: CardApi,
-    private val pref: MySharedPreferences
+    private val pref: LocalStorage
 ) : CardRepository {
     private val gson = Gson()
     private var cardsList: List<CardData>? = null

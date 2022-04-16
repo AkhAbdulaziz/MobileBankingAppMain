@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
@@ -19,11 +20,11 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
     override val openProfileScreenLiveData = MutableLiveData<Unit>()
     override val profileInfoLiveData = MutableLiveData<ProfileInfoResponse>()
     override val errorMessageLiveData = MutableLiveData<String>()
-    override val openLoginScreenLiveData = MutableLiveData<Unit>()
+    override val openLoginScreenLiveData = MutableLiveData<LogoutResponse>()
 
     init {
         authRepository.setOpenLoginScreenListener {
-            openLoginScreenLiveData.postValue(Unit)
+            openLoginScreenLiveData.postValue(LogoutResponse("LogoutCauseInternetError"))
         }
     }
 
@@ -39,7 +40,14 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
         if (!isConnected()) {
             errorMessageLiveData.value = "${R.string.no_internet}"
         } else {
-            authRepository.logoutUser()
+            authRepository.logoutUser().onEach {
+                it.onSuccess {
+                    openLoginScreenLiveData.value = it
+                }
+                it.onFailure {
+                    errorMessageLiveData.value = it.message
+                }
+            }.launchIn(viewModelScope)
         }
     }
 
@@ -50,6 +58,9 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
             authRepository.getProfileInfo().onEach {
                 it.onSuccess {
                     profileInfoLiveData.value = it
+                }
+                it.onFailure {
+                    errorMessageLiveData.value = it.message
                 }
             }.launchIn(viewModelScope)
         }

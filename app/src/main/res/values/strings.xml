@@ -109,8 +109,11 @@
     <string name="location_candy_dance_studio_name">Candy Dance Studio</string>
     <string name="location_candy_dance_studio_address">ул. Мирзо Улугбека 69</string>
 
-
     <string name="no_internet">Internet mavjud emas</string>
+    <string name="error_login_phone_number_is_not_valid">kotlin.String telefon raqam emas</string>
+    <string name="error_login_phone_number_not_available">Bunday foydalanuvchi mavjud emas</string>
+    <string name="error_login_password_incorrect">Parol notog\'ri</string>
+    <string name="error_register_phone_number_already_registered">Ushbu raqam allaqachon ro\'yxatdan o\'tgan</string>
 
     <!-- Custom Dimensions -->
     <dimen name="radius_cards">12dp</dimen>

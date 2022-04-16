@@ -2,7 +2,6 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -21,9 +20,7 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.VerifyUserReque
 import uz.gita.mobilebankingapp.databinding.ScreenVerifyBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.VerifyScreenViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth.VerifyScreenViewModelImpl
-import uz.gita.mobilebankingapp.utils.scope
-import uz.gita.mobilebankingapp.utils.showToast
-import uz.gita.mobilebankingapp.utils.timber
+import uz.gita.mobilebankingapp.utils.*
 
 @AndroidEntryPoint
 class VerifyScreen : Fragment(R.layout.screen_verify) {
@@ -54,6 +51,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
         }
 
         verifyBtn.setOnClickListener {
+            progressBar.visible()
             viewModel.userVerify(
                 VerifyUserRequest(
                     phoneNumber,
@@ -74,7 +72,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
                     userPassword
                 )
             )
-            timber("phone = $phoneNumber password = $userPassword","GGG")
+            timber("phone = $phoneNumber password = $userPassword", "GGG")
         }
 
         viewModel.openMainScreenLiveData.observe(viewLifecycleOwner, openMainScreenObserver)
@@ -85,6 +83,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
     }
 
     private val openMainScreenObserver = Observer<Unit> {
+        binding.progressBar.invisible()
         findNavController().navigate(R.id.action_verifyScreen_to_basicScreen)
     }
 
@@ -93,7 +92,7 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
     }
 
     private val resendCodeObserver = Observer<Unit> {
-        timber("RESEND CODE OBSERVER","GGG")
+        timber("RESEND CODE OBSERVER", "GGG")
         binding.waitingCodeTime.text = "Qayta yuboring 1:00"
         isBreak = true
         startTime()

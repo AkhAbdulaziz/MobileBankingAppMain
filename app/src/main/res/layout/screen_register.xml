@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:passwordToggleEnabled="true"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumberEditTextLayout">
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberEditTextLayout"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -108,10 +108,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:passwordToggleEnabled="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout">
+        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/confirmPasswordEditText"
@@ -128,14 +128,40 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/button_bg"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_button"
         android:enabled="false"
         android:paddingVertical="12dp"
-        android:textColor="@color/white"
         android:text="Register"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditTextLayout" />
+
+    <TextView
+        android:id="@+id/txt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:foreground="?android:selectableItemBackground"
+        android:text="Already have an account? Login"
+        android:textColor="@color/lightBaseColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/txt_version"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 2.31"
+        android:textColor="@color/greyColor"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

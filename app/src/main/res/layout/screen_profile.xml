@@ -511,7 +511,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/button_bg"
+        android:background="@drawable/bg_button"
         android:enabled="true"
         android:paddingHorizontal="80dp"
         android:text="Edit profile"

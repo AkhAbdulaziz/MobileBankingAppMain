@@ -25,10 +25,10 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
 
     private val openAuthScreenObserver = Observer<Unit> {
-        findNavController().navigate(R.id.action_splashScreen_to_authScreen)
+        findNavController().navigate(SplashScreenDirections.actionSplashScreenToLoginScreen())
     }
 
     private val openMainScreenObserver = Observer<Unit> {
-        findNavController().navigate(R.id.action_splashScreen_to_basicScreen)
+        findNavController().navigate(SplashScreenDirections.actionSplashScreenToBasicScreen())
     }
 }

@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:layout_margin="16dp"
-                android:background="@drawable/button_bg"
+                android:background="@drawable/bg_button"
                 android:backgroundTint="@color/baseColor"
                 android:padding="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"

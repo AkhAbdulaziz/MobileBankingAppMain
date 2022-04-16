@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -34,6 +35,7 @@ import uz.gita.mobilebankingapp.presentation.ui.dialog.main.CheckTransferDialog
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*
+
 
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
     private val binding by viewBinding(ScreenCheckTransferBinding::bind)
@@ -304,7 +306,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         document.add(table)
         document.close()
 //        Toast.makeText(requireContext(), "PDF created", Toast.LENGTH_LONG).show()
-        sharePdf(file)
+        shareAnyFile(file)
     }
 
     private fun getPDFImage(imageResId: Int, height: Float? = null, width: Float? = null): Image {
@@ -352,45 +354,11 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
     }
 
-    /*
-
-    private fun sharePdfWithEmail(file: File) {
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.type = "text/plain"
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("email@example.com"))
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "subject here")
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "body text")
-        val root = Environment.getExternalStorageDirectory()
-        val pathToMyAttachedFile = "temp/attachement.xml"
-        val file = File(root, pathToMyAttachedFile)
-        if (!file.exists() || !file.canRead()) {
-            return
-        }
-        val uri: Uri = Uri.fromFile(file)
-        emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"))
+    private fun shareAnyFile(file: File) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        val screenshotUri: Uri = Uri.parse(file.path)
+        sharingIntent.type = "*/*"
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+        startActivity(Intent.createChooser(sharingIntent, "Check PDF"));
     }
-
-    private fun shareImageOfPdf(pdfPath:String) {
-        val icon: Bitmap = BitmapFactory.decodeFile(pdfPath)
-        val share = Intent(Intent.ACTION_SEND)
-        share.type = "image/jpg"
-        val bytes = ByteArrayOutputStream()
-        icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val f =
-            File("${Environment.getExternalStorageDirectory()}${File.separator.toString()}receiptImage.jpg")
-        try {
-            f.createNewFile()
-            val fo = FileOutputStream(f)
-            fo.write(bytes.toByteArray())
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        share.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/receiptImage.jpg"))
-        startActivity(Intent.createChooser(share, "Share Receipt"))
-    }
-
-    private fun generateImageOfPdf(pdf: File): File{ }
-
-    */
 }

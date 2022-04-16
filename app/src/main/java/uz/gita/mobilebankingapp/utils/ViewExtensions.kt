@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputLayout
 
 
 fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
@@ -38,4 +39,12 @@ fun View.setMarginsInDp(left: Float, top: Float, right: Float, bottom: Float) {
         p.setMargins(left.toPx(), top.toPx(), right.toPx(), bottom.toPx())
         this.requestLayout()
     }
+}
+
+fun TextInputLayout.enableError() {
+    this.isErrorEnabled = true
+}
+
+fun TextInputLayout.disableError() {
+    this.isErrorEnabled = false
 }

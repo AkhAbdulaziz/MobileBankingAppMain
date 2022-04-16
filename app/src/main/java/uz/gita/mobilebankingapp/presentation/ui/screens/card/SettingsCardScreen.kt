@@ -91,7 +91,8 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
             findNavController().popBackStack()
         }
 
-        readyChangesBtn.setOnClickListener {
+        doneBtn.setOnClickListener {
+            progressBar.visible()
             viewModel.editCard(
                 EditCardRequest(
                     args.cardData.pan!!, textCardName.text.toString()
@@ -116,6 +117,7 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
     }
 
     private val closeScreenObserver = Observer<Unit> {
+        binding.progressBar.gone()
         findNavController().popBackStack()
     }
 

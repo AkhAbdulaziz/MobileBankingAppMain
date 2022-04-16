@@ -3,7 +3,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,51 +16,120 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.RegisterRequest
 import uz.gita.mobilebankingapp.databinding.ScreenRegisterBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.RegisterViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth.RegisterViewModelImpl
+import uz.gita.mobilebankingapp.utils.disableError
+import uz.gita.mobilebankingapp.utils.enableError
 import uz.gita.mobilebankingapp.utils.scope
 
 @AndroidEntryPoint
 class RegisterScreen : Fragment(R.layout.screen_register) {
     private val binding by viewBinding(ScreenRegisterBinding::bind)
-    private val viewModel : RegisterViewModel by viewModels<RegisterViewModelImpl>()
-    private var boolFirstName = false
-    private var boolLastName = false
-    private var boolPassword = false
-    private var boolConfirmPassword = false
-    private var boolPhoneNumber = false
+    private val viewModel: RegisterViewModel by viewModels<RegisterViewModelImpl>()
+    private var isFirstNameReady = false
+    private var isLastNameReady = true
+    private var isPasswordReady = false
+    private var isConfirmPasswordReady = false
+    private var isPhoneNumberReady = false
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-        registerButton.isEnabled = false
-        firstNameEditText.addTextChangedListener {
-            it?.let {
-                boolFirstName = it.length > 3
-                check()
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
+
+        firstNameEditText.apply {
+            addTextChangedListener {
+                firstNameEditTextLayout.disableError()
+                it?.let {
+                    isFirstNameReady = it.isNotEmpty()
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && firstNameEditText.text.toString().isEmpty()) {
+                    firstNameEditTextLayout.enableError()
+                    firstNameEditTextLayout.error = "Firstname required"
+                }
             }
         }
-        lastNameEditText.addTextChangedListener {
+        /*lastNameEditText.addTextChangedListener {
             it?.let {
-                boolLastName = it.length > 3
+                isLastNameReady = it.length > 3
                 check()
             }
-        }
-        passwordEditText.addTextChangedListener {
-            it?.let {
-                boolPassword = it.length > 6 && it.toString() == confirmPasswordEditText.text.toString()
-                check()
+        }*/
+        phoneNumberEditText.apply {
+            addTextChangedListener {
+                phoneNumberEditTextLayout.disableError()
+                it?.let {
+                    isPhoneNumberReady = it.length == 13 && it.toString().startsWith("+998")
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && (phoneNumberEditText.text.toString()
+                        .isEmpty() || phoneNumberEditText.text.toString() == "+998")
+                ) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Phone is required"
+                } else if (!b && !phoneNumberEditText.text.toString().startsWith("+998")) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Need to starts with +998"
+                } else if (!b && phoneNumberEditText.text.toString().length != 13) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Phone is not valid"
+                } else {
+                    phoneNumberEditTextLayout.disableError()
+                }
             }
         }
-        confirmPasswordEditText.addTextChangedListener {
-            it?.let {
-                boolConfirmPassword = it.length > 6 && it.toString() == passwordEditText.text.toString()
-                check()
+
+        passwordEditText.apply {
+            addTextChangedListener {
+                passwordEditTextLayout.disableError()
+                it?.let {
+                    isPasswordReady =
+                        it.length >= 6 && it.toString() == confirmPasswordEditText.text.toString()
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && (passwordEditText.text.toString().length < 6)) {
+                    passwordEditTextLayout.enableError()
+                    passwordEditTextLayout.error = "Password mus be at last 6 characters"
+                } else if (!b && (passwordEditText.text.toString() != confirmPasswordEditText.text.toString())) {
+                    confirmPasswordEditTextLayout.enableError()
+                    confirmPasswordEditTextLayout.error = "Enter same passwords"
+                } else {
+                    confirmPasswordEditTextLayout.disableError()
+                }
             }
         }
-        phoneNumberEditText.addTextChangedListener {
-            it?.let {
-                boolPhoneNumber = it.length == 13 && it.toString().startsWith("+998")
-                check()
+
+        confirmPasswordEditText.apply {
+            addTextChangedListener {
+                confirmPasswordEditTextLayout.disableError()
+                it?.let {
+                    isConfirmPasswordReady =
+                        it.length >= 6 && it.toString() == passwordEditText.text.toString()
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && (confirmPasswordEditText.text.toString().length < 6)) {
+                    confirmPasswordEditTextLayout.enableError()
+                    confirmPasswordEditTextLayout.error = "Password mus be at last 6 characters"
+                } else if (!b && (passwordEditText.text.toString() != confirmPasswordEditText.text.toString())) {
+                    confirmPasswordEditTextLayout.enableError()
+                    confirmPasswordEditTextLayout.error = "Enter same passwords"
+                } else {
+                    confirmPasswordEditTextLayout.disableError()
+                }
             }
         }
+
         registerButton.setOnClickListener {
             viewModel.registerUser(
                 RegisterRequest(
@@ -72,15 +141,20 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
             )
         }
 
-        viewModel.disableRegisterLiveData.observe(viewLifecycleOwner,disableRegisterObserver)
-        viewModel.enableRegisterLiveData.observe(viewLifecycleOwner,enableRegisterObserver)
-        viewModel.errorLivaData.observe(viewLifecycleOwner,errorObserver)
-        viewModel.progressLiveData.observe(viewLifecycleOwner,progressObserver)
-        viewModel.successLiveData.observe(this@RegisterScreen,successObserver)
+        txtLogin.setOnClickListener {
+            findNavController().navigate(RegisterScreenDirections.actionRegisterScreenToLoginScreen())
+        }
+
+        viewModel.disableRegisterLiveData.observe(viewLifecycleOwner, disableRegisterObserver)
+        viewModel.enableRegisterLiveData.observe(viewLifecycleOwner, enableRegisterObserver)
+        viewModel.errorLivaData.observe(viewLifecycleOwner, errorObserver)
+        viewModel.progressLiveData.observe(viewLifecycleOwner, progressObserver)
+        viewModel.successLiveData.observe(this@RegisterScreen, successObserver)
     }
 
     private fun check() {
-        binding.registerButton.isEnabled = boolFirstName && boolLastName && (boolPassword || boolConfirmPassword) && boolPhoneNumber
+        binding.registerButton.isEnabled =
+            isFirstNameReady && isLastNameReady && isPasswordReady && isConfirmPasswordReady && isPhoneNumberReady
     }
 
     private val disableRegisterObserver = Observer<Unit> {
@@ -89,14 +163,18 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
     private val enableRegisterObserver = Observer<Unit> {
         binding.registerButton.isEnabled = true
     }
-    private val errorObserver = Observer<String> {
-        Toast.makeText(requireContext(),it, Toast.LENGTH_SHORT).show()
+    private val errorObserver = Observer<String> { errorMessage ->
+        binding.progress.hide()
+        if (errorMessage.equals(getString(R.string.error_register_phone_number_already_registered))) {
+            binding.phoneNumberEditTextLayout.enableError()
+            binding.phoneNumberEditTextLayout.error = "Phone is already available"
+        }
     }
     private val progressObserver = Observer<Boolean> {
         if (it) binding.progress.show()
         else binding.progress.hide()
     }
     private val successObserver = Observer<String> {
-        findNavController().navigate(R.id.action_registerScreen_to_verifyScreen)
+        findNavController().navigate(RegisterScreenDirections.actionRegisterScreenToVerifyScreen())
     }
 }

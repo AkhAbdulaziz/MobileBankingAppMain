@@ -11,11 +11,11 @@
         android:label="screen_splash"
         tools:layout="@layout/screen_splash">
         <action
-            android:id="@+id/action_splashScreen_to_authScreen"
-            app:destination="@id/authScreen" />
-        <action
             android:id="@+id/action_splashScreen_to_basicScreen"
             app:destination="@id/basicScreen" />
+        <action
+            android:id="@+id/action_splashScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/registerScreen"
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_registerScreen_to_verifyScreen"
             app:destination="@id/verifyScreen" />
+        <action
+            android:id="@+id/action_registerScreen_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/loginScreen"
@@ -34,6 +37,9 @@
         <action
             android:id="@+id/action_loginScreen_to_verifyScreen"
             app:destination="@id/verifyScreen" />
+        <action
+            android:id="@+id/action_loginScreen_to_registerScreen"
+            app:destination="@id/registerScreen" />
     </fragment>
     <fragment
         android:id="@+id/basicScreen"
@@ -64,18 +70,6 @@
         <action
             android:id="@+id/action_basicScreen_to_loginScreen"
             app:destination="@id/loginScreen" />
-    </fragment>
-    <fragment
-        android:id="@+id/authScreen"
-        android:name="uz.gita.mobilebankingapp.presentation.ui.screens.auth.AuthScreen"
-        android:label="screen_auth"
-        tools:layout="@layout/screen_auth">
-        <action
-            android:id="@+id/action_authScreen_to_loginScreen"
-            app:destination="@id/loginScreen" />
-        <action
-            android:id="@+id/action_authScreen_to_registerScreen"
-            app:destination="@id/registerScreen" />
     </fragment>
     <fragment
         android:id="@+id/verifyScreen"

@@ -254,7 +254,7 @@
         android:id="@+id/sendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_bg"
+        android:background="@drawable/bg_button"
         android:enabled="false"
         android:paddingHorizontal="100dp"
         android:paddingVertical="12dp"

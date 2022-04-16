@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.utils
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -15,6 +16,7 @@ import timber.log.Timber
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import java.io.File
+import java.util.*
 
 fun Fragment.showToast(message: String) {
     Toast.makeText(this.requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -80,3 +82,25 @@ val cardBgImagesList = arrayOf(
     R.drawable.card_theme15,
     R.drawable.card_theme16
 ).toList()
+
+val months = arrayOf(
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+)
+
+fun getDate(timestamp: Long): String {
+    val calendar = Calendar.getInstance(Locale.ENGLISH)
+    calendar.timeInMillis = timestamp * 1000L
+    val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
+    return date
+}

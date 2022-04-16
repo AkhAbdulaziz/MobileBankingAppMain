@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,8 +16,9 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.request.LoginRequest
 import uz.gita.mobilebankingapp.databinding.ScreenLoginBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.LoginViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.auth.LoginViewModelImpl
+import uz.gita.mobilebankingapp.utils.disableError
+import uz.gita.mobilebankingapp.utils.enableError
 import uz.gita.mobilebankingapp.utils.scope
-import uz.gita.mobilebankingapp.utils.showToast
 
 @AndroidEntryPoint
 class LoginScreen : Fragment(R.layout.screen_login) {
@@ -27,18 +29,56 @@ class LoginScreen : Fragment(R.layout.screen_login) {
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-        passwordEditText.addTextChangedListener {
-            it?.let {
-                isReadyPassword = it.length > 3
-                check()
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
+
+        passwordEditText.apply {
+            addTextChangedListener {
+                passwordEditTextLayout.disableError()
+                it?.let {
+                    isReadyPassword = it.length >= 6
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && (passwordEditText.text.toString().length < 6)) {
+                    passwordEditTextLayout.enableError()
+                    passwordEditTextLayout.error = "Password mus be at last 6 characters"
+                }
             }
         }
-        phoneNumberEditText.addTextChangedListener {
-            it?.let {
-                isReadyPhoneNumber = it.length > 10 && it.contains("+998")
-                check()
+
+        phoneNumberEditText.apply {
+            addTextChangedListener {
+                phoneNumberEditTextLayout.disableError()
+                it?.let {
+                    isReadyPhoneNumber = it.length == 13 && it.contains("+998")
+                    check()
+                }
+            }
+            setOnFocusChangeListener { view, b ->
+                if (!b && (phoneNumberEditText.text.toString()
+                        .isEmpty() || phoneNumberEditText.text.toString() == "+998")
+                ) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Phone is required"
+                } else if (!b && !phoneNumberEditText.text.toString().contains("+998")) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Need to starts with +998"
+                } else if (!b && phoneNumberEditText.text.toString().length != 13) {
+                    phoneNumberEditTextLayout.enableError()
+                    phoneNumberEditTextLayout.error = "Phone is not valid"
+                } else {
+                    phoneNumberEditTextLayout.disableError()
+                }
             }
         }
+
         loginButton.isEnabled = false
         loginButton.setOnClickListener {
             viewModel.userLogin(
@@ -47,6 +87,10 @@ class LoginScreen : Fragment(R.layout.screen_login) {
                     passwordEditText.text.toString()
                 )
             )
+        }
+
+        txtRegister.setOnClickListener {
+            findNavController().navigate(LoginScreenDirections.actionLoginScreenToRegisterScreen())
         }
 
         switchBtnUntrustedDevice.apply {
@@ -87,7 +131,16 @@ class LoginScreen : Fragment(R.layout.screen_login) {
     private val openVerifyScreenObserver = Observer<Unit> {
         findNavController().navigate(R.id.action_loginScreen_to_verifyScreen)
     }
-    private val errorMessageObserver = Observer<String> {
-        showToast(it)
+
+    private val errorMessageObserver = Observer<String> { errorMessage ->
+        binding.progress.hide()
+        if (errorMessage.equals(getString(R.string.error_login_phone_number_not_available))) {
+            binding.phoneNumberEditTextLayout.enableError()
+            binding.phoneNumberEditTextLayout.error = "Phone is incorrect"
+        }
+        if (errorMessage.equals(getString(R.string.error_login_password_incorrect))) {
+            binding.passwordEditTextLayout.enableError()
+            binding.passwordEditTextLayout.error = "Password is incorrect"
+        }
     }
 }

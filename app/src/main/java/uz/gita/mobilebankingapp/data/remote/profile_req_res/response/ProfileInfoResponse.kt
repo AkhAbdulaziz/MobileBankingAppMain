@@ -8,5 +8,6 @@ data class Data(
     val firstName: String? = null,
     val lastName: String? = null,
     val password: String? = null,
-    val phone: String? = null
+    val phone: String? = null,
+    var username: String? = null
 )

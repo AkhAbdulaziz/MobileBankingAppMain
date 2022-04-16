@@ -5,8 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.entities.UserLocalData
-import uz.gita.mobilebankingapp.data.local.MySharedPreferences
+import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.api.AuthApi
 import uz.gita.mobilebankingapp.data.remote.api.ProfileApi
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequest
@@ -25,7 +27,7 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
     private val profileApi: ProfileApi,
-    private val pref: MySharedPreferences
+    private val localStorage: LocalStorage
 ) : AuthRepository {
     private val gson = Gson()
 
@@ -46,39 +48,42 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override fun registerUser(data: RegisterRequest): Flow<Result<String>> = flow {
+        var message = "Xatolik yuzaga keldi"
         val response = authApi.register(data)
         if (response.isSuccessful) {
+            message = response.body()!!.message
             emit(Result.success(response.body()!!.message))
-            pref.userPassword = data.password
-            pref.userPhone = data.phone
-            pref.userFullName = "${data.firstName} ${data.lastName}"
+            localStorage.userPassword = data.password
+            localStorage.userPhone = data.phone
+            localStorage.userFullName = "${data.firstName} ${data.lastName}"
         } else {
-            var message = "Xatolik yuzaga keldi"
             response.errorBody()?.let {
                 message = gson.fromJson(it.string(), BaseResponse::class.java).message
             }
-            emit(Result.failure<String>(Throwable(message)))
+            emit(Result.failure(Throwable(message)))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun loginUser(data: LoginRequest): Flow<Result<String>> = flow {
         val response = authApi.login(data)
-        if (response.isSuccessful) {
-            pref.userPassword = data.password
-            pref.userPhone = data.phone
+        var message = response.body()!!.message
+        if (response.isSuccessful && (response.body()!!.message != App.instance.getString(R.string.error_login_password_incorrect)) && (response.body()!!.message != App.instance.getString(
+                R.string.error_login_phone_number_not_available
+            ))
+        ) {
+            localStorage.userPassword = data.password
+            localStorage.userPhone = data.phone
             emit(Result.success(response.body()!!.message))
         } else {
-            var message = "Xatolik yuzaga keldi"
             response.errorBody()?.let {
                 message = gson.fromJson(it.string(), BaseResponse::class.java).message
             }
-            emit(Result.failure<String>(Throwable(message)))
+            emit(Result.failure(Throwable(message)))
         }
-
     }.flowOn(Dispatchers.IO)
 
     override fun logoutUser(): Flow<Result<LogoutResponse>> = flow {
-        val response = authApi.logout(pref.accessToken)
+        val response = authApi.logout(localStorage.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
@@ -116,8 +121,8 @@ class AuthRepositoryImpl @Inject constructor(
         val response = authApi.verifyUser(data)
         if (response.isSuccessful) {
             response.body()?.let {
-                pref.refreshToken = it.data?.refresh_token!!
-                pref.accessToken = it.data.access_token!!
+                localStorage.refreshToken = it.data?.refresh_token!!
+                localStorage.accessToken = it.data.access_token!!
             }
             emit(Result.success(response.body()!!))
         } else {
@@ -130,11 +135,11 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override fun getUserPhoneNumber(): String {
-        return pref.userPhone
+        return localStorage.userPhone
     }
 
     override fun setUserToken(token: String) {
-        pref.accessToken = token
+        localStorage.accessToken = token
     }
 
     override fun putUserAvatar(data: File): Flow<Result<BaseResponse>> = flow {
@@ -161,38 +166,39 @@ class AuthRepositoryImpl @Inject constructor(
     override fun getProfileInfo(): Flow<Result<ProfileInfoResponse>> = flow {
         val response = profileApi.getProfileInfo()
         if (response.isSuccessful) {
+            response.body()!!.data!!.username = localStorage.userNickName
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getUserFullName(): String {
-        return pref.userFullName
+        return localStorage.userFullName
     }
 
     override fun getUserPassword(): String {
-        return pref.userPassword
+        return localStorage.userPassword
     }
 
     override fun getUserLocalData(): UserLocalData {
         return UserLocalData(
-            pref.userFirstName,
-            pref.userLastName,
-            pref.userNickName,
-            pref.userPhoneNumber1,
-            pref.userPhoneNumber2,
-            pref.userGender,
-            pref.userBirthday
+            localStorage.userFirstName,
+            localStorage.userLastName,
+            localStorage.userNickName,
+            localStorage.userPhoneNumber1,
+            localStorage.userPhoneNumber2,
+            localStorage.userGender,
+            localStorage.userBirthday
         )
     }
 
     override fun setUserLocalData(userLocalData: UserLocalData) {
-        pref.userFirstName = userLocalData.firstName
-        pref.userLastName = userLocalData.lastName
-        pref.userNickName = userLocalData.nickname
-        pref.userPhoneNumber1 = userLocalData.phoneNumber1
-        pref.userPhoneNumber2 = userLocalData.phoneNumber2
-        pref.userGender = userLocalData.gender
-        pref.userBirthday = userLocalData.birthday
+        localStorage.userFirstName = userLocalData.firstName
+        localStorage.userLastName = userLocalData.lastName
+        localStorage.userNickName = userLocalData.nickname
+        localStorage.userPhoneNumber1 = userLocalData.phoneNumber1
+        localStorage.userPhoneNumber2 = userLocalData.phoneNumber2
+        localStorage.userGender = userLocalData.gender
+        localStorage.userBirthday = userLocalData.birthday
         userLocalDataListener?.invoke()
     }
 }
