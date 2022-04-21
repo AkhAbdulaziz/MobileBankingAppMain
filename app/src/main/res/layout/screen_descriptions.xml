@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.ui.screens.main.DescriptionsScreen"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.screens.main.DescriptionsScreen">
 
     <ImageView
         android:id="@+id/backBtn"
@@ -39,40 +39,62 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <TextView
-        android:id="@+id/txt_eye_icon"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:text="Some icons made by Anu Rocks\nhttps://freeicons.io/profile/730 \nfrom www.freeicons.io"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
 
-    <TextView
-        android:id="@+id/txt_menu_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:text="Some icons made by icon king1\nhttps://freeicons.io/profile/3 \nfrom www.freeicons.io"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_eye_icon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt_transfer_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:text="Some icons made by SVG Repo\nhttps://www.svgrepo.com/svg/218192/transfer \nfrom www.svgrepo.com"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_menu_icon" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:text="Some icons made by Anu Rocks\nhttps://freeicons.io/profile/730 \nfrom www.freeicons.io"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:text="Some icons made by icon king1\nhttps://freeicons.io/profile/3 \nfrom www.freeicons.io"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:text="Some icons made by SVG Repo\nhttps://www.svgrepo.com/svg/218192/transfer \nfrom www.svgrepo.com"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:text="Some FaceID icons made by flaticons\nhttps://www.flaticon.com/free-icons/focus\nfrom https://www.flaticon.com"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:text="Some TouchID icons made by flaticons\nhttps://www.flaticon.com/free-icons/touch-id\nfrom https://www.flaticon.com"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

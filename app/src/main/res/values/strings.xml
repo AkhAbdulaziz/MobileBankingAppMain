@@ -114,6 +114,12 @@
     <string name="error_login_phone_number_not_available">Bunday foydalanuvchi mavjud emas</string>
     <string name="error_login_password_incorrect">Parol notog\'ri</string>
     <string name="error_register_phone_number_already_registered">Ushbu raqam allaqachon ro\'yxatdan o\'tgan</string>
+    <string name="en_enable_face_id_description">Using Face ID is faster and more secure than a password</string>
+    <string name="ru_enable_face_id_description">Использование Face ID быстрее и безопаснее, чем пароль</string>
+    <string name="txt_successfully_paid_description">In case of late receipt of goods or services, contact the supplier\'s support service</string>
+
+    <string name="en_payme_people_transactions_count_description">You have made 8 transactions this month and are entered into the prize draw!</string>
+    <string name="ru_payme_people_transactions_count_description">Вы совершили 8 транзакций в этом месяце и участвуете в розыгрыше призов!</string>
 
     <!-- Custom Dimensions -->
     <dimen name="radius_cards">12dp</dimen>

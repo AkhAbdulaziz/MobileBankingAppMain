@@ -25,6 +25,7 @@ import uz.gita.mobilebankingapp.utils.showToast
 @AndroidEntryPoint
 class PaymentPage : Fragment(R.layout.page_payment) {
     private val binding by viewBinding(PagePaymentBinding::bind)
+
     private var savedPaymentsList = ArrayList<SavedPaymentData>()
     private val savedPaymentsAdapter by lazy { SavedPaymentsAdapter(savedPaymentsList) }
     private var paymentForServicesList = ArrayList<PaymentForServicesData>()

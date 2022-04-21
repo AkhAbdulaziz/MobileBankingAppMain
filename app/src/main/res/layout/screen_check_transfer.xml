@@ -35,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="16dp"
-        android:background="@color/greyColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -338,7 +337,7 @@
 
             <ImageView
                 android:id="@+id/imgFilter"
-                android:layout_width="26dp"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -368,7 +367,7 @@
 
             <ImageView
                 android:id="@+id/imgNote"
-                android:layout_width="26dp"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"

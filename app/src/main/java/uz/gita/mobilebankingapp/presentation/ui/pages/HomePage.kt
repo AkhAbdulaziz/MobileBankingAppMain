@@ -32,6 +32,7 @@ import uz.gita.mobilebankingapp.utils.*
 class HomePage : Fragment(R.layout.page_home) {
     private val binding by viewBinding(PageHomeBinding::bind)
     private val viewModel: MainPageViewModel by viewModels<MainPageViewModelImpl>()
+
     private var savedPaymentsList = ArrayList<SavedPaymentData>()
     private val savedPaymentsAdapter by lazy { SavedPaymentsAdapter(savedPaymentsList) }
     private var adsList = ArrayList<AdData>()
@@ -50,10 +51,8 @@ class HomePage : Fragment(R.layout.page_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
-//        balanceText.text = viewModel.getTotalSumFromLocal(
-        balanceText.text = "131 202"
-        refresh.isRefreshing = true
-        viewModel.getTotalSum()
+//        refresh.isRefreshing = true
+        viewModel.getTotalSumFromLocal()
 
         if (isFirstTime) {
             fillSavedPaymentsList()
@@ -136,10 +135,10 @@ class HomePage : Fragment(R.layout.page_home) {
                 }
             })
 
-        refresh.setOnRefreshListener {
+        /*refresh.setOnRefreshListener {
             viewModel.getTotalSum()
             refresh.isRefreshing = true
-        }
+        }*/
 
         if (viewModel.isBalanceVisible) {
             showBalance()
@@ -174,6 +173,7 @@ class HomePage : Fragment(R.layout.page_home) {
             showToast("Request Money")
         }
 
+        viewModel.totalSumFromLocalLiveData.observe(viewLifecycleOwner, totalSumFromLocalObserver)
         viewModel.totalSumLiveData.observe(viewLifecycleOwner, totalSumObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
     }
@@ -181,6 +181,26 @@ class HomePage : Fragment(R.layout.page_home) {
     override fun onResume() {
         super.onResume()
         viewModel.getAllCardList()
+    }
+
+    private val totalSumFromLocalObserver = Observer<String> {
+        if (viewModel.isBalanceVisible) {
+            binding.balanceText.text = it
+        }
+        viewModel.getTotalSum()
+    }
+
+    private val totalSumObserver = Observer<String> {
+        if (viewModel.isBalanceVisible) {
+            binding.balanceText.text = it
+        }
+//        binding.refresh.isRefreshing = false
+        binding.progressBar.invisible()
+    }
+
+    private val errorMessageObserver = Observer<String> {
+//        binding.refresh.isRefreshing = false
+        binding.progressBar.invisible()
     }
 
     private fun fillSavedPaymentsList() {
@@ -470,16 +490,5 @@ class HomePage : Fragment(R.layout.page_home) {
 //        viewModel.getTotalSum()
         balanceText.text = "131 202"
         viewModel.isBalanceVisible = true
-    }
-
-    private val totalSumObserver = Observer<String> {
-        if (viewModel.isBalanceVisible) {
-            binding.balanceText.text = it
-        }
-        binding.refresh.isRefreshing = false
-    }
-
-    private val errorMessageObserver = Observer<String> {
-        binding.refresh.isRefreshing = false
     }
 }

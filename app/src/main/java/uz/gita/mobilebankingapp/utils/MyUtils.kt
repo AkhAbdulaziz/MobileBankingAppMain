@@ -2,7 +2,10 @@ package uz.gita.mobilebankingapp.utils
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.format.DateFormat
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -17,6 +20,7 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import java.io.File
 import java.util.*
+
 
 fun Fragment.showToast(message: String) {
     Toast.makeText(this.requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -83,6 +87,11 @@ val cardBgImagesList = arrayOf(
     R.drawable.card_theme16
 ).toList()
 
+val adsPrizesImagesList = arrayOf(
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2,
+).toList()
+
 val months = arrayOf(
     "January",
     "February",
@@ -103,4 +112,19 @@ fun getDate(timestamp: Long): String {
     calendar.timeInMillis = timestamp * 1000L
     val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
     return date
+}
+
+fun vibratePhone(context: Context, timeInMilliSeconds: Long) {
+    val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        vibrator.vibrate(
+            VibrationEffect.createOneShot(
+                timeInMilliSeconds,
+                VibrationEffect.DEFAULT_AMPLITUDE
+            )
+        )
+    } else {
+        //deprecated in API 26
+        vibrator.vibrate(timeInMilliSeconds)
+    }
 }

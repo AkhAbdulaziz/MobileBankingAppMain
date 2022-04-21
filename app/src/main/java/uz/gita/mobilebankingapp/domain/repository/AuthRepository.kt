@@ -6,10 +6,7 @@ import uz.gita.mobilebankingapp.data.remote.profile_req_res.request.UserInfoRequ
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarResponse
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.*
 import java.io.File
 
 interface AuthRepository {
@@ -17,7 +14,9 @@ interface AuthRepository {
 
     fun verifyUser(data: VerifyUserRequest): Flow<Result<VerifyUserResponse>>
 
-    fun loginUser(data: LoginRequest): Flow<Result<String>>
+    fun loginUser(data: LoginRequest): Flow<Result<LoginResponse>>
+
+    fun loginUser(): Flow<Result<LoginResponse>>
 
     fun logoutUser(): Flow<Result<LogoutResponse>>
 
@@ -51,5 +50,16 @@ interface AuthRepository {
 
     fun setUserLocalDataListener(f: () -> Unit)
 
-    fun setOpenLoginScreenListener(f : () -> Unit)
+    fun setOpenLoginScreenListener(f: () -> Unit)
+
+    fun changeFaceIDPermission(permission: Boolean)
+
+    fun changeConfirmationByFingerPrintPermission(permission: Boolean)
+
+    fun getFaceIDPermission(): Boolean
+
+    fun getConfirmationByFingerPrintPermission(): Boolean
+
+    fun getPinCode(): String
+    fun savePinCode(pinCode: String)
 }

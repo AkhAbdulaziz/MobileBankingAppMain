@@ -17,7 +17,7 @@ interface AuthApi {
     ): Response<VerifyUserResponse>
 
     @POST("auth/login")
-    suspend fun login(@Body data: LoginRequest): Response<UserMessageResponse>
+    suspend fun login(@Body data: LoginRequest): Response<LoginResponse>
 
     @POST("auth/logout")
     suspend fun logout(@Header("token") token: String): Response<LogoutResponse>

@@ -42,7 +42,9 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
 
         val mainCardData: CardData? = viewModel.getMyMainCardData()
         if (mainCardData != null) {
+
             // Fee ni olishda ham backend da xatolik bor, api ni Body qabul qilmaydi deyapti.
+
             /* viewModel.getFee(
                 MoneyRequest(
                     mainCardData.id!!,

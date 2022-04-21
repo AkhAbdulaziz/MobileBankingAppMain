@@ -10,16 +10,28 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.ColorRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.EditCardRequest
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
+import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SettingsCardViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsCardViewModelImpl @Inject constructor(private val cardRepository: CardRepository) :
+class SettingsCardViewModelImpl @Inject constructor(
+    private val cardRepository: CardRepository,
+    private val authRepository: AuthRepository
+) :
     ViewModel(), SettingsCardViewModel {
     override val closeScreenLiveData = MutableLiveData<Unit>()
     override val errorMessageLiveData = MutableLiveData<String>()
+    override val openLoginScreenLiveData = MutableLiveData<LogoutResponse>()
+
+    init {
+        authRepository.setOpenLoginScreenListener {
+            openLoginScreenLiveData.postValue(LogoutResponse("LogoutCauseInternetError"))
+        }
+    }
 
     override fun editCard(data: EditCardRequest, cardId: Int, bgColor: Int) {
         if (!isConnected()) {

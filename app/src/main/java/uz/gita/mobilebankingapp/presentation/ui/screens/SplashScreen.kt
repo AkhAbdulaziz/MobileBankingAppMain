@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.databinding.ScreenSplashBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.SplashViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.SplashViewModelImpl
@@ -29,6 +30,10 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
 
     private val openMainScreenObserver = Observer<Unit> {
-        findNavController().navigate(SplashScreenDirections.actionSplashScreenToBasicScreen())
+        findNavController().navigate(
+            SplashScreenDirections.actionSplashScreenToPinCodeScreen(
+                StartScreenEnum.MAIN, false
+            )
+        )
     }
 }

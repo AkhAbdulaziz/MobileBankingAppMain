@@ -10,7 +10,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.UserLocalData
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenProfileBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.ProfileViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.ProfileViewModelImpl
@@ -79,18 +81,27 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
         }
         clickViewPaymePeople.setOnClickListener {
-//            findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
+          findNavController().navigate(ProfileScreenDirections.actionProfileScreenToPaymePeopleScreen())
         }
         clickViewChangeAccount.setOnClickListener {
-//            findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
+            showToast("Change account")
         }
         clickViewDeleteAccount.setOnClickListener {
-//            findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
+            showToast("Delete account")
         }
 
         viewModel.userLocalDataLiveData.observe(viewLifecycleOwner, userLocalDataObserver)
         viewModel.profileInfoLiveData.observe(viewLifecycleOwner, profileInfoObserver)
         viewModel.userLocalDataSavedLiveData.observe(viewLifecycleOwner, userLocalDataSavedObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+    }
+
+    private val openLoginScreenObserver = Observer<LogoutResponse> {
+        findNavController().navigate(
+            ProfileScreenDirections.actionProfileScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     private val userLocalDataObserver = Observer<UserLocalData> { userLocalData ->

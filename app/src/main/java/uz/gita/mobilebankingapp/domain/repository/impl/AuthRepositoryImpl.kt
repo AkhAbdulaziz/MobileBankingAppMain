@@ -5,9 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.entities.UserLocalData
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.local.LocalStorage
 import uz.gita.mobilebankingapp.data.remote.api.AuthApi
 import uz.gita.mobilebankingapp.data.remote.api.ProfileApi
@@ -16,10 +15,7 @@ import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.AvatarRespo
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
 import uz.gita.mobilebankingapp.data.remote.setApiClientOpenLoginScreenListener
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.*
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.RefreshResponse
-import uz.gita.mobilebankingapp.data.remote.user_req_res.response.VerifyUserResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.*
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import java.io.File
 import javax.inject.Inject
@@ -64,16 +60,17 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun loginUser(data: LoginRequest): Flow<Result<String>> = flow {
+    override fun loginUser(data: LoginRequest): Flow<Result<LoginResponse>> = flow {
         val response = authApi.login(data)
-        var message = response.body()!!.message
-        if (response.isSuccessful && (response.body()!!.message != App.instance.getString(R.string.error_login_password_incorrect)) && (response.body()!!.message != App.instance.getString(
-                R.string.error_login_phone_number_not_available
-            ))
-        ) {
+        var message = response.errorBody().toString()
+
+        if (response.isSuccessful && response.body() != null) {
             localStorage.userPassword = data.password
             localStorage.userPhone = data.phone
-            emit(Result.success(response.body()!!.message))
+            localStorage.refreshToken = response.body()!!.data?.refresh_token!!
+            localStorage.accessToken = response.body()!!.data?.access_token!!
+            localStorage.startScreen = StartScreenEnum.MAIN
+            emit(Result.success(response.body()!!))
         } else {
             response.errorBody()?.let {
                 message = gson.fromJson(it.string(), BaseResponse::class.java).message
@@ -81,6 +78,67 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Result.failure(Throwable(message)))
         }
     }.flowOn(Dispatchers.IO)
+
+    override fun loginUser(): Flow<Result<LoginResponse>> = flow {
+        val data = LoginRequest(localStorage.userPhone, localStorage.userPassword)
+        val response = authApi.login(data)
+        var message = response.errorBody().toString()
+
+        if (response.isSuccessful && response.body() != null) {
+            localStorage.userPassword = data.password
+            localStorage.userPhone = data.phone
+            localStorage.refreshToken = response.body()!!.data?.refresh_token!!
+            localStorage.accessToken = response.body()!!.data?.access_token!!
+            localStorage.startScreen = StartScreenEnum.MAIN
+            emit(Result.success(response.body()!!))
+        } else {
+            response.errorBody()?.let {
+                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+            }
+            emit(Result.failure(Throwable(message)))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    /*
+     override fun loginUser(data: LoginRequest): Flow<Result<LoginResponse>> = flow {
+        val response = authApi.login(data)
+        var message = response.message()
+        if (response.isSuccessful && (response != App.instance.getString(R.string.error_login_password_incorrect)) && (response.message() != App.instance.getString(
+                R.string.error_login_phone_number_not_available
+            ))
+        ) {
+            localStorage.userPassword = data.password
+            localStorage.userPhone = data.phone
+            localStorage.refreshToken = response.body()!!.data?.refresh_token!!
+            localStorage.accessToken = response.body()!!.data?.access_token!!
+            localStorage.startScreen = StartScreenEnum.MAIN
+            emit(Result.success(response.body()!!))
+        } else {
+            response.errorBody()?.let {
+                message = gson.fromJson(it.string(), BaseResponse::class.java).message
+            }
+            emit(Result.failure(Throwable(message)))
+        }
+    }.flowOn(Dispatchers.IO)
+    */
+
+
+    override fun verifyUser(data: VerifyUserRequest): Flow<Result<VerifyUserResponse>> = flow {
+        val response = authApi.verifyUser(data)
+        if (response.isSuccessful) {
+            response.body()?.let {
+                localStorage.refreshToken = it.data?.refresh_token!!
+                localStorage.accessToken = it.data.access_token!!
+            }
+            emit(Result.success(response.body()!!))
+        } else {
+            var message = "Xatolik yuzaga keldi"
+            response.errorBody()?.let {
+                message = gson.fromJson(it.toString(), BaseResponse::class.java).message
+            }
+            emit(Result.failure(Throwable(message)))
+        }
+    }
 
     override fun logoutUser(): Flow<Result<LogoutResponse>> = flow {
         val response = authApi.logout(localStorage.accessToken)
@@ -116,23 +174,6 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
-
-    override fun verifyUser(data: VerifyUserRequest): Flow<Result<VerifyUserResponse>> = flow {
-        val response = authApi.verifyUser(data)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                localStorage.refreshToken = it.data?.refresh_token!!
-                localStorage.accessToken = it.data.access_token!!
-            }
-            emit(Result.success(response.body()!!))
-        } else {
-            var message = "Xatolik yuzaga keldi"
-            response.errorBody()?.let {
-                message = gson.fromJson(it.toString(), BaseResponse::class.java).message
-            }
-            emit(Result.failure(Throwable(message)))
-        }
-    }
 
     override fun getUserPhoneNumber(): String {
         return localStorage.userPhone
@@ -200,5 +241,29 @@ class AuthRepositoryImpl @Inject constructor(
         localStorage.userGender = userLocalData.gender
         localStorage.userBirthday = userLocalData.birthday
         userLocalDataListener?.invoke()
+    }
+
+    override fun changeFaceIDPermission(permission: Boolean) {
+        localStorage.permissionFaceID = permission
+    }
+
+    override fun changeConfirmationByFingerPrintPermission(permission: Boolean) {
+        localStorage.permissionConfirmPaymentByFingerPrint = permission
+    }
+
+    override fun getFaceIDPermission(): Boolean {
+        return localStorage.permissionFaceID
+    }
+
+    override fun getConfirmationByFingerPrintPermission(): Boolean {
+        return localStorage.permissionConfirmPaymentByFingerPrint
+    }
+
+    override fun getPinCode(): String {
+        return localStorage.pinCode
+    }
+
+    override fun savePinCode(pinCode: String) {
+        localStorage.pinCode = pinCode
     }
 }

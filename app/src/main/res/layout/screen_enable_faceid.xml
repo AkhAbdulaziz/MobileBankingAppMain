@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.screens.auth.EnableFaceIDScreen"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:textColor="@color/lightBaseColor"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgFaceID"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/face_id"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/greyBg" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/en_enable_face_id_description"
+        android:textColor="@color/greyColor"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgFaceID" />
+
+    <TextView
+        android:id="@+id/txt_use_faceid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use FaceID to login"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/txt_confirm_by_fingerprint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/switch_btn_use_faceid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:checked="false"
+        app:kswBackColor="@color/greyBg"
+        app:kswThumbColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/txt_use_faceid"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txt_use_faceid" />
+
+    <TextView
+        android:id="@+id/txt_confirm_by_fingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Confirmation of payment by fingerprint"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnDone"
+        app:layout_constraintTop_toBottomOf="@id/txt_use_faceid" />
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/switch_btn_confirm_by_fingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:checked="false"
+        app:kswBackColor="@color/greyBg"
+        app:kswThumbColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/txt_confirm_by_fingerprint"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txt_confirm_by_fingerprint" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_button"
+        android:enabled="false"
+        android:paddingVertical="12dp"
+        android:text="Done"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,6 @@ import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*
 
-
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
     private val binding by viewBinding(ScreenCheckTransferBinding::bind)
     private val args: CheckTransferScreenArgs by navArgs()

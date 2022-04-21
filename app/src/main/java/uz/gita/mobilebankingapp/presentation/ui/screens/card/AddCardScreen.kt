@@ -13,6 +13,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.AddCardRequest
 import uz.gita.mobilebankingapp.databinding.ScreenAddCardBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
@@ -33,7 +34,8 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
 
-        pagerAdapter = CardBackgroundsPagerAdapter(cardBgImagesList, childFragmentManager, lifecycle)
+        pagerAdapter =
+            CardBackgroundsPagerAdapter(cardBgImagesList, childFragmentManager, lifecycle)
         cardBackgroundsViewPager.apply {
             adapter = pagerAdapter
             clipToPadding = false   // allow full width shown with padding
@@ -99,7 +101,11 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
-        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
+        findNavController().navigate(
+            BasicScreenDirections.actionBasicScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     private fun check() {

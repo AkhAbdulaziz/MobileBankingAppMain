@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.presentation.ui.screens.main
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -12,10 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.andrognito.flashbar.Flashbar
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenBasicNavBinding
@@ -23,6 +26,7 @@ import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicScreenAdapter
 import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
+import uz.gita.mobilebankingapp.utils.errorFlashBar
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 
@@ -69,6 +73,10 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             }
         }
 
+        viewPaymePeople.setOnClickListener {
+            findNavController().navigate(BasicScreenDirections.actionBasicScreenToPaymePeopleScreen())
+        }
+
         lineSettings.setOnClickListener {
             showToast("Settings")
         }
@@ -100,10 +108,23 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
         viewModel.openProfileScreenLiveData.observe(this@BasicScreen, openProfileScreenObserver)
         viewModel.profileInfoLiveData.observe(viewLifecycleOwner, profileInfoObserver)
         viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+        viewModel.logoutResponseLiveData.observe(viewLifecycleOwner, logoutResponseObserver)
     }
 
     private val openLoginScreenObserver = Observer<LogoutResponse> {
-        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
+        findNavController().navigate(
+            BasicScreenDirections.actionBasicScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
+    }
+
+    private val logoutResponseObserver = Observer<LogoutResponse> {
+        findNavController().navigate(
+            BasicScreenDirections.actionBasicScreenToPinCodeScreen(
+                StartScreenEnum.MAIN, false
+            )
+        )
     }
 
     private val profileInfoObserver = Observer<ProfileInfoResponse> {

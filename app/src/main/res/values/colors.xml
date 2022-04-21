@@ -18,6 +18,7 @@
     <color name="baseColor">#11B587</color>
     <color name="lightBaseColor">#33EAB6</color>
     <color name="greyColor">#424242</color>
+    <color name="pin_circle_default_color">#919191</color>
     <color name="darkerGreyColor">#393939</color>
     <color name="greyBg">#B3B3B3</color>
     <color name="lightGreyBg">#ECECEC</color>

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.UserLocalData
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.ProfileViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
@@ -23,11 +24,14 @@ class ProfileViewModelImpl @Inject constructor(private val authRepository: AuthR
     override val userLocalDataLiveData = MutableLiveData<UserLocalData>()
     override val userLocalDataSavedLiveData = MutableLiveData<Unit>()
     override val errorLiveData = MutableLiveData<String>()
-
+    override val openLoginScreenLiveData = MutableLiveData<LogoutResponse>()
 
     init {
         authRepository.setUserLocalDataListener {
             userLocalDataSavedLiveData.value = Unit
+        }
+        authRepository.setOpenLoginScreenListener {
+            openLoginScreenLiveData.postValue(LogoutResponse("LogoutCauseInternetError"))
         }
     }
 

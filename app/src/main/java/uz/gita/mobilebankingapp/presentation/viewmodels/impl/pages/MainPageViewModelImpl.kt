@@ -18,10 +18,11 @@ class MainPageViewModelImpl @Inject constructor(
 ) : ViewModel(), MainPageViewModel {
 
     override val totalSumLiveData = MutableLiveData<String>()
+    override val totalSumFromLocalLiveData = MutableLiveData<String>()
     override val errorMessageLiveData = MutableLiveData<String>()
 
-    override fun getTotalSumFromLocal(): String {
-        return cardRepository.getTotalSumFromLocal()
+    override fun getTotalSumFromLocal(){
+        totalSumFromLocalLiveData.value =  cardRepository.getTotalSumFromLocal()
     }
 
     override fun getTotalSum() {

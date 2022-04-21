@@ -15,7 +15,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0.0"
-        buildConfigField('String', 'BASE_URL', '"http://a247-31-148-160-38.ngrok.io/api/v1/"')
+        buildConfigField('String', 'BASE_URL', '"http://8834-31-148-160-38.ngrok.io/api/v1/"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -103,7 +103,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     /**
-     *   viewBinding
+     *  viewBinding
      */
     implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.0-beta02'
 
@@ -190,4 +190,19 @@ dependencies {
      * DataPicker
      */
     implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
+
+    /**
+     * BiometricAuthentication
+     */
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
+
+    /**
+     * SecureSharedPreference
+     */
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
+
+    /**
+     * FlashBar - Custom Notifications
+     */
+    implementation 'com.andrognito.flashbar:flashbar:1.0.2'
 }

@@ -1,4 +1,4 @@
-package uz.gita.mobilebankingapp.presentation.viewmodels.impl.card
+package uz.gita.mobilebankingapp.presentation.viewmodels.impl.pages
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,15 +10,15 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.OwnerByPanRequest
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
-import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel
+import uz.gita.mobilebankingapp.presentation.viewmodels.base.pages.TransferViewModel
 import uz.gita.mobilebankingapp.utils.isConnected
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentViewModelImpl @Inject constructor(
+class TransferViewModelImpl @Inject constructor(
     private val repository: CardRepository,
     private val authRepository: AuthRepository
-) : ViewModel(), PaymentViewModel {
+) : ViewModel(), TransferViewModel {
     override val enableNextButton = MutableLiveData<Unit>()
     override val errorLiveData = MutableLiveData<String>()
     override val successLiveData = MutableLiveData<String>()

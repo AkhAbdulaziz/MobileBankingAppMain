@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".presentation.ui.screens.auth.PinCodeScreen">
+
+    <TextView
+        android:id="@+id/tvEnterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter password"
+        android:textColor="@color/lightBaseColor"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Enter PIN"
+        android:textColor="@color/greyColor"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/circles_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <ImageView
+            android:id="@+id/circle_1"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_circle" />
+
+        <ImageView
+            android:id="@+id/circle_2"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_circle" />
+
+        <ImageView
+            android:id="@+id/circle_3"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_circle" />
+
+        <ImageView
+            android:id="@+id/circle_4"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_circle" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/inner_pincodes_view"
+        layout="@layout/innerview_pincode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circles_layout" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.UserLocalData
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.profile_req_res.response.ProfileInfoResponse
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenProfileSettingsBinding
 import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ChangeBirthdayDialog
 import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ChangeGenderDialog
@@ -221,11 +223,20 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         viewModel.userLocalDataLiveData.observe(viewLifecycleOwner, userLocalDataObserver)
         viewModel.profileInfoLiveData.observe(viewLifecycleOwner, profileInfoObserver)
         viewModel.userLocalDataSavedLiveData.observe(viewLifecycleOwner, userLocalDataSavedObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
     }
 
     private fun check() {
         binding.btnSaveChanges.isEnabled =
             isSomethingNew && isFirstNameReady && isPhoneNumber1Ready && isPhoneNumber2Ready
+    }
+
+    private val openLoginScreenObserver = Observer<LogoutResponse> {
+        findNavController().navigate(
+            ProfileSettingsDirections.actionProfileSettingsToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     private val userLocalDataObserver = Observer<UserLocalData> { userLocalData ->

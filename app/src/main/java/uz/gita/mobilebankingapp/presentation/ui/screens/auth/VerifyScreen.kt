@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.screens.auth
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.ResendRequest
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.VerifyUserRequest
 import uz.gita.mobilebankingapp.databinding.ScreenVerifyBinding
@@ -84,7 +86,11 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
 
     private val openMainScreenObserver = Observer<Unit> {
         binding.progressBar.invisible()
-        findNavController().navigate(R.id.action_verifyScreen_to_basicScreen)
+        findNavController().navigate(
+            VerifyScreenDirections.actionVerifyScreenToPinCodeScreen(
+                StartScreenEnum.LOGIN, false
+            )
+        )
     }
 
     private val errorMessageObserver = Observer<String> {
@@ -93,16 +99,20 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
 
     private val resendCodeObserver = Observer<Unit> {
         timber("RESEND CODE OBSERVER", "GGG")
-        binding.waitingCodeTime.text = "Qayta yuboring 1:00"
+        binding.waitingCodeTime.text = "Resend verification 1:00"
         isBreak = true
         startTime()
-        binding.waitingCodeTime.isClickable = false
-        binding.waitingCodeTime.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.black
+
+        binding.waitingCodeTime.apply {
+            isClickable = false
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.black
+                )
             )
-        )
+            setBackgroundColor(Color.TRANSPARENT)
+        }
     }
 
     private val userPhoneNumberObserver = Observer<String> { phoneNumber ->
@@ -132,20 +142,23 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
                 minute -= 1
 
                 if (minute < 10) {
-                    waitingCodeTime.text = "Resend 0:0$minute"
+                    waitingCodeTime.text = "Resend verification 0:0$minute"
                 } else {
-                    waitingCodeTime.text = "Resend 0:$minute"
+                    waitingCodeTime.text = "Resend verification 0:$minute"
                 }
             }
             if (minute == 0) {
-                waitingCodeTime.isClickable = true
-                waitingCodeTime.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.baseColor
+                waitingCodeTime.apply {
+                    isClickable = true
+                    setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.baseColor
+                        )
                     )
-                )
-                waitingCodeTime.text = "Resend"
+                    setBackgroundResource(R.drawable.bg_username)
+                    text = "Resend verification"
+                }
             }
         }
     }

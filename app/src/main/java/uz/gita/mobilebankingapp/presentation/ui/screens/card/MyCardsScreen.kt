@@ -10,15 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.DeleteCardRequest
 import uz.gita.mobilebankingapp.databinding.ScreenMyCardsBinding
+import uz.gita.mobilebankingapp.presentation.ui.adapter.MyCardsAdapter
 import uz.gita.mobilebankingapp.presentation.ui.dialog.card.ClarifyDeleteCardDialog
 import uz.gita.mobilebankingapp.presentation.ui.dialog.card.EventDialog
-import uz.gita.mobilebankingapp.presentation.ui.adapter.MyCardsAdapter
-import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.MyCardsViewModelImpl
+import uz.gita.mobilebankingapp.utils.errorFlashBar
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 
@@ -85,7 +86,11 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
-        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
+        findNavController().navigate(
+            MyCardsScreenDirections.actionMyCardsScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     private val cardsListObserver = Observer<List<CardData>> {

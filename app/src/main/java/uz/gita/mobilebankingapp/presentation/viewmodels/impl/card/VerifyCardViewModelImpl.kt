@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.ColorRequest
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.VerifyCardRequest
+import uz.gita.mobilebankingapp.data.remote.user_req_res.request.ResendRequest
 import uz.gita.mobilebankingapp.domain.repository.AuthRepository
 import uz.gita.mobilebankingapp.domain.repository.CardRepository
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.VerifyCardViewModel
@@ -21,8 +22,11 @@ class VerifyCardViewModelImpl @Inject constructor(
     private val cardRepository: CardRepository
 ) : ViewModel(), VerifyCardViewModel {
 
+    override val userPhoneNumberLiveData = MutableLiveData<String>()
     override val errorMessageLiveData = MutableLiveData<String>()
     override val exitScreenLiveData = MutableLiveData<Unit>()
+    override val resendCodeLiveData = MutableLiveData<Unit>()
+    override val userPasswordLiveData = MutableLiveData<String>()
 
     override fun verifyCard(data: VerifyCardRequest, bgColor: Int) {
         if (!isConnected()) {
@@ -34,6 +38,21 @@ class VerifyCardViewModelImpl @Inject constructor(
                 }
                 it.onSuccess { newCardData ->
                     putColor(newCardData.id, bgColor)
+                }
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    override fun resendCode(data: ResendRequest) {
+        if (!isConnected()) {
+            errorMessageLiveData.value = "${R.string.no_internet}"
+        } else {
+            authRepository.resend(data).onEach {
+                it.onSuccess {
+                    resendCodeLiveData.value = Unit
+                }
+                it.onFailure { throwable ->
+                    errorMessageLiveData.value = throwable.message
                 }
             }.launchIn(viewModelScope)
         }
@@ -58,7 +77,11 @@ class VerifyCardViewModelImpl @Inject constructor(
         return cardRepository.getCurrentPan()
     }
 
-    override fun getUserPhoneNumber(): String {
-        return authRepository.getUserPhoneNumber()
+    override fun getUserPhoneNumber() {
+        userPhoneNumberLiveData.value = authRepository.getUserPhoneNumber()
+    }
+
+    override fun getUserPassword() {
+        userPasswordLiveData.value = authRepository.getUserPassword()
     }
 }

@@ -13,20 +13,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.RecipientData
 import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.databinding.PageTransferBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.transferPageAdapters.RecipientsAdapter
 import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
-import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.PaymentViewModel
-import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.PaymentViewModelImpl
-import uz.gita.mobilebankingapp.utils.invisible
-import uz.gita.mobilebankingapp.utils.scope
-import uz.gita.mobilebankingapp.utils.showToast
-import uz.gita.mobilebankingapp.utils.visible
+import uz.gita.mobilebankingapp.presentation.viewmodels.base.pages.TransferViewModel
+import uz.gita.mobilebankingapp.presentation.viewmodels.impl.pages.TransferViewModelImpl
+import uz.gita.mobilebankingapp.utils.*
 
 @AndroidEntryPoint
 class TransferPage : Fragment(R.layout.page_transfer) {
     private val binding by viewBinding(PageTransferBinding::bind)
-    private val viewModel: PaymentViewModel by viewModels<PaymentViewModelImpl>()
+    private val viewModel: TransferViewModel by viewModels<TransferViewModelImpl>()
     private var recipientsList = ArrayList<RecipientData>()
     private val recipientsAdapter by lazy { RecipientsAdapter(recipientsList) }
     private var isFirstTime: Boolean = true
@@ -118,7 +116,21 @@ class TransferPage : Fragment(R.layout.page_transfer) {
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
-        findNavController().navigate(BasicScreenDirections.actionBasicScreenToLoginScreen())
+        directionType?.let {
+            if (directionType == PaymentPageEnum.FROM_BASE_SCREEN.name) {
+                findNavController().navigate(
+                    BasicScreenDirections.actionBasicScreenToPinCodeScreen(
+                        StartScreenEnum.MAIN
+                    )
+                )
+            } else {
+                findNavController().navigate(
+                    TransferPageDirections.actionTransferPageToPinCodeScreen(
+                        StartScreenEnum.MAIN
+                    )
+                )
+            }
+        }
     }
 
     private fun fillRecipientsList() {

@@ -13,8 +13,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.EditCardRequest
+import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenCardSettingsBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.SettingsCardViewModel
@@ -114,6 +116,15 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
 
         viewModel.closeScreenLiveData.observe(viewLifecycleOwner, closeScreenObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
+        viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+    }
+
+    private val openLoginScreenObserver = Observer<LogoutResponse> {
+        findNavController().navigate(
+            SettingsCardScreenDirections.actionSettingsCardScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     private val closeScreenObserver = Observer<Unit> {

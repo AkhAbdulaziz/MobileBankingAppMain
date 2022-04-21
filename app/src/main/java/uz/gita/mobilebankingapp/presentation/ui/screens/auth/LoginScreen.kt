@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.user_req_res.request.LoginRequest
 import uz.gita.mobilebankingapp.databinding.ScreenLoginBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.auth.LoginViewModel
@@ -24,6 +25,7 @@ import uz.gita.mobilebankingapp.utils.scope
 class LoginScreen : Fragment(R.layout.screen_login) {
     private val binding by viewBinding(ScreenLoginBinding::bind)
     private val viewModel: LoginViewModel by viewModels<LoginViewModelImpl>()
+
     private var isReadyPassword = false
     private var isReadyPhoneNumber = false
 
@@ -96,7 +98,7 @@ class LoginScreen : Fragment(R.layout.screen_login) {
         switchBtnUntrustedDevice.apply {
             setOnCheckedChangeListener { _, checked ->
                 if (checked) {
-                    this.setBackColorRes(R.color.baseColor)
+                    this.setBackColorRes(R.color.lightBaseColor)
                 } else {
                     this.setBackColorRes(R.color.greyBg)
                 }
@@ -129,7 +131,11 @@ class LoginScreen : Fragment(R.layout.screen_login) {
         binding.progress.hide()
     }
     private val openVerifyScreenObserver = Observer<Unit> {
-        findNavController().navigate(R.id.action_loginScreen_to_verifyScreen)
+        findNavController().navigate(
+            LoginScreenDirections.actionLoginScreenToPinCodeScreen(
+                StartScreenEnum.LOGIN, false
+            )
+        )
     }
 
     private val errorMessageObserver = Observer<String> { errorMessage ->

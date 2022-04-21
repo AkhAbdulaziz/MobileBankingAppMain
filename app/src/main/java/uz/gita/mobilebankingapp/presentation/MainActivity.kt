@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.graphics.Rect
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,9 +13,12 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
+import com.andrognito.flashbar.Flashbar
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
+import uz.gita.mobilebankingapp.data.remote.setApiClientOpenLoginScreenListener
 import uz.gita.mobilebankingapp.utils.CheckInternetReceiver
+import uz.gita.mobilebankingapp.utils.errorFlashBar
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         val navHost = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         val graph = navHost.navController.navInflater.inflate(R.navigation.app_nav)
         navHost.navController.graph = graph
-
     }
 
     // For hiding keyboard when focus changed

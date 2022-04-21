@@ -187,6 +187,7 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_dialog.xml" value="0.1455" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_location_payments_error.xml" value="0.1545" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_pin.xml" value="0.138" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_pincode.xml" value="0.14" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_search.xml" value="0.1545" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_transfer_buttons.xml" value="0.1455" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/bg_username.xml" value="0.1535" />
@@ -202,7 +203,9 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_lock.xml" value="0.1535" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_plus.xml" value="0.1455" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_printer.xml" value="0.143" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_receipt.xml" value="0.163" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_share.xml" value="0.143" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/ic_star.xml" value="0.1575" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/mainscreencardviewbg.xml" value="0.1555" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/drawable/rounded_dialog.xml" value="0.1135" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/activity_main.xml" value="0.178125" />
@@ -214,6 +217,7 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/dumb_text.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/fragment_card_bg.xml" value="0.25" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/innerview_offlinemode_paymego.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/innerview_pincode.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/item_ads.xml" value="0.25" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/item_card.xml" value="0.25" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/item_history.xml" value="0.2" />
@@ -234,22 +238,28 @@
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_add_card.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_auth.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_basic.xml" value="0.1921875" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_basic_nav.xml" value="0.33" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_basic_nav.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_card_settings.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_check_transfer.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_descriptions.xml" value="0.22" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_login.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_enable_faceid.xml" value="0.1921875" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_enable_faceid_and_fingerprint.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_login.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_my_cards.xml" value="0.18" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_offline_mode.xml" value="0.1" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_payme_people.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_pin.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_pin_code.xml" value="0.18" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_pincode.xml" value="0.1921875" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_profile.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_profile_settings.xml" value="0.25" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_register.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_reset_password.xml" value="0.178125" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_send_money.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_send_money.xml" value="0.25" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_splash.xml" value="0.22" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_succeed_money_send.xml" value="0.2" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_verify.xml" value="0.16" />
-        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_verify_card.xml" value="0.2" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_succeed_money_send.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_verify.xml" value="0.22" />
+        <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_verify_card.xml" value="0.22" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/screen_waiting_money_send.xml" value="0.2" />
         <entry key="..\:/GITA/BOOTCAMP/Android/Applications/Lesson51_MyPaymeApp/PaymeLastVersion/app/src/main/res/layout/view_check_pdf.xml" value="0.22" />
       </map>
