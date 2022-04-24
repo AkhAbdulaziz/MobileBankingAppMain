@@ -27,6 +27,7 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
+import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.CheckData
 import uz.gita.mobilebankingapp.data.enums.CheckDialogButtonsEnum
@@ -35,7 +36,10 @@ import uz.gita.mobilebankingapp.presentation.ui.dialog.main.CheckTransferDialog
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
 import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
 
+@AndroidEntryPoint
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
     private val binding by viewBinding(ScreenCheckTransferBinding::bind)
     private val args: CheckTransferScreenArgs by navArgs()
@@ -53,18 +57,19 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         costService.text = "${args.checkData.fee} so'm"
         senderPan.text = args.checkData.senderPan
         amountPayment.text = "${args.checkData.totalCost}"
-        dateAndTime.text = "${args.checkData.time}"
+        dateAndTime.text =
+            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.US).format(Date(args.checkData.time))
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
         bottomBar.imgRetry.setOnClickListener {
-            showToast("Retry img pressed")
+            showToast("Retry")
         }
 
         bottomBar.imgSave.setOnClickListener {
-            showToast("Save img pressed")
+            showToast("Save")
         }
 
         bottomBar.imgCheck.setOnClickListener {
@@ -72,7 +77,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             checkDialog.setShareBtnListener { buttonType ->
                 when (buttonType) {
                     CheckDialogButtonsEnum.DOWNLOAD -> {
-                        showToast("Download button pressed")
+                        showToast("Download")
                     }
                     CheckDialogButtonsEnum.SHARE -> {
                         verifyStoragePermissions()
@@ -87,7 +92,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
                         }
                     }
                     CheckDialogButtonsEnum.PRINT_QR -> {
-                        showToast("Print QR button pressed")
+                        showToast("Print QR")
                     }
                 }
             }
@@ -96,7 +101,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         }
 
         bottomBar.imgCancel.setOnClickListener {
-            showToast("Cancel img pressed")
+            showToast("Cancel")
         }
     }
 

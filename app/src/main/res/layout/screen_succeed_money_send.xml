@@ -47,11 +47,11 @@
         app:layout_constraintTop_toBottomOf="@id/text1" />
 
     <FrameLayout
+        android:id="@+id/viewPaymePeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_transfer_buttons"
-        android:backgroundTint="#3333EAB6"
+       android:background="@drawable/bg_payme_people_view"
         android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -87,7 +87,7 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
@@ -116,7 +116,7 @@
         <ImageView
             android:id="@+id/imgCheque"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
@@ -146,7 +146,7 @@
         <ImageView
             android:id="@+id/imgSave"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"

@@ -41,15 +41,18 @@ interface CardApi {
 //        @Body data: OwnerByPanRequest
     ): Response<OwnerByPanResponse>
 
+    //    @HTTP(method = "GET", path = "card/owner-by-id", hasBody = true)
     @GET("card/owner-by-id")
     suspend fun getOwnerById(
         @Query("id") id: Int
 //        @Body data: OwnerByIdRequest
     ): Response<OwnerByIdResponse>
 
+    //    @HTTP(method = "GET", path = "card/pan-by-id", hasBody = true)
     @GET("card/pan-by-id")
     suspend fun getPanById(
         @Query("id") id: Int
+//        @Body data: PanByIdRequest
     ): Response<PanByIdResponse>
 
     /* fun groupList(

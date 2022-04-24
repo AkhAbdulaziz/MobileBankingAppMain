@@ -9,34 +9,35 @@
     android:padding="16dp">
 
     <ImageView
+        android:id="@+id/imgLogo"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/infinbank_logo"
+        android:src="@drawable/trastbank_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textMoney"
+        android:id="@+id/txtMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@id/txtSum"
+        app:layout_constraintRight_toLeftOf="@id/txtCurrency"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="+100 000" />
 
     <TextView
-        android:id="@+id/txtSum"
+        android:id="@+id/txtCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@id/textMoney"
+        app:layout_constraintBottom_toBottomOf="@id/txtMoney"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textMoney"
+        app:layout_constraintTop_toTopOf="@id/txtMoney"
         tools:text="sum" />
 
     <!--  <TextView
@@ -55,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_button"
         android:backgroundTint="@color/baseColor"
         android:gravity="center"
@@ -64,11 +65,11 @@
         android:text="@string/ru_transaction_transfer"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintRight_toLeftOf="@id/textTime"
-        app:layout_constraintTop_toBottomOf="@id/textMoney" />
+        app:layout_constraintRight_toLeftOf="@id/txtTime"
+        app:layout_constraintTop_toBottomOf="@id/txtMoney" />
 
     <TextView
-        android:id="@+id/textTime"
+        android:id="@+id/txtTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="14:56"

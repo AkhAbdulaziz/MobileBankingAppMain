@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.gita.mobilebankingapp.presentation.ui.screens.card.CardBgFragment
+import uz.gita.mobilebankingapp.presentation.ui.adapter.items.AdsPrizesPagerItem
 import uz.gita.mobilebankingapp.utils.putArguments
 
 class AdsPrizesPagerAdapter(
@@ -15,5 +15,5 @@ class AdsPrizesPagerAdapter(
     override fun getItemCount(): Int = adsList.size
 
     override fun createFragment(position: Int): Fragment =
-        CardBgFragment().putArguments { putInt("AD_PRIZES", adsList[position]) }
+        AdsPrizesPagerItem().putArguments { putInt("AD_PRIZES", adsList[position]) }
 }

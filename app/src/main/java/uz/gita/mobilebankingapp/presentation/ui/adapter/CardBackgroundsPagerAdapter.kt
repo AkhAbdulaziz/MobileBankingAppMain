@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.gita.mobilebankingapp.presentation.ui.screens.card.CardBgFragment
+import uz.gita.mobilebankingapp.presentation.ui.adapter.items.CardBgItem
 import uz.gita.mobilebankingapp.utils.putArguments
 
 class CardBackgroundsPagerAdapter(
@@ -15,5 +15,5 @@ class CardBackgroundsPagerAdapter(
     override fun getItemCount(): Int = bgsList.size
 
     override fun createFragment(position: Int): Fragment =
-        CardBgFragment().putArguments { putInt("BG", bgsList[position]) }
+        CardBgItem().putArguments { putInt("BG", bgsList[position]) }
 }

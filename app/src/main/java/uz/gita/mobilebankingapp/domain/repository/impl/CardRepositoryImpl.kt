@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.domain.repository.impl
 
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -106,22 +107,28 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerByPan(data: OwnerByPanRequest): Flow<Result<OwnerByPanResponse>> = flow {
+        Log.d("HISTORY_TR", "getOwnerByPan repository")
         val response = cardApi.getOwnerByPan(data.pan)
         if (response.isSuccessful) {
+            Log.d("HISTORY_TR", "getOwnerByPan repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerById(data: OwnerByIdRequest): Flow<Result<OwnerByIdResponse>> = flow {
+        Log.d("HISTORY_TR", "getOwnerById repository")
         val response = cardApi.getOwnerById(data.id)
         if (response.isSuccessful) {
+            Log.d("HISTORY_TR", "getOwnerById repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getPanById(data: PanByIdRequest): Flow<Result<PanByIdResponse>> = flow {
+        Log.d("HISTORY_TR", "getPanById repository")
         val response = cardApi.getPanById(data.id)
         if (response.isSuccessful) {
+            Log.d("HISTORY_TR", "getPanById repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)

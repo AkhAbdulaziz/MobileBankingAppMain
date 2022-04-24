@@ -3,6 +3,7 @@ package uz.gita.mobilebankingapp.presentation.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -13,6 +14,7 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.app.App
 import uz.gita.mobilebankingapp.data.enums.TransactionTypes
 import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferResponse
+import java.text.SimpleDateFormat
 import java.util.*
 
 class HistoryAdapter :
@@ -20,12 +22,7 @@ class HistoryAdapter :
         MyDiffUtil
     ) {
 
-    private var itemClickListener: ((MoneyTransferResponse.HistoryData) -> Unit)? = null
-    fun setItemClickListener(block: (MoneyTransferResponse.HistoryData) -> Unit) {
-        itemClickListener = block
-    }
-
-    private val transactionTypes = arrayOf(
+    private val transactionTypes = arrayListOf(
         TransactionTypes.AIR,
         TransactionTypes.AUTO,
         TransactionTypes.ACCESSORIES,
@@ -38,6 +35,11 @@ class HistoryAdapter :
         TransactionTypes.TRANSFER,
         TransactionTypes.TRANSPORT
     )
+
+    private var itemClickListener: ((MoneyTransferResponse.HistoryData) -> Unit)? = null
+    fun setItemClickListener(block: (MoneyTransferResponse.HistoryData) -> Unit) {
+        itemClickListener = block
+    }
 
     object MyDiffUtil : DiffUtil.ItemCallback<MoneyTransferResponse.HistoryData>() {
         override fun areItemsTheSame(
@@ -56,10 +58,10 @@ class HistoryAdapter :
     }
 
     inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val textMoney = view.findViewById<TextView>(R.id.textMoney)
-        private val transactionType =
-            view.findViewWithTag<TextView>(R.id.txt_transaction_type_history)
-//        private val textFee = view.findViewById<TextView>(R.id.textFee)
+        private val imageLogo = view.findViewById<ImageView>(R.id.imgLogo)
+        private val textMoney = view.findViewById<TextView>(R.id.txtMoney)
+        private val textTime = view.findViewById<TextView>(R.id.txtTime)
+        private val transactionType = view.findViewById<TextView>(R.id.txt_transaction_type_history)
 
         init {
             itemView.setOnClickListener {
@@ -87,15 +89,25 @@ class HistoryAdapter :
                     )
                     textMoney.text = "-${data.amount}"
                 }
-//                    textFee.text = it.fee.toString()
+                imageLogo.setImageResource(R.drawable.trastbank_logo)
 
-               /* DrawableCompat.setTint(
+                /* textTime.text = String.format(
+                     "%02d day, %02d hour, %02d min, %02d sec",
+                     TimeUnit.MILLISECONDS.toDays(data.time),
+                     TimeUnit.MILLISECONDS.toHours(data.time),
+                     TimeUnit.MILLISECONDS.toMinutes(data.time),
+                     TimeUnit.MILLISECONDS.toSeconds(data.time) -
+                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(data.time))
+                 )*/
+                textTime.text =
+                    SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.US).format(Date(data.time))
+
+                var randomTransactionType = (transactionTypes[(0..10).random()])
+                transactionType.text = randomTransactionType.name.lowercase()
+                DrawableCompat.setTint(
                     transactionType.background,
-                    ContextCompat.getColor(
-                        App.instance,
-                        transactionTypes[Random().nextInt(4)].getBgTintColor()
-                    )
-                )*/
+                    ContextCompat.getColor(App.instance, randomTransactionType.getBgTintColor())
+                )
             }
         }
     }

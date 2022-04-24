@@ -37,13 +37,15 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
 
         cardNumberText.text =
             "${args.cardNumber.substring(0, 6)}******${args.cardNumber.substring(12)}"
+        receiverNameText.text = "John Smith"
         moneyAmountText.text = "${args.amount} sum"
-        fullAmount = "${args.amount}"
+        feeText.text = "${args.amount / 100} sum"
+        fullAmountText.text = "${args.amount + args.amount / 100} sum"
 
         val mainCardData: CardData? = viewModel.getMyMainCardData()
         if (mainCardData != null) {
 
-            // Fee ni olishda ham backend da xatolik bor, api ni Body qabul qilmaydi deyapti.
+            // TODO :Fee ni olishda ham backend da xatolik bor, api ni Body qabul qilmaydi deyapti.
 
             /* viewModel.getFee(
                 MoneyRequest(
@@ -53,7 +55,8 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
                 )
             )*/
 
-            // Card bg ham berib bo'lmayapti
+            // TODO: Card bg ham berib bo'lmayapti
+
             /* cardBg.setBackgroundColor(
                  ContextCompat.getColor(
                      App.instance,
@@ -95,17 +98,17 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
         }
 
         viewModel.enableSendMoneyButton.observe(viewLifecycleOwner, enableSendMoneyObserver)
-        viewModel.feeLiveData.observe(viewLifecycleOwner, feeObserver)
+//        viewModel.feeLiveData.observe(viewLifecycleOwner, feeObserver)
     }
 
     private val enableSendMoneyObserver = Observer<Unit> {
         binding.sendBtn.isEnabled = true
     }
 
-    private val feeObserver = Observer<String> {
-        binding.feeText.text = "$it so'm"
-        binding.fullAmountText.text = "${fullAmount + it.toLong()} so'm"
-    }
+//    private val feeObserver = Observer<String> {
+//        binding.feeText.text = "$it so'm"
+//        binding.fullAmountText.text = "${fullAmount + it.toLong()} so'm"
+//    }
 
     private fun showErrorNoCard() = binding.scope {
         errorImg.visible()

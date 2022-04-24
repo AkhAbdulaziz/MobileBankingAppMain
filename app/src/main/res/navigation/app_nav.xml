@@ -190,6 +190,9 @@
             android:id="@+id/action_succeedMoneySendScreen_to_basicScreen"
             app:destination="@id/basicScreen"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_succeedMoneySendScreen_to_paymePeopleScreen"
+            app:destination="@id/paymePeopleScreen" />
     </fragment>
     <fragment
         android:id="@+id/checkTransferScreen"

@@ -90,7 +90,7 @@ class HomePage : Fragment(R.layout.page_home) {
         val pageMarginPx = 2.dpToPx(resources.displayMetrics)
         val marginTransformer = MarginPageTransformer(pageMarginPx)
         pagerAds.setPageTransformer(marginTransformer)
-
+        
         lifecycleScope.launch(Dispatchers.Main) {
             while (true) {
                 delay(4000L)
@@ -250,6 +250,90 @@ class HomePage : Fragment(R.layout.page_home) {
 
     private fun fillAdsList() {
         adsList.apply {
+            add(
+                AdData(
+                    R.drawable.ad1,
+                    getString(R.string.ru_ad1_title),
+                    getString(R.string.ru_ad1_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad2,
+                    getString(R.string.ru_ad2_title),
+                    getString(R.string.ru_ad2_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad3,
+                    getString(R.string.ru_ad3_title),
+                    getString(R.string.ru_ad3_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad4,
+                    getString(R.string.ru_ad4_title),
+                    getString(R.string.ru_ad4_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad5,
+                    getString(R.string.ru_ad5_title),
+                    getString(R.string.ru_ad5_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad6,
+                    getString(R.string.ru_ad6_title),
+                    getString(R.string.ru_ad6_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad1,
+                    getString(R.string.ru_ad1_title),
+                    getString(R.string.ru_ad1_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad2,
+                    getString(R.string.ru_ad2_title),
+                    getString(R.string.ru_ad2_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad3,
+                    getString(R.string.ru_ad3_title),
+                    getString(R.string.ru_ad3_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad4,
+                    getString(R.string.ru_ad4_title),
+                    getString(R.string.ru_ad4_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad5,
+                    getString(R.string.ru_ad5_title),
+                    getString(R.string.ru_ad5_description),
+                )
+            )
+            add(
+                AdData(
+                    R.drawable.ad6,
+                    getString(R.string.ru_ad6_title),
+                    getString(R.string.ru_ad6_description),
+                )
+            )
             add(
                 AdData(
                     R.drawable.ad1,

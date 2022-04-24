@@ -8,10 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
@@ -19,7 +23,10 @@ import uz.gita.mobilebankingapp.databinding.ScreenPaymePeopleBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.AdsPrizesPagerAdapter
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.PaymePeopleViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.PaymePeopleViewModelImpl
-import uz.gita.mobilebankingapp.utils.*
+import uz.gita.mobilebankingapp.utils.adsPrizesImagesList
+import uz.gita.mobilebankingapp.utils.dpToPx
+import uz.gita.mobilebankingapp.utils.scope
+import uz.gita.mobilebankingapp.utils.showToast
 
 @AndroidEntryPoint
 class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
@@ -32,7 +39,6 @@ class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
         super.onViewCreated(view, savedInstanceState)
 
         pagerAdapter = AdsPrizesPagerAdapter(adsPrizesImagesList, childFragmentManager, lifecycle)
-
         adsPrizesPager.apply {
             adapter = pagerAdapter
             clipToPadding = false   // allow full width shown with padding
@@ -47,6 +53,17 @@ class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
         val pageMarginPx = 2.dpToPx(resources.displayMetrics)
         val marginTransformer = MarginPageTransformer(pageMarginPx)
         adsPrizesPager.setPageTransformer(marginTransformer)
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            while (true) {
+                delay(4000L)
+                if (adsPrizesPager.currentItem == adsPrizesImagesList.size - 1) {
+                    adsPrizesPager.currentItem = 0
+                } else {
+                    adsPrizesPager.currentItem += 1
+                }
+            }
+        }
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()

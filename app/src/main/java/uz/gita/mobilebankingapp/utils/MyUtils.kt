@@ -90,6 +90,16 @@ val cardBgImagesList = arrayOf(
 val adsPrizesImagesList = arrayOf(
     R.drawable.ad_prizes1,
     R.drawable.ad_prizes2,
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2,
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2,
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2,
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2,
+    R.drawable.ad_prizes1,
+    R.drawable.ad_prizes2
 ).toList()
 
 val months = arrayOf(

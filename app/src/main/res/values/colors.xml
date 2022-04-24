@@ -32,4 +32,19 @@
 
     <color name="default_card_bg_color">#0E2865</color>
     <color name="ads_bg_color">#EEEFF3</color>
+
+    <!-- *********************** Transaction colors ************************************ -->
+    <color name="transaction_air">#13491C</color>
+    <color name="transaction_auto">#DFBB0A</color>
+    <color name="transaction_accessories">#C66FDA</color>
+    <color name="transaction_rent">#3C2777</color>
+    <color name="transaction_conversion">#F8A705</color>
+    <color name="transaction_credit">#F30810</color>
+    <color name="transaction_shop">#4CA615</color>
+    <color name="transaction_rest">#3A95BA</color>
+    <color name="transaction_taxi">#1D1E3C</color>
+    <color name="transaction_transfer">#2BB585</color>
+    <color name="transaction_transport">#633D04</color>
+
+
 </resources>

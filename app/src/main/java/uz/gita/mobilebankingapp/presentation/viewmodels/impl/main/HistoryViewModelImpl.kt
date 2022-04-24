@@ -1,5 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.viewmodels.impl.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,14 +32,17 @@ class HistoryViewModelImpl @Inject constructor(
         MutableLiveData<PagingData<MoneyTransferResponse.HistoryData>>()
 
     override fun getSenderPanById(data: PanByIdRequest) {
+        Log.d("HISTORY_TR", "getSenderPanById viewmodel")
         if (!isConnected()) {
             errorLiveData.value = "${R.string.no_internet}"
         } else {
             cardRepository.getPanById(data).onEach {
                 it.onFailure { throwable ->
+                    Log.d("HISTORY_TR", "getSenderPanById viewmodel failure")
                     errorLiveData.value = throwable.message
                 }
                 it.onSuccess { data ->
+                    Log.d("HISTORY_TR", "getSenderPanById viewmodel succeed")
                     senderPanByIdLiveData.value = data.data!!
                 }
             }.launchIn(viewModelScope)
@@ -46,14 +50,17 @@ class HistoryViewModelImpl @Inject constructor(
     }
 
     override fun getReceiverPanById(data: PanByIdRequest) {
+        Log.d("HISTORY_TR", "getReceiverPanById viewmodel")
         if (!isConnected()) {
             errorLiveData.value = "${R.string.no_internet}"
         } else {
             cardRepository.getPanById(data).onEach {
                 it.onFailure { throwable ->
+                    Log.d("HISTORY_TR", "getReceiverPanById viewmodel failure")
                     errorLiveData.value = throwable.message
                 }
                 it.onSuccess { data ->
+                    Log.d("HISTORY_TR", "getReceiverPanById viewmodel succeed")
                     receiverPanByIdLiveData.value = data.data!!
                 }
             }.launchIn(viewModelScope)
@@ -61,14 +68,17 @@ class HistoryViewModelImpl @Inject constructor(
     }
 
     override fun getOwnerById(data: OwnerByIdRequest) {
+        Log.d("HISTORY_TR", "getOwnerById viewmodel")
         if (!isConnected()) {
             errorLiveData.value = "${R.string.no_internet}"
         } else {
             cardRepository.getOwnerById(data).onEach {
                 it.onFailure { throwable ->
+                    Log.d("HISTORY_TR", "getOwnerById viewmodel failure")
                     errorLiveData.value = throwable.message
                 }
                 it.onSuccess { data ->
+                    Log.d("HISTORY_TR", "getOwnerById viewmodel succeed")
                     ownerNameLiveData.value = data.data!!.fio!!
                 }
             }.launchIn(viewModelScope)

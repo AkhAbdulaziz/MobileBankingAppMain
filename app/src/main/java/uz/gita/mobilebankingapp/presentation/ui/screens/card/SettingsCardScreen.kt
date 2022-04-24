@@ -27,7 +27,6 @@ import uz.gita.mobilebankingapp.utils.*
 class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
     private val binding by viewBinding(ScreenCardSettingsBinding::bind)
     private val viewModel: SettingsCardViewModel by viewModels<SettingsCardViewModelImpl>()
-
     private lateinit var pagerAdapter: CardBackgroundsPagerAdapter
     private val args: SettingsCardScreenArgs by navArgs()
 

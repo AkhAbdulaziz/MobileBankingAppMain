@@ -30,6 +30,10 @@ class SucceedMoneySendScreen : Fragment(R.layout.screen_succeed_money_send) {
                 }
             })
 
+        viewPaymePeople.setOnClickListener {
+            findNavController().navigate(SucceedMoneySendScreenDirections.actionSucceedMoneySendScreenToPaymePeopleScreen())
+        }
+
         btnBack.apply {
             setOnTouchListener { view, motionEvent ->
                 val action = motionEvent.action

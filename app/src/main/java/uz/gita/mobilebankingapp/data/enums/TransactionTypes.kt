@@ -7,17 +7,17 @@ enum class TransactionTypes {
 
     fun getBgTintColor(): Int {
         return when (this) {
-            AIR -> R.color.baseColor
-            AUTO -> R.color.lightBaseColor
-            ACCESSORIES -> R.color.brown
-            RENT -> R.color.colorGreen
-            CONVERSION -> R.color.yellow2
-            CREDIT -> R.color.colorRed
-            SHOP -> R.color.purple_200
-            REST -> R.color.purple_500
-            TAXI -> R.color.yellow
-            TRANSFER -> R.color.baseColor
-            else -> R.color.blue_grey
+            AIR -> R.color.transaction_air
+            AUTO -> R.color.transaction_auto
+            ACCESSORIES -> R.color.transaction_accessories
+            RENT -> R.color.transaction_rent
+            CONVERSION -> R.color.transaction_conversion
+            CREDIT -> R.color.transaction_credit
+            SHOP -> R.color.transaction_shop
+            REST -> R.color.transaction_rest
+            TAXI -> R.color.transaction_taxi
+            TRANSFER -> R.color.transaction_transfer
+            TRANSPORT -> R.color.transaction_transport
         }
     }
 }
