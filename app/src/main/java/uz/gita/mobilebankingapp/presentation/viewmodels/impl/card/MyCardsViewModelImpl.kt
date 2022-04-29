@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyCardsViewModelImpl @Inject constructor(
     private val cardRepository: CardRepository,
-    authRepository: AuthRepository
+    private val authRepository: AuthRepository
 ) : ViewModel(), MyCardsViewModel {
 
     override val cardsListLiveData = MutableLiveData<List<CardData>>()

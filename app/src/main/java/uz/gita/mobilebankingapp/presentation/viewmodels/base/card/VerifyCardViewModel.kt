@@ -10,10 +10,11 @@ interface VerifyCardViewModel {
     val resendCodeLiveData: LiveData<Unit>
     val userPhoneNumberLiveData : LiveData<String>
     val userPasswordLiveData : LiveData<String>
+    val currentPanLiveData : LiveData<String>
 
     fun verifyCard(data: VerifyCardRequest, bgColor: Int)
 
-    fun getCurrentPan() : String
+    fun getCurrentPan()
 
     fun getUserPhoneNumber()
 

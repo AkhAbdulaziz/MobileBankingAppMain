@@ -23,11 +23,19 @@ class PinCodeScreenViewModelImpl @Inject constructor(private val authRepository:
     override val errorMessageLiveData = MutableLiveData<String>()
 
     override fun getPermissionFaceID() {
-        permissionFaceIDLiveData.value = authRepository.getFaceIDPermission()
+        authRepository.getFaceIDPermission().onEach {
+            it.onSuccess {
+                permissionFaceIDLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun getPinCode() {
-        pinCodeLiveData.value = authRepository.getPinCode()
+        authRepository.getPinCode().onEach {
+            it.onSuccess {
+                pinCodeLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun savePinCode(pinCode: String) {

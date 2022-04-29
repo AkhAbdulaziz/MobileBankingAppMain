@@ -16,7 +16,10 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 import uz.gita.mobilebankingapp.databinding.ScreenProfileBinding
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.ProfileViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.ProfileViewModelImpl
-import uz.gita.mobilebankingapp.utils.*
+import uz.gita.mobilebankingapp.utils.invisible
+import uz.gita.mobilebankingapp.utils.scope
+import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.timber
 
 @AndroidEntryPoint
 class ProfileScreen : Fragment(R.layout.screen_profile) {
@@ -24,11 +27,11 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl>()
 
     //    private var imageUri: Uri? = null
-    private var firstName: String = ""
-    private var lastName: String = ""
+    private var firstName: String = "First name"
+    private var lastName: String = "Last name"
     private var nickname: String = ""
-    private var birthday: String = ""
-    private var gender: String = ""
+    private var birthday: String = "Date of Birth"
+    private var gender: String = "Does not set"
     private var phone1: String = ""
     private var phone2: String = ""
 
@@ -81,7 +84,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
         }
         clickViewPaymePeople.setOnClickListener {
-          findNavController().navigate(ProfileScreenDirections.actionProfileScreenToPaymePeopleScreen())
+            findNavController().navigate(ProfileScreenDirections.actionProfileScreenToPaymePeopleScreen())
         }
         clickViewChangeAccount.setOnClickListener {
             showToast("Change account")
@@ -96,21 +99,15 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
         viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
     }
 
-    private val openLoginScreenObserver = Observer<LogoutResponse> {
-        findNavController().navigate(
-            ProfileScreenDirections.actionProfileScreenToPinCodeScreen(
-                StartScreenEnum.MAIN
-            )
-        )
-    }
-
     private val userLocalDataObserver = Observer<UserLocalData> { userLocalData ->
-        binding.userFullName.text = "${userLocalData.firstName} ${userLocalData.lastName}"
-        binding.userBirthday.text = "${userLocalData.birthday}"
-        binding.txtUserName.text = "${userLocalData.nickname}"
-        binding.txtPhoneNumber1.text = "${userLocalData.phoneNumber1}"
-        binding.txtPhoneNumber2.text = "${userLocalData.phoneNumber2}"
-        binding.txtGender.text = "${userLocalData.gender}"
+        binding.scope {
+            userFullName.text = "${userLocalData.firstName} ${userLocalData.lastName}"
+            userBirthday.text = "${userLocalData.birthday}"
+            txtUserName.text = userLocalData.nickname.ifEmpty { "Fill in the nickname" }
+            txtPhoneNumber1.text = "${userLocalData.phoneNumber1}"
+            txtPhoneNumber2.text = "${userLocalData.phoneNumber2}"
+            txtGender.text = "${userLocalData.gender}"
+        }
 
         firstName = "${userLocalData.firstName}"
         lastName = "${userLocalData.lastName}"
@@ -124,15 +121,22 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     }
 
     private val profileInfoObserver = Observer<ProfileInfoResponse> {
-        val profileData = it.data
-        binding.userFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
-        binding.txtPhoneNumber1.text = "${profileData.phone}"
+        val profileData = it.data!!
+        binding.scope {
+            if (profileData.firstName == null && profileData.lastName == null) {
+                userFullName.text = "First name Last name"
+                firstName = "First name"
+                lastName = "Last name"
+            } else {
+                userFullName.text = "${profileData.firstName} ${profileData.lastName}"
+                firstName = "${profileData.firstName}"
+                lastName = "${profileData.lastName}"
+            }
+            txtPhoneNumber1.text = "${profileData.phone}"
+        }
+        phone1 = "${profileData.phone}"
 
         binding.progressBar.invisible()
-
-        firstName = "${profileData.firstName}"
-        lastName = "${profileData.lastName}"
-        phone1 = "${profileData.phone}"
 
         viewModel.setUserLocalData(
             UserLocalData(
@@ -142,7 +146,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
                 phone1,
                 phone2,
                 gender,
-                birthday
+                if (birthday == "Date of Birth") "" else birthday
             )
         )
     }
@@ -150,6 +154,14 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     private val userLocalDataSavedObserver = Observer<Unit> {
         timber("DataSavedProfile Screen", "DATA_SAVED_00")
         binding.progressBar.invisible()
+    }
+
+    private val openLoginScreenObserver = Observer<LogoutResponse> {
+        findNavController().navigate(
+            ProfileScreenDirections.actionProfileScreenToPinCodeScreen(
+                StartScreenEnum.MAIN
+            )
+        )
     }
 
     /*  private val startForProfileImageResult =

@@ -27,7 +27,7 @@ class ProfileViewModelImpl @Inject constructor(private val authRepository: AuthR
     override val openLoginScreenLiveData = MutableLiveData<LogoutResponse>()
 
     init {
-        authRepository.setUserLocalDataListener {
+        authRepository.setUserDataSavedListener {
             userLocalDataSavedLiveData.value = Unit
         }
         authRepository.setOpenLoginScreenListener {
@@ -52,10 +52,14 @@ class ProfileViewModelImpl @Inject constructor(private val authRepository: AuthR
     }
 
     override fun getUserLocalData() {
-        userLocalDataLiveData.value = authRepository.getUserLocalData()
+        authRepository.getUserLocalData().onEach {
+            it.onSuccess {
+                userLocalDataLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun setUserLocalData(userLocalData: UserLocalData) {
-        authRepository.setUserLocalData(userLocalData)
+        authRepository.saveUserData(userLocalData)
     }
 }

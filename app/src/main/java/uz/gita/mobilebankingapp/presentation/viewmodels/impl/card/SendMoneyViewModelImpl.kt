@@ -26,6 +26,7 @@ class SendMoneyViewModelImpl @Inject constructor(
     override val successLiveData = MutableLiveData<ReceiptMoneyData>()
     override val ownerNameLiveData = MutableLiveData<String>()
     override val feeLiveData = MutableLiveData<String>()
+    override val cardsListLiveData = MutableLiveData<List<CardData>>()
 
     override fun getOwnerByPan(data: OwnerByPanRequest) {
         if (!isConnected()) {
@@ -75,5 +76,20 @@ class SendMoneyViewModelImpl @Inject constructor(
 
     override fun getMyMainCardData(): CardData? {
         return cardRepository.getMyMainCardData()
+    }
+
+    override fun getAllCardList() {
+        if (!isConnected()) {
+            errorLiveData.value = "${R.string.no_internet}"
+        } else {
+            cardRepository.getAllCardsList().onEach {
+                it?.onFailure { throwable ->
+                    errorLiveData.value = throwable.message
+                }
+                it?.onSuccess {
+                    cardsListLiveData.value = it!!.data!!
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 }

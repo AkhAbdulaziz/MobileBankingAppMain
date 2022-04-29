@@ -1,11 +1,14 @@
 package uz.gita.mobilebankingapp.presentation.ui.dialog.auth
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.databinding.DialogChangeGenderBinding
@@ -14,7 +17,7 @@ import uz.gita.mobilebankingapp.utils.scope
 @AndroidEntryPoint
 class ChangeGenderDialog(
     private val currentGender: String
-) : DialogFragment(R.layout.dialog_change_gender) {
+) :  BottomSheetDialogFragment() {
     private val binding by viewBinding(DialogChangeGenderBinding::bind)
 
     private var saveButtonClickListener: ((String) -> Unit)? = null
@@ -25,17 +28,24 @@ class ChangeGenderDialog(
     private var selectedGender: String = currentGender
     private val genders = arrayOf("Male", "Female")
 
-    override fun onResume() {
-        super.onResume()
-        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    override fun onStart() {
+        super.onStart()
+        //this forces the sheet to appear at max height even on landscape
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.dialog_change_gender, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             genderPicker.textColor = resources.getColor(R.color.lightBaseColor)
         }*/

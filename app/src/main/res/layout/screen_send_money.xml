@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="16dp"
+    android:paddingBottom="32dp"
     tools:context=".presentation.ui.screens.card.SendMoneyScreen">
 
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@color/white"
         android:gravity="top|center"
         android:orientation="horizontal"
@@ -54,6 +55,7 @@
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:text="@string/check_receiver_card"
         android:textColor="#818181"
@@ -65,6 +67,7 @@
         android:id="@+id/cardNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintRight_toRightOf="parent"
@@ -75,6 +78,7 @@
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/check_receiver"
         android:textColor="#818181"
@@ -86,6 +90,7 @@
         android:id="@+id/receiverNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -97,6 +102,7 @@
         android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/check_payment_cost"
         android:textColor="#818181"
@@ -108,6 +114,7 @@
         android:id="@+id/moneyAmountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintRight_toRightOf="parent"
@@ -118,6 +125,7 @@
         android:id="@+id/text4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/check_service_cost"
         android:textColor="#818181"
@@ -129,6 +137,7 @@
         android:id="@+id/feeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintRight_toRightOf="parent"
@@ -139,6 +148,7 @@
         android:id="@+id/text5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/check_all"
         android:textColor="#818181"
@@ -150,6 +160,7 @@
         android:id="@+id/fullAmountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -157,103 +168,115 @@
         app:layout_constraintTop_toTopOf="@id/text5"
         tools:text="5 050.00 sum" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
+    <View
+        android:id="@+id/viewBottomBg"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toTopOf="@id/sendBtn"
+        android:layout_height="0dp"
+        android:background="@color/lightGreyBg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnFriendPays" />
+
+    <LinearLayout
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:paddingTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/viewpagerSenderCards"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnFriendPays">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_star" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Save"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnFriendPays"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/viewpagerSenderCards"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btnSave"
         app:layout_constraintRight_toRightOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottomCardInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_friend" />
 
-            <ImageView
-                android:id="@+id/cardBg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:src="@drawable/card_theme1"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Friend pays"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/senderName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/senderBalance"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="Abdulaziz Akhmedov" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpagerSenderCards"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        app:layout_constraintBottom_toTopOf="@id/senderCardsTabLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/senderBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="Balance: 20 769.77 sum" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/senderCardsTabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/lightGreyBg"
+        android:clickable="false"
+        app:layout_constraintBottom_toTopOf="@id/sendBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
 
-            <TextView
-                android:id="@+id/senderCardNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:text="**** 5182" />
-
-            <ImageView
-                android:id="@+id/errorImg"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:adjustViewBounds="true"
-                android:alpha="0.9"
-                android:background="@color/colorErrorRed"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/errorText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="You have not a card!" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/txtAddCardOrOpenAWallet"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@drawable/bg_error_no_cards_black"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Add card or open a wallet"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/viewpagerSenderCards"
+        app:layout_constraintLeft_toLeftOf="@id/viewpagerSenderCards"
+        app:layout_constraintRight_toRightOf="@id/viewpagerSenderCards"
+        app:layout_constraintTop_toTopOf="@id/viewpagerSenderCards" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@drawable/bg_button"
         android:enabled="false"
         android:paddingHorizontal="100dp"

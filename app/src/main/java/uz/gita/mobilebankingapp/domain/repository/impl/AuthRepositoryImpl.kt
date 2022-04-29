@@ -27,9 +27,9 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
     private val gson = Gson()
 
-    private var userLocalDataListener: (() -> Unit)? = null
-    override fun setUserLocalDataListener(f: () -> Unit) {
-        userLocalDataListener = f
+    private var userDataSavedListener: (() -> Unit)? = null
+    override fun setUserDataSavedListener(f: () -> Unit) {
+        userDataSavedListener = f
     }
 
     private var openLoginScreenListener: (() -> Unit)? = null
@@ -175,9 +175,9 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getUserPhoneNumber(): String {
-        return localStorage.userPhone
-    }
+    override fun getUserPhoneNumber(): Flow<Result<String>> = flow {
+        emit(Result.success(localStorage.userPhone))
+    }.flowOn(Dispatchers.IO)
 
     override fun setUserToken(token: String) {
         localStorage.accessToken = token
@@ -198,7 +198,8 @@ class AuthRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun putUserInfo(data: UserInfoRequest): Flow<Result<BaseResponse>> = flow {
-        val response = profileApi.putUserInfo(data)
+        val requestData = UserInfoRequest(data.firstName, data.lastName, localStorage.userPassword)
+        val response = profileApi.putUserInfo(requestData)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!))
         }
@@ -220,19 +221,23 @@ class AuthRepositoryImpl @Inject constructor(
         return localStorage.userPassword
     }
 
-    override fun getUserLocalData(): UserLocalData {
-        return UserLocalData(
-            localStorage.userFirstName,
-            localStorage.userLastName,
-            localStorage.userNickName,
-            localStorage.userPhoneNumber1,
-            localStorage.userPhoneNumber2,
-            localStorage.userGender,
-            localStorage.userBirthday
+    override fun getUserLocalData(): Flow<Result<UserLocalData>> = flow {
+        emit(
+            Result.success(
+                UserLocalData(
+                    localStorage.userFirstName,
+                    localStorage.userLastName,
+                    localStorage.userNickName,
+                    localStorage.userPhoneNumber1,
+                    localStorage.userPhoneNumber2,
+                    localStorage.userGender,
+                    localStorage.userBirthday
+                )
+            )
         )
-    }
+    }.flowOn(Dispatchers.IO)
 
-    override fun setUserLocalData(userLocalData: UserLocalData) {
+    override fun saveUserData(userLocalData: UserLocalData) {
         localStorage.userFirstName = userLocalData.firstName
         localStorage.userLastName = userLocalData.lastName
         localStorage.userNickName = userLocalData.nickname
@@ -240,7 +245,7 @@ class AuthRepositoryImpl @Inject constructor(
         localStorage.userPhoneNumber2 = userLocalData.phoneNumber2
         localStorage.userGender = userLocalData.gender
         localStorage.userBirthday = userLocalData.birthday
-        userLocalDataListener?.invoke()
+        userDataSavedListener?.invoke()
     }
 
     override fun changeFaceIDPermission(permission: Boolean) {
@@ -251,17 +256,18 @@ class AuthRepositoryImpl @Inject constructor(
         localStorage.permissionConfirmPaymentByFingerPrint = permission
     }
 
-    override fun getFaceIDPermission(): Boolean {
-        return localStorage.permissionFaceID
-    }
+    override fun getFaceIDPermission(): Flow<Result<Boolean>> = flow {
+        emit(Result.success(localStorage.permissionFaceID))
+    }.flowOn(Dispatchers.IO)
 
     override fun getConfirmationByFingerPrintPermission(): Boolean {
         return localStorage.permissionConfirmPaymentByFingerPrint
     }
 
-    override fun getPinCode(): String {
-        return localStorage.pinCode
-    }
+    override fun getPinCode(): Flow<Result<String>> = flow {
+        emit(Result.success(localStorage.pinCode))
+
+    }.flowOn(Dispatchers.IO)
 
     override fun savePinCode(pinCode: String) {
         localStorage.pinCode = pinCode

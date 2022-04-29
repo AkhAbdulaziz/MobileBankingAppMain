@@ -7,4 +7,6 @@ import uz.gita.mobilebankingapp.data.remote.card_req_res.response.MoneyTransferR
 
 interface HistoryRepository {
     fun getHistoryPagingData(scope: CoroutineScope): Flow<PagingData<MoneyTransferResponse.HistoryData>>
+
+    fun getHistoryDataCount() : Int
 }

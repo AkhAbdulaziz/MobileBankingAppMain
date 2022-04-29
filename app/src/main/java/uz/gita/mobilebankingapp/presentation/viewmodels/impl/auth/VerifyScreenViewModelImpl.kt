@@ -61,7 +61,11 @@ class VerifyScreenViewModelImpl @Inject constructor(
     }
 
     override fun getUserPhoneNumber() {
-        userPhoneNumberLiveData.value = authRepository.getUserPhoneNumber()
+        authRepository.getUserPhoneNumber().onEach {
+            it.onSuccess {
+                userPhoneNumberLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun getUserPassword() {

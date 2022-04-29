@@ -38,8 +38,8 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
         cardBackgroundsViewPager.apply {
             adapter = pagerAdapter
             if (args.cardData.color != null) {
-                setCurrentItem(args.cardData.color!!, true)
-            } else setCurrentItem(0, true)
+                setCurrentItem(args.cardData.color!!, false)
+            } else setCurrentItem(0, false)
             clipToPadding = false   // allow full width shown with padding
             clipChildren = false    // allow left/right item is not clipped
             offscreenPageLimit = 2  // make sure left/right item is rendered

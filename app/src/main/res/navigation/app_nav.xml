@@ -73,6 +73,13 @@
         <action
             android:id="@+id/action_basicScreen_to_pinCodeScreen"
             app:destination="@id/pinCodeScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_addCardScreen"
+            app:destination="@id/addCardScreen" />
+        <argument
+            android:name="lastScreen"
+            app:argType="uz.gita.mobilebankingapp.data.enums.StartScreenEnum"
+            android:defaultValue="LOGIN" />
     </fragment>
     <fragment
         android:id="@+id/verifyScreen"
@@ -147,6 +154,9 @@
         <action
             android:id="@+id/action_sendMoneyScreen_to_waitingMoneySendScreen"
             app:destination="@id/waitingMoneySendScreen" />
+        <action
+            android:id="@+id/action_sendMoneyScreen_to_addCardScreen"
+            app:destination="@id/addCardScreen" />
     </fragment>
     <fragment
         android:id="@+id/verifyCardScreen"
@@ -259,6 +269,9 @@
         <action
             android:id="@+id/action_enableFaceIDScreen_to_basicScreen"
             app:destination="@id/basicScreen" />
+        <argument
+            android:name="lastScreen"
+            app:argType="uz.gita.mobilebankingapp.data.enums.StartScreenEnum" />
     </fragment>
     <fragment
         android:id="@+id/paymePeopleScreen"

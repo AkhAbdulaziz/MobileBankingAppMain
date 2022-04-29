@@ -21,6 +21,8 @@ class HistoryDataSource(
             val pageSize = 10
             val response = api.getMoneyTransferHistory(pref.accessToken, nextPageNumber, pageSize)
 
+            pref.historyDataCount = response.body()!!.data.totalCount
+
             timber(response.isSuccessful.toString())
             timber(response.body().toString())
 

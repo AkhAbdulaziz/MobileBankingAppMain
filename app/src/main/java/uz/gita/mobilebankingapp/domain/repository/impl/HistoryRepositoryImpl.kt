@@ -23,4 +23,8 @@ class HistoryRepositoryImpl @Inject constructor(
         Pager(config) {
             HistoryDataSource(api, pref)
         }.flow.cachedIn(scope)
+
+    override fun getHistoryDataCount(): Int {
+        return pref.historyDataCount
+    }
 }

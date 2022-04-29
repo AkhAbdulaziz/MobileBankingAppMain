@@ -48,8 +48,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="16dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -251,9 +251,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|top"
                         android:layout_marginTop="20dp"
+                        android:text="Does not set"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:text="Male" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="20dp"

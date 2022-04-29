@@ -1,7 +1,6 @@
 package uz.gita.mobilebankingapp.presentation.ui.pages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +27,7 @@ import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.HistoryViewMod
 import uz.gita.mobilebankingapp.utils.gone
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
-import java.util.*
+import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class HistoryPage : Fragment(R.layout.page_history) {
@@ -38,8 +37,6 @@ class HistoryPage : Fragment(R.layout.page_history) {
     private var receiverName = "John Smith"
     private var receiverPan = "860010******3000"
     private var senderPan = "860012******1234"
-
-    // TODO: Faqat pul yechib olinganlari ko'rinyapti, tushganlari yo'q.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         getHistoryData()
@@ -55,9 +52,9 @@ class HistoryPage : Fragment(R.layout.page_history) {
 
         adapter.setItemClickListener { historyData ->
 //             TODO: getSenderPanById, getReceiverPanById, getOwnerById lar ishlamayapti
-             viewModel.getSenderPanById(PanByIdRequest((historyData.sender)))
-             viewModel.getReceiverPanById(PanByIdRequest(historyData.receiver))
-             viewModel.getOwnerById(OwnerByIdRequest(historyData.receiver))
+            viewModel.getSenderPanById(PanByIdRequest((historyData.sender)))
+            viewModel.getReceiverPanById(PanByIdRequest(historyData.receiver))
+            viewModel.getOwnerById(OwnerByIdRequest(historyData.receiver))
 
             findNavController().navigate(
                 BasicScreenDirections.actionBasicScreenToCheckTransferScreen(
@@ -80,6 +77,7 @@ class HistoryPage : Fragment(R.layout.page_history) {
         viewModel.errorLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.ownerNameLiveData.observe(viewLifecycleOwner, ownerNameObserver)
         viewModel.historyPagingLiveData.observe(viewLifecycleOwner, historyPagingDataObserver)
+        viewModel.historyDataCountLiveData.observe(viewLifecycleOwner, historyDataCountObserver)
     }
 
     private fun getHistoryData() = binding.scope {
@@ -88,17 +86,14 @@ class HistoryPage : Fragment(R.layout.page_history) {
     }
 
     private val senderPanByIdObserver = Observer<String> { pan ->
-        Log.d("HISTORY_TR", "SenderByPan observer")
         senderPan = pan
     }
 
     private val receiverPanByIdObserver = Observer<String> { pan ->
-        Log.d("HISTORY_TR", "ReceiverPanById observer")
         receiverPan = pan
     }
 
     private val ownerNameObserver = Observer<String> { name ->
-        Log.d("HISTORY_TR", "OwnerName observer")
         receiverName = name
     }
 
@@ -108,9 +103,23 @@ class HistoryPage : Fragment(R.layout.page_history) {
 
     private val historyPagingDataObserver =
         Observer<PagingData<MoneyTransferResponse.HistoryData>> {
+            viewModel.getHistoryDataCount()
+
             CoroutineScope(Dispatchers.IO).launch {
                 adapter.submitData(it)
             }
             binding.refresh.isRefreshing = false
         }
+
+    private val historyDataCountObserver = Observer<Int> { dataCount ->
+        binding.apply {
+            if (dataCount == 0) {
+                txtEmpty.visible()
+                imgEmpty.visible()
+            } else {
+                txtEmpty.gone()
+                imgEmpty.gone()
+            }
+        }
+    }
 }

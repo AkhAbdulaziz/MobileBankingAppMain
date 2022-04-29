@@ -9,7 +9,7 @@
     tools:context=".presentation.ui.dialog.main.CheckTransferDialog">
 
     <View
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="6dp"
         android:background="@drawable/bg_dialog"
         app:layout_constraintLeft_toLeftOf="parent"

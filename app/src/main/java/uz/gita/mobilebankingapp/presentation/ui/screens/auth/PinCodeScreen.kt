@@ -617,7 +617,7 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
 
     private val loginResponseObserver = Observer<Unit> {
         binding.progressBar.gone()
-        findNavController().navigate(PinCodeScreenDirections.actionPinCodeScreenToBasicScreen())
+        findNavController().navigate(PinCodeScreenDirections.actionPinCodeScreenToBasicScreen(args.lastScreen))
     }
 
     // Biometric Strong is FingerPrint
@@ -758,8 +758,6 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
     }
 
     private fun checkCode() = binding.scope {
-        progressBar.visible()
-
         if (args.lastScreen == StartScreenEnum.LOGIN) {
             if (firstTime) {
                 firstTime = false
@@ -770,10 +768,15 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
                 tvTitle.text = "Confirm new PIN code"
                 clearCode()
             } else {
+                progressBar.visible()
                 if (firstPinCode == pinCode) {
                     viewModel.savePinCode(pinCode)
                     progressBar.gone()
-                    findNavController().navigate(PinCodeScreenDirections.actionPinCodeScreenToEnableFaceIDScreen())
+                    findNavController().navigate(
+                        PinCodeScreenDirections.actionPinCodeScreenToEnableFaceIDScreen(
+                            args.lastScreen
+                        )
+                    )
                 } else {
                     progressBar.gone()
                     clearCode()
@@ -787,6 +790,7 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
                 }
             }
         } else {
+            progressBar.visible()
             if (savedPinCode == pinCode) {
                 viewModel.loginUser()
             } else {

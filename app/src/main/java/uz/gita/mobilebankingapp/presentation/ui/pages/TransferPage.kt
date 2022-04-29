@@ -1,7 +1,9 @@
 package uz.gita.mobilebankingapp.presentation.ui.pages
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,12 +16,17 @@ import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.data.entities.RecipientData
 import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
 import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.databinding.PageTransferBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.transferPageAdapters.RecipientsAdapter
+import uz.gita.mobilebankingapp.presentation.ui.dialog.card.TransferToMyCardsDialog
 import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.pages.TransferViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.pages.TransferViewModelImpl
-import uz.gita.mobilebankingapp.utils.*
+import uz.gita.mobilebankingapp.utils.invisible
+import uz.gita.mobilebankingapp.utils.scope
+import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class TransferPage : Fragment(R.layout.page_transfer) {
@@ -33,6 +40,8 @@ class TransferPage : Fragment(R.layout.page_transfer) {
     private var isReadyMoney = false
     private var receiverName: String = ""
     private val directionType get() = arguments?.getString("direction_type")
+
+    // TODO: back buttonni bosganda background bilinib qolyapti
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
@@ -51,14 +60,18 @@ class TransferPage : Fragment(R.layout.page_transfer) {
         rvRecipients.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recipientsAdapter.setExistRecipientClickListener {
-
+            showToast("Recipient $it")
         }
         recipientsAdapter.setNewRecipientClickListener {
-
+            showToast("Add new recipient")
         }
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        btnTransferToMyCards.setOnClickListener {
+            viewModel.getAllCardList()
         }
 
         cardNumberEditText.addTextChangedListener {
@@ -113,6 +126,7 @@ class TransferPage : Fragment(R.layout.page_transfer) {
         viewModel.successLiveData.observe(viewLifecycleOwner, successObserver)
         viewModel.ownerNameLiveData.observe(viewLifecycleOwner, ownerNameObserver)
         viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
+        viewModel.cardsListLiveData.observe(viewLifecycleOwner, cardsListObserver)
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
@@ -213,6 +227,26 @@ class TransferPage : Fragment(R.layout.page_transfer) {
             text = "Kartaning egasi: $ownerName"
             visible()
         }
+    }
+
+    private val cardsListObserver = Observer<List<CardData>> { cardsList ->
+        val dialog = TransferToMyCardsDialog(cardsList)
+        dialog.setListener { adapterPos ->
+            val cardData = cardsList[adapterPos]
+            binding.scope {
+                cardNumberEditText.setText(cardData.pan)
+                moneyAmountEditText.apply {
+                    requestFocus()
+
+                    // Show keyboard
+                    val inputMethodManager =
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.showSoftInput(this, 0)
+                }
+            }
+        }
+        dialog.isCancelable = true
+        dialog.show(childFragmentManager, "transfer_to_my_cards_dialog")
     }
 
     private fun check() {

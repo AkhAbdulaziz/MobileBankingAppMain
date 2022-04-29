@@ -22,6 +22,7 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
     override val errorMessageLiveData = MutableLiveData<String>()
     override val openLoginScreenLiveData = MutableLiveData<LogoutResponse>()
     override val logoutResponseLiveData = MutableLiveData<LogoutResponse>()
+    override val userPhoneNumberLiveData = MutableLiveData<String>()
 
     init {
         authRepository.setOpenLoginScreenListener {
@@ -33,8 +34,12 @@ class BasicViewModelImpl @Inject constructor(private val authRepository: AuthRep
         openProfileScreenLiveData.value = Unit
     }
 
-    override fun getUserPhoneNumber(): String {
-        return authRepository.getUserPhoneNumber()
+    override fun getUserPhoneNumber() {
+        authRepository.getUserPhoneNumber().onEach {
+            it.onSuccess {
+                userPhoneNumberLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun logout() {

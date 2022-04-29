@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.gita.mobilebankingapp.R
-import uz.gita.mobilebankingapp.data.entities.*
 import uz.gita.mobilebankingapp.data.enums.PaymentPageEnum
-import uz.gita.mobilebankingapp.data.enums.TransactionTypes
+import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
+import uz.gita.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.gita.mobilebankingapp.databinding.PageHomeBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.homePageAdapters.*
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.pages.MainPageViewModel
@@ -33,17 +34,21 @@ class HomePage : Fragment(R.layout.page_home) {
     private val binding by viewBinding(PageHomeBinding::bind)
     private val viewModel: MainPageViewModel by viewModels<MainPageViewModelImpl>()
 
-    private var savedPaymentsList = ArrayList<SavedPaymentData>()
+    //    private var savedPaymentsList = ArrayList<SavedPaymentData>()
     private val savedPaymentsAdapter by lazy { SavedPaymentsAdapter(savedPaymentsList) }
-    private var adsList = ArrayList<AdData>()
+
+    //    private var adsList = ArrayList<AdData>()
     private lateinit var adsAdapter: AdsAdapter
-    private var paymentForServicesList = ArrayList<PaymentForServicesData>()
+
+    //    private var paymentForServicesList = ArrayList<PaymentForServicesData>()
     private val paymentForServicesAdapter by lazy { PaymentForServicesAdapter(paymentForServicesList) }
-    private var myHomesList = ArrayList<MyHomeData>()
+
+    //    private var myHomesList = ArrayList<MyHomeData>()
     private val myHomesAdapter by lazy { MyHomesAdapter(myHomesList) }
-    private var recentTransactionsList = ArrayList<RecentTransactionData>()
+
+    //    private var recentTransactionsList = ArrayList<RecentTransactionData>()
     private val recentTransactionsAdapter by lazy { RecentTransactionsAdapter(recentTransactionsList) }
-    private var isFirstTime: Boolean = true
+//    private var isFirstTime: Boolean = true
 
     private var clickHomeButtonListener: (() -> Unit)? = null
     fun setOnClickHomeButtonListener(block: () -> Unit) {
@@ -53,15 +58,27 @@ class HomePage : Fragment(R.layout.page_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
 //        refresh.isRefreshing = true
         viewModel.getTotalSumFromLocal()
+        viewModel.getAllCardList()
 
-        if (isFirstTime) {
+        arguments?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                val lastScreenName = it.getString("LAST_SCREEN_BASIC")
+                if (lastScreenName == StartScreenEnum.LOGIN.name) {
+                    showAddCardView()
+                } else {
+                    hideAddCardView()
+                }
+            }
+        }
+
+        /*if (isFirstTime) {
             fillSavedPaymentsList()
             fillAdsList()
             fillPaymentForServicesList()
             fillMyHomesList()
             fillRecentTransactionsList()
             isFirstTime = false
-        }
+        }*/
 
         // SavedPaymentsAdapter
         rvSavedPayments.adapter = savedPaymentsAdapter
@@ -90,7 +107,7 @@ class HomePage : Fragment(R.layout.page_home) {
         val pageMarginPx = 2.dpToPx(resources.displayMetrics)
         val marginTransformer = MarginPageTransformer(pageMarginPx)
         pagerAds.setPageTransformer(marginTransformer)
-        
+
         lifecycleScope.launch(Dispatchers.Main) {
             while (true) {
                 delay(4000L)
@@ -159,12 +176,15 @@ class HomePage : Fragment(R.layout.page_home) {
             timber("home pageds bosildi", "HOME_BTN")
         }
 
+        txtAddCardOrOpenAWallet.setOnClickListener {
+            findNavController().navigate(R.id.action_basicScreen_to_addCardScreen)
+        }
+
         myCardsImg.setOnClickListener {
             findNavController().navigate(R.id.action_basicScreen_to_myCardsScreen)
         }
 
         btnSendMoney.setOnClickListener {
-            viewModel.getAllCardList()
             val bundle = Bundle()
             bundle.putString("direction_type", PaymentPageEnum.FROM_PAYMENT_SCREEN.name)
             findNavController().navigate(R.id.action_basicScreen_to_transferPage)
@@ -176,24 +196,20 @@ class HomePage : Fragment(R.layout.page_home) {
         viewModel.totalSumFromLocalLiveData.observe(viewLifecycleOwner, totalSumFromLocalObserver)
         viewModel.totalSumLiveData.observe(viewLifecycleOwner, totalSumObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllCardList()
+        viewModel.cardsListLiveData.observe(viewLifecycleOwner, cardsListObserver)
     }
 
     private val totalSumFromLocalObserver = Observer<String> {
-        if (viewModel.isBalanceVisible) {
-            binding.balanceText.text = it
-        }
+//        if (viewModel.isBalanceVisible) {
+        binding.balanceText.text = it
+//        }
         viewModel.getTotalSum()
     }
 
     private val totalSumObserver = Observer<String> {
-        if (viewModel.isBalanceVisible) {
-            binding.balanceText.text = it
-        }
+//        if (viewModel.isBalanceVisible) {
+        binding.balanceText.text = it
+//        }
 //        binding.refresh.isRefreshing = false
         binding.progressBar.invisible()
     }
@@ -203,6 +219,35 @@ class HomePage : Fragment(R.layout.page_home) {
         binding.progressBar.invisible()
     }
 
+    private val cardsListObserver = Observer<List<CardData>> {
+        binding.scope {
+            if (it.isEmpty()) {
+                showAddCardView()
+            } else {
+                hideAddCardView()
+            }
+        }
+    }
+
+    private fun showAddCardView() = binding.scope {
+        txtAddCardOrOpenAWallet.visible()
+        imgEye.invisible()
+        balanceTitle.invisible()
+        balanceText.invisible()
+        currencyText.invisible()
+        expensesText.invisible()
+    }
+
+    private fun hideAddCardView() = binding.scope {
+        txtAddCardOrOpenAWallet.invisible()
+        imgEye.visible()
+        balanceTitle.visible()
+        balanceText.visible()
+        currencyText.visible()
+        expensesText.visible()
+    }
+
+/*
     private fun fillSavedPaymentsList() {
         savedPaymentsList.apply {
             add(
@@ -552,6 +597,7 @@ class HomePage : Fragment(R.layout.page_home) {
             )
         }
     }
+*/
 
     private fun hideBalance() = binding.scope {
         imgEye.setImageResource(R.drawable.ic_eye_opened)

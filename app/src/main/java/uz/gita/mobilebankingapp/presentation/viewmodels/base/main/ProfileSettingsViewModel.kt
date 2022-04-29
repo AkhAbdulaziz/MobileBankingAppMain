@@ -8,7 +8,7 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.response.LogoutResponse
 interface ProfileSettingsViewModel {
     val profileInfoLiveData: LiveData<ProfileInfoResponse>
     val userLocalDataLiveData: LiveData<UserLocalData>
-    val userLocalDataSavedLiveData : LiveData<Unit>
+    val userDataSavedLiveData : LiveData<Unit>
     val errorLiveData : LiveData<String>
     val openLoginScreenLiveData: LiveData<LogoutResponse>
 
@@ -16,5 +16,5 @@ interface ProfileSettingsViewModel {
 
     fun getUserLocalData()
 
-    fun setUserLocalData(userLocalData: UserLocalData)
+    fun saveUserData(userLocalData: UserLocalData)
 }

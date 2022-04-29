@@ -121,6 +121,11 @@
     <string name="en_payme_people_transactions_count_description">You have made 8 transactions this month and are entered into the prize draw!</string>
     <string name="ru_payme_people_transactions_count_description">Вы совершили 8 транзакций в этом месяце и участвуете в розыгрыше призов!</string>
 
+    <string name="ru_error_payment_not_suitable_card">Не удалось найти подходящую комиссию для операции</string>
+    <string name="en_error_payment_not_suitable_card">Failed to find a suitable commission for the operation</string>
+    <string name="ru_error_payment_not_enough_money">У вас недостаточно денег!</string>
+    <string name="en_error_payment_not_enough_money">You have not enough money!</string>
+
     <!-- Custom Dimensions -->
     <dimen name="radius_cards">12dp</dimen>
     <dimen name="viewpager_next_item_visible">26dp</dimen>

@@ -23,6 +23,11 @@ class HistoryViewModelImpl @Inject constructor(
     private val repository: HistoryRepository,
     private val cardRepository: CardRepository
 ) : ViewModel(), HistoryViewModel {
+    override val historyDataCountLiveData = MutableLiveData<Int>()
+
+    override fun getHistoryDataCount() {
+        historyDataCountLiveData.value = repository.getHistoryDataCount()
+    }
 
     override val senderPanByIdLiveData = MutableLiveData<String>()
     override val receiverPanByIdLiveData = MutableLiveData<String>()

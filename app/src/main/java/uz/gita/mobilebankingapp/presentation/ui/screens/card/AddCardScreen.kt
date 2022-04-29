@@ -17,7 +17,6 @@ import uz.gita.mobilebankingapp.data.enums.StartScreenEnum
 import uz.gita.mobilebankingapp.data.remote.card_req_res.request.AddCardRequest
 import uz.gita.mobilebankingapp.databinding.ScreenAddCardBinding
 import uz.gita.mobilebankingapp.presentation.ui.adapter.CardBackgroundsPagerAdapter
-import uz.gita.mobilebankingapp.presentation.ui.screens.main.BasicScreenDirections
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.AddCardViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.AddCardViewModelImpl
 import uz.gita.mobilebankingapp.utils.*
@@ -72,6 +71,7 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
 
         addCardBtn.isEnabled = false
         addCardBtn.setOnClickListener {
+            progressBar.visible()
             viewModel.addCard(
                 AddCardRequest(
                     textCardNumber.text.toString(),
@@ -81,7 +81,8 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
                     } else {
                         textCardName.text.toString()
                     }
-                )
+                ),
+                cardBackgroundsViewPager.currentItem
             )
         }
 
@@ -89,8 +90,6 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
             findNavController().popBackStack()
         }
 
-        viewModel.disableAddButtonLiveData.observe(viewLifecycleOwner, disableAddButtonObserver)
-        viewModel.enableAddButtonLiveData.observe(viewLifecycleOwner, enableAddButtonObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.openVerifyCardScreenLiveData.observe(
             this@AddCardScreen,
@@ -102,7 +101,7 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
 
     private val openLoginScreenObserver = Observer<Unit> {
         findNavController().navigate(
-            BasicScreenDirections.actionBasicScreenToPinCodeScreen(
+            AddCardScreenDirections.actionAddCardScreenToPinCodeScreen(
                 StartScreenEnum.MAIN
             )
         )
@@ -114,6 +113,7 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
     }
 
     private val closeScreenObserver = Observer<Unit> {
+        binding.progressBar.gone()
         findNavController().popBackStack()
     }
 
@@ -123,14 +123,6 @@ class AddCardScreen : Fragment(R.layout.screen_add_card) {
                 binding.cardBackgroundsViewPager.currentItem
             )
         )
-    }
-
-    private val disableAddButtonObserver = Observer<Unit> {
-        binding.addCardBtn.isEnabled = false
-    }
-
-    private val enableAddButtonObserver = Observer<Unit> {
-        binding.addCardBtn.isEnabled = true
     }
 
     private val errorMessageObserver = Observer<String> {

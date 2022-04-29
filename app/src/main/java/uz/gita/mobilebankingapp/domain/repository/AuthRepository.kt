@@ -28,7 +28,7 @@ interface AuthRepository {
 
     fun refresh(data: RefreshRequest): Flow<Result<RefreshResponse>>
 
-    fun getUserPhoneNumber(): String
+    fun getUserPhoneNumber(): Flow<Result<String>>
 
     fun setUserToken(token: String)
 
@@ -44,11 +44,11 @@ interface AuthRepository {
 
     fun getUserPassword(): String
 
-    fun getUserLocalData(): UserLocalData
+    fun getUserLocalData(): Flow<Result<UserLocalData>>
 
-    fun setUserLocalData(userLocalData: UserLocalData)
+    fun saveUserData(userLocalData: UserLocalData)
 
-    fun setUserLocalDataListener(f: () -> Unit)
+    fun setUserDataSavedListener(f: () -> Unit)
 
     fun setOpenLoginScreenListener(f: () -> Unit)
 
@@ -56,10 +56,10 @@ interface AuthRepository {
 
     fun changeConfirmationByFingerPrintPermission(permission: Boolean)
 
-    fun getFaceIDPermission(): Boolean
+    fun getFaceIDPermission(): Flow<Result<Boolean>>
 
     fun getConfirmationByFingerPrintPermission(): Boolean
 
-    fun getPinCode(): String
+    fun getPinCode(): Flow<Result<String>>
     fun savePinCode(pinCode: String)
 }

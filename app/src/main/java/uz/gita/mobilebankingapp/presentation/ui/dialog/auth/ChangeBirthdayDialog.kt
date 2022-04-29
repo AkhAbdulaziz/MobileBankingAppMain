@@ -1,11 +1,14 @@
 package uz.gita.mobilebankingapp.presentation.ui.dialog.auth
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
 import uz.gita.mobilebankingapp.databinding.DialogChangeBirthdayBinding
@@ -18,7 +21,7 @@ class ChangeBirthdayDialog(
     private val currentDay: Int,
     private val currentMonth: Int,
     private val currentYear: Int
-) : DialogFragment(R.layout.dialog_change_birthday) {
+) : BottomSheetDialogFragment() {
     private val binding by viewBinding(DialogChangeBirthdayBinding::bind)
 
     private var saveButtonClickListener: ((Int, Int, Int) -> Unit)? = null
@@ -35,22 +38,24 @@ class ChangeBirthdayDialog(
     private var selectedMonth: Int = currentMonth
     private var selectedYear: Int = currentYear
 
-    override fun onResume() {
-        super.onResume()
-        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    override fun onStart() {
+        super.onStart()
+        //this forces the sheet to appear at max height even on landscape
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.dialog_change_birthday, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            dayPicker.textColor = resources.getColor(R.color.lightBaseColor)
-            monthPicker.textColor = resources.getColor(R.color.lightBaseColor)
-            yearPicker.textColor = resources.getColor(R.color.lightBaseColor)
-        }*/
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
 
         dayPicker.value = selectedDay
         monthPicker.value = selectedMonth
@@ -66,7 +71,7 @@ class ChangeBirthdayDialog(
         }
 
         dayPicker.apply {
-            wrapSelectorWheel = false
+//            wrapSelectorWheel = false
             minValue = 1
             maxValue = 31
             value = selectedDay
@@ -78,7 +83,7 @@ class ChangeBirthdayDialog(
         }
 
         monthPicker.apply {
-            wrapSelectorWheel = false
+//            wrapSelectorWheel = false
             minValue = 1
             maxValue = 12
             value = selectedMonth
@@ -91,7 +96,7 @@ class ChangeBirthdayDialog(
 
         yearPicker.apply {
             wrapSelectorWheel = false
-            minValue = 1900
+            minValue = 1
             maxValue = TODAYS_YEAR
             value = selectedYear
             setOnValueChangedListener { picker, oldVal, newVal ->

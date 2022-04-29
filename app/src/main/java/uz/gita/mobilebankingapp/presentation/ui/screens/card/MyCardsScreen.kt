@@ -19,9 +19,10 @@ import uz.gita.mobilebankingapp.presentation.ui.dialog.card.ClarifyDeleteCardDia
 import uz.gita.mobilebankingapp.presentation.ui.dialog.card.EventDialog
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.card.MyCardsViewModelImpl
-import uz.gita.mobilebankingapp.utils.errorFlashBar
+import uz.gita.mobilebankingapp.utils.gone
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
@@ -94,10 +95,21 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
     }
 
     private val cardsListObserver = Observer<List<CardData>> {
-        cardsList.clear()
-        cardsList.addAll(it)
-        binding.refresh.isRefreshing = false
-        adapter.notifyDataSetChanged()
+        binding.scope {
+            if (it.isEmpty()) {
+                cardsRecyclerView.gone()
+                imgEmpty.visible()
+                txtEmpty.visible()
+            } else {
+                imgEmpty.gone()
+                txtEmpty.gone()
+                cardsRecyclerView.visible()
+            }
+            cardsList.clear()
+            cardsList.addAll(it)
+            refresh.isRefreshing = false
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private val errorMessageObserver = Observer<String> {

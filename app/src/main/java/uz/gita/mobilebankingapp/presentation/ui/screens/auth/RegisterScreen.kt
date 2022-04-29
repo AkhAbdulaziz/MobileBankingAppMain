@@ -24,7 +24,7 @@ import uz.gita.mobilebankingapp.utils.scope
 class RegisterScreen : Fragment(R.layout.screen_register) {
     private val binding by viewBinding(ScreenRegisterBinding::bind)
     private val viewModel: RegisterViewModel by viewModels<RegisterViewModelImpl>()
-    private var isFirstNameReady = false
+    private var isFirstNameReady = true
     private var isLastNameReady = true
     private var isPasswordReady = false
     private var isConfirmPasswordReady = false
@@ -39,7 +39,7 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
                 }
             })
 
-        firstNameEditText.apply {
+        /*firstNameEditText.apply {
             addTextChangedListener {
                 firstNameEditTextLayout.disableError()
                 it?.let {
@@ -53,7 +53,7 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
                     firstNameEditTextLayout.error = "Firstname required"
                 }
             }
-        }
+        }*/
         /*lastNameEditText.addTextChangedListener {
             it?.let {
                 isLastNameReady = it.length > 3

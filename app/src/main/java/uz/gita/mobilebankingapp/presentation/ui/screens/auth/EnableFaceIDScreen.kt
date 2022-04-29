@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
@@ -18,6 +19,7 @@ import uz.gita.mobilebankingapp.utils.scope
 class EnableFaceIDScreen : Fragment(R.layout.screen_enable_faceid) {
     private val binding by viewBinding(ScreenEnableFaceidBinding::bind)
     private val viewModel: EnableFaceIDViewModel by viewModels<EnableFaceIDViewModelImpl>()
+    private val args : EnableFaceIDScreenArgs by navArgs()
 
     private var faceToLogin: Boolean = false
     private var confirmPayment: Boolean = false
@@ -26,7 +28,7 @@ class EnableFaceIDScreen : Fragment(R.layout.screen_enable_faceid) {
         super.onViewCreated(view, savedInstanceState)
 
         tvSkip.setOnClickListener {
-            findNavController().navigate(EnableFaceIDScreenDirections.actionEnableFaceIDScreenToBasicScreen())
+            findNavController().navigate(EnableFaceIDScreenDirections.actionEnableFaceIDScreenToBasicScreen(args.lastScreen))
         }
 
         switchBtnUseFaceid.apply {
@@ -58,7 +60,7 @@ class EnableFaceIDScreen : Fragment(R.layout.screen_enable_faceid) {
         }
 
         btnDone.setOnClickListener {
-            findNavController().navigate(EnableFaceIDScreenDirections.actionEnableFaceIDScreenToBasicScreen())
+            findNavController().navigate(EnableFaceIDScreenDirections.actionEnableFaceIDScreenToBasicScreen(args.lastScreen))
         }
     }
 

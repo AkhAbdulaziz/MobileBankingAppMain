@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:text="+100 000 sum"
+        android:text="+0 sum"
         android:textColor="@color/baseColor"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/incomes_title"
@@ -80,8 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:text="-105 700 sum"
-        android:textColor="#B80909"
+        android:text="-0 sum"
+        android:textColor="@color/colorRed"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/outcomes_title"
         app:layout_constraintTop_toBottomOf="@id/outcomes_title" />
@@ -129,5 +129,32 @@
             app:tint="@color/white" />
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imgEmpty"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/empty_card"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/txtEmpty"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/txtEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="There are no transactions\nfor the selected period"
+        android:textColor="@color/greyColor"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnStatistics"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,13 +55,7 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
 
         verifyBtn.setOnClickListener {
             progressBar.visible()
-            viewModel.verifyCard(
-                VerifyCardRequest(
-                    viewModel.getCurrentPan(),
-                    verificationCodeEditText.text.toString()
-                ),
-                args.colorIndex
-            )
+            viewModel.getCurrentPan()
         }
 
         backBtn.setOnClickListener {
@@ -84,6 +78,7 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
         viewModel.resendCodeLiveData.observe(viewLifecycleOwner, resendCodeObserver)
         viewModel.userPhoneNumberLiveData.observe(viewLifecycleOwner, userPhoneNumberObserver)
         viewModel.userPasswordLiveData.observe(viewLifecycleOwner, userPasswordObserver)
+        viewModel.currentPanLiveData.observe(viewLifecycleOwner, currentPanObserver)
     }
 
     private val exitScreenObserver = Observer<Unit> {
@@ -124,6 +119,16 @@ class VerifyCardScreen : Fragment(R.layout.screen_verify_card) {
 
     private val errorMessageObserver = Observer<String> {
         showToast(it)
+    }
+
+    private val currentPanObserver = Observer<String> { currentPan ->
+        viewModel.verifyCard(
+            VerifyCardRequest(
+                currentPan,
+                binding.verificationCodeEditText.text.toString()
+            ),
+            args.colorIndex
+        )
     }
 
     private fun startTime() = binding.scope {

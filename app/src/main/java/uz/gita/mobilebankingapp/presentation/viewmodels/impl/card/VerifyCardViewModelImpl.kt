@@ -27,6 +27,7 @@ class VerifyCardViewModelImpl @Inject constructor(
     override val exitScreenLiveData = MutableLiveData<Unit>()
     override val resendCodeLiveData = MutableLiveData<Unit>()
     override val userPasswordLiveData = MutableLiveData<String>()
+    override val currentPanLiveData = MutableLiveData<String>()
 
     override fun verifyCard(data: VerifyCardRequest, bgColor: Int) {
         if (!isConnected()) {
@@ -73,12 +74,20 @@ class VerifyCardViewModelImpl @Inject constructor(
         }
     }
 
-    override fun getCurrentPan(): String {
-        return cardRepository.getCurrentPan()
+    override fun getCurrentPan() {
+        cardRepository.getCurrentPan().onEach {
+            it.onSuccess {
+                currentPanLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun getUserPhoneNumber() {
-        userPhoneNumberLiveData.value = authRepository.getUserPhoneNumber()
+        authRepository.getUserPhoneNumber().onEach {
+            it.onSuccess {
+                userPhoneNumberLiveData.value = it
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun getUserPassword() {

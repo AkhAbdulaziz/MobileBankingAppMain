@@ -21,11 +21,17 @@ import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ChangeGenderDialog
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.ProfileSettingsViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.ProfileSettingsViewModelImpl
 import uz.gita.mobilebankingapp.utils.*
+import java.util.*
 
 @AndroidEntryPoint
 class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
     private val binding by viewBinding(ScreenProfileSettingsBinding::bind)
     private val viewModel: ProfileSettingsViewModel by viewModels<ProfileSettingsViewModelImpl>()
+
+    private var cc = Calendar.getInstance(TimeZone.getTimeZone("UTC+5"))
+    private var TODAYS_YEAR = cc[Calendar.YEAR]
+    private var TODAYS_MONTH = cc[Calendar.MONTH] + 1
+    private var TODAYS_DAY = cc[Calendar.DAY_OF_MONTH] + 1
 
     private var firstName: String = ""
     private var lastName: String = ""
@@ -39,7 +45,7 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
     private var birthdayChangingEnabled = false
 
     private var isSomethingNew = false
-    private var isFirstNameReady = false
+    private var isFirstNameReady = true
     private var isPhoneNumber1Ready = false
     private var isPhoneNumber2Ready = true
 
@@ -55,21 +61,21 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
 
         firstNameEditText.apply {
             addTextChangedListener {
-                firstNameEditTextLayout.disableError()
+//                firstNameEditTextLayout.disableError()
                 it?.let {
-                    isFirstNameReady = it.isNotEmpty()
+//                    isFirstNameReady = it.isNotEmpty()
                     if (firstName != firstNameEditText.text.toString()) {
                         isSomethingNew = true
                     }
                     check()
                 }
             }
-            setOnFocusChangeListener { view, b ->
+            /*setOnFocusChangeListener { view, b ->
                 if (!b && firstNameEditText.text.toString().isEmpty()) {
                     firstNameEditTextLayout.enableError()
                     firstNameEditTextLayout.error = "Firstname required"
                 }
-            }
+            }*/
         }
 
         lastNameEditText.addTextChangedListener {
@@ -77,6 +83,7 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
                 if (lastName != lastNameEditText.text.toString()) {
                     isSomethingNew = true
                 }
+                check()
             }
         }
 
@@ -85,6 +92,7 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
                 if (nickname != nickNameEditText.text.toString()) {
                     isSomethingNew = true
                 }
+                check()
             }
         }
 
@@ -184,11 +192,11 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         birthdayLayout.setOnClickListener {
             if (birthdayChangingEnabled) {
                 val currentDay =
-                    if (birthday.isNotEmpty()) birthday.substring(0, 2).toInt() else 0
+                    if (birthday.isNotEmpty()) birthday.substring(0, 2).toInt() else TODAYS_DAY
                 val currentMonth =
-                    if (birthday.isNotEmpty()) birthday.substring(3, 5).toInt() else 0
+                    if (birthday.isNotEmpty()) birthday.substring(3, 5).toInt() else TODAYS_MONTH
                 val currentYear =
-                    if (birthday.isNotEmpty()) birthday.substring(6).toInt() else 0
+                    if (birthday.isNotEmpty()) birthday.substring(6).toInt() else TODAYS_YEAR
 
                 val changeBirthdayDialog =
                     ChangeBirthdayDialog(currentDay, currentMonth, currentYear)
@@ -205,8 +213,8 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         }
 
         btnSaveChanges.setOnClickListener {
-            timber("DataSaved Screen", "DATA_SAVED_00")
-            viewModel.setUserLocalData(
+            binding.progressBar.visible()
+            viewModel.saveUserData(
                 UserLocalData(
                     firstNameEditText.text.toString(),
                     lastNameEditText.text.toString(),
@@ -217,12 +225,11 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
                     txtBirthday.text.toString()
                 )
             )
-            findNavController().popBackStack()
         }
 
         viewModel.userLocalDataLiveData.observe(viewLifecycleOwner, userLocalDataObserver)
         viewModel.profileInfoLiveData.observe(viewLifecycleOwner, profileInfoObserver)
-        viewModel.userLocalDataSavedLiveData.observe(viewLifecycleOwner, userLocalDataSavedObserver)
+        viewModel.userDataSavedLiveData.observe(viewLifecycleOwner, userDataSavedObserver)
         viewModel.openLoginScreenLiveData.observe(viewLifecycleOwner, openLoginScreenObserver)
     }
 
@@ -285,9 +292,9 @@ class ProfileSettings : Fragment(R.layout.screen_profile_settings) {
         binding.progressBar.invisible()
     }
 
-    private val userLocalDataSavedObserver = Observer<Unit> {
-        timber("DataSaved InsideObserver", "DATA_SAVED_00")
+    private val userDataSavedObserver = Observer<Unit> {
         binding.progressBar.invisible()
+        findNavController().popBackStack()
     }
 
     private fun loadSecondPhoneLayoutFocusChanges() = binding.scope {

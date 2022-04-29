@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.andrognito.flashbar.Flashbar
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.mobilebankingapp.R
@@ -26,15 +26,17 @@ import uz.gita.mobilebankingapp.presentation.ui.adapter.BasicScreenAdapter
 import uz.gita.mobilebankingapp.presentation.ui.dialog.auth.ClarifyLogoutDialog
 import uz.gita.mobilebankingapp.presentation.viewmodels.base.main.BasicViewModel
 import uz.gita.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
-import uz.gita.mobilebankingapp.utils.errorFlashBar
+import uz.gita.mobilebankingapp.utils.invisible
 import uz.gita.mobilebankingapp.utils.scope
 import uz.gita.mobilebankingapp.utils.showToast
+import uz.gita.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
 class BasicScreen : Fragment(R.layout.screen_basic_nav),
     NavigationView.OnNavigationItemSelectedListener {
     private val binding by viewBinding(ScreenBasicNavBinding::bind)
     private val viewModel: BasicViewModel by viewModels<BasicViewModelImpl>()
+    private val args: BasicScreenArgs by navArgs()
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
@@ -46,8 +48,8 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
                     requireActivity().finish()
                 }
             })
-
-        val adapter = BasicScreenAdapter(childFragmentManager, lifecycle)
+        txtUserName
+        val adapter = BasicScreenAdapter(childFragmentManager, lifecycle, args.lastScreen)
         innerLayout.pager.adapter = adapter
         innerLayout.pager.isUserInputEnabled = false
 
@@ -71,6 +73,10 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             setOnClickListener {
                 viewModel.openProfileScreen()
             }
+        }
+
+        noProfilePreview.setOnClickListener {
+            viewModel.openProfileScreen()
         }
 
         viewPaymePeople.setOnClickListener {
@@ -128,9 +134,29 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
     }
 
     private val profileInfoObserver = Observer<ProfileInfoResponse> {
-        val profileData = it.data
-        binding.textFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
-        binding.txtUserName.text = profileData.username
+        val profileData = it.data!!
+        binding.scope {
+            Log.d(
+                "PROFILE_my",
+                "firstname = ${profileData.firstName} lastname = ${profileData.lastName}"
+            )
+            if ((profileData.firstName == null || profileData.firstName.isEmpty()) && (profileData.lastName == null || profileData.lastName.isEmpty())) {
+                textFullName.invisible()
+                layoutUsername.invisible()
+                noProfilePreview.visible()
+            } else if (profileData.username.isEmpty() || profileData.username == "Fill in the nickname") {
+                noProfilePreview.invisible()
+                textFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
+                textFullName.visible()
+                layoutUsername.invisible()
+            } else {
+                noProfilePreview.invisible()
+                textFullName.text = "${profileData!!.firstName} ${profileData!!.lastName}"
+                textFullName.visible()
+                txtUserName.text = profileData.username
+                layoutUsername.visible()
+            }
+        }
     }
 
     private val openProfileScreenObserver = Observer<Unit> {

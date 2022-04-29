@@ -29,7 +29,7 @@ class CardRepositoryImpl @Inject constructor(
         cardVerifiedListener = block
     }
 
-    override fun addCard(data: AddCardRequest): Flow<Result<String>> = flow {
+    override fun addCard(data: AddCardRequest): Flow<Result<VerifyCardResponseData>> = flow {
         savePanToPref(data.pan)
         val response = cardApi.addCard(data)
         if (response.isSuccessful) {
@@ -37,16 +37,15 @@ class CardRepositoryImpl @Inject constructor(
             if (cardsList!!.size == 1) {
                 pref.mainCardPan = data.pan
             }
-            emit(Result.success(response.body()!!.message))
+            emit(Result.success(response.body()!!.data))
         } else {
             var st = "Serverga ulanishda xatolik bo'ldi"
 
             response.errorBody()?.let {
                 st = gson.fromJson(it.string(), BaseResponse::class.java).message
             }
-            emit(Result.failure<String>(Throwable(st)))
+            emit(Result.failure(Throwable(st)))
         }
-
     }.catch { throwable ->
         timber(throwable.message.toString())
     }.flowOn(Dispatchers.IO)
@@ -71,8 +70,8 @@ class CardRepositoryImpl @Inject constructor(
                     st = gson.fromJson(it.string(), SendMoneyResponse::class.java).data
                 }
                 emit(Result.failure<String>(Throwable(st)))
-            }*/
-
+            }
+            */
     }.flowOn(Dispatchers.IO)
 
     override fun verifyCard(data: VerifyCardRequest): Flow<Result<VerifyCardResponseData>> = flow {
@@ -81,16 +80,15 @@ class CardRepositoryImpl @Inject constructor(
             emit(Result.success(response.body()!!.data))
             cardVerifiedListener?.invoke()
         }
-
     }.flowOn(Dispatchers.IO)
 
     override fun savePanToPref(pan: String) {
         pref.currentPan = pan
     }
 
-    override fun getCurrentPan(): String {
-        return pref.currentPan
-    }
+    override fun getCurrentPan(): Flow<Result<String>> = flow {
+        emit(Result.success(pref.currentPan))
+    }.flowOn(Dispatchers.IO)
 
     override fun deleteCard(data: DeleteCardRequest): Flow<Result<String>> = flow {
         val response = cardApi.deleteCard(data)
@@ -175,9 +173,9 @@ class CardRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getTotalSumFromLocal(): String {
-        return pref.lastAllMoneyAmount
-    }
+    override fun getTotalSumFromLocal(): Flow<Result<String>> = flow {
+        emit(Result.success(pref.lastAllMoneyAmount))
+    }.flowOn(Dispatchers.IO)
 
     override fun getTotalSum(): Flow<Result<TotalCardResponse>> = flow {
         val response = cardApi.getTotalSum()
@@ -212,7 +210,7 @@ class CardRepositoryImpl @Inject constructor(
         get() = pref.isBalanceVisible
         set(visibility) {
             pref.isBalanceVisible = visibility
-            if (cardsList != null) {
+            if (cardsList != null && cardsList!!.isNotEmpty()) {
                 putIgnoreBalance(
                     IgnoreBalanceRequest(
                         getMyMainCardData()!!.id!!,

@@ -12,6 +12,7 @@ interface SendMoneyViewModel {
     val successLiveData: LiveData<ReceiptMoneyData>
     val ownerNameLiveData: LiveData<String>
     val feeLiveData: LiveData<String>
+    val cardsListLiveData: LiveData<List<CardData>>
 
     fun sendMoney(data: MoneyRequest)
 
@@ -20,4 +21,6 @@ interface SendMoneyViewModel {
     fun getFee(data: MoneyRequest)
 
     fun getMyMainCardData(): CardData?
+
+    fun getAllCardList()
 }

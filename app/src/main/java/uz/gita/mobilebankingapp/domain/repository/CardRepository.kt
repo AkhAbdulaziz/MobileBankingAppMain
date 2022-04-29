@@ -9,7 +9,7 @@ import uz.gita.mobilebankingapp.data.remote.user_req_res.response.BaseResponse
 interface CardRepository {
     fun setCardVerifiedListener(block: () -> Unit)
 
-    fun addCard(data: AddCardRequest): Flow<Result<String>>
+    fun addCard(data: AddCardRequest): Flow<Result<VerifyCardResponseData>>
 
     fun getAllCardsList(): Flow<Result<GetCardsData?>?>
 
@@ -19,7 +19,7 @@ interface CardRepository {
 
     fun savePanToPref(pan: String)
 
-    fun getCurrentPan(): String
+    fun getCurrentPan(): Flow<Result<String>>
 
     fun deleteCard(data: DeleteCardRequest): Flow<Result<String>>
 
@@ -49,7 +49,7 @@ interface CardRepository {
 
     var isBalanceVisible : Boolean
 
-    fun getTotalSumFromLocal(): String
+    fun getTotalSumFromLocal(): Flow<Result<String>>
 
     fun changeMainCard(pan :String)
 }

@@ -12,7 +12,7 @@ interface CardApi {
     @POST("card/add-card")
     suspend fun addCard(
         @Body data: AddCardRequest
-    ): Response<UserMessageResponse>
+    ): Response<VerifyCardResponse>
 
     @POST("card/verify")
     suspend fun verifyCard(

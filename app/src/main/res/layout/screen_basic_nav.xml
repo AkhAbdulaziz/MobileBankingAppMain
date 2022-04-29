@@ -26,6 +26,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:id="@+id/noProfilePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/viewPaymePeople"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="Your profile\nis not complete"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_username"
+                    android:gravity="center"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="4dp"
+                    android:text="Profile"
+                    android:textColor="@color/lightBaseColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/textFullName"
                 android:layout_width="match_parent"
@@ -33,10 +67,11 @@
                 android:layout_marginTop="16dp"
                 android:padding="16dp"
                 android:paddingTop="8dp"
-                android:text="John Williams"
                 android:textColor="@color/black"
                 android:textSize="32sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="User" />
 
             <LinearLayout
                 android:id="@+id/layoutUsername"
@@ -47,6 +82,7 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textFullName">
 
@@ -55,8 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_email"
-                    app:tint="@color/lightBaseColor" />
+                    app:tint="@color/lightBaseColor"
+                    android:src="@drawable/ic_email" />
 
                 <TextView
                     android:id="@+id/txtUserName"
@@ -64,9 +100,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
-                    android:text="softdeveloper"
                     android:textColor="@color/lightBaseColor"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:text="username" />
 
             </LinearLayout>
 
@@ -311,8 +347,8 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:rotation="180"
-                    app:tint="#818181"
-                    android:src="@drawable/ic_logout" />
+                    android:src="@drawable/ic_logout"
+                    app:tint="#818181" />
 
                 <TextView
                     android:layout_width="wrap_content"

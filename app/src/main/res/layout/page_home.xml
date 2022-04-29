@@ -53,9 +53,27 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtAddCardOrOpenAWallet"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="@drawable/bg_error_no_cards_white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Add card or\nopen a wallet"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@id/pager_ads"
+                app:layout_constraintRight_toRightOf="@id/pager_ads"
+                app:layout_constraintBottom_toTopOf="@id/paymeGoImg"
+                app:layout_constraintTop_toBottomOf="@id/appBar" />
+
+            <TextView
                 android:id="@+id/balanceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginBottom="4dp"
                 android:text="Total balance"
                 android:textColor="@color/white"
@@ -70,6 +88,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="24dp"
+                android:visibility="invisible"
                 android:adjustViewBounds="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -84,6 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="18dp"
+                android:visibility="invisible"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="28sp"
@@ -92,13 +112,14 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/imgEye"
-                tools:text="131 202" />
+                tools:text="0.0" />
 
             <TextView
                 android:id="@+id/currencyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:visibility="invisible"
                 android:layout_marginBottom="2dp"
                 android:text="sum"
                 android:textColor="@color/white"
@@ -110,8 +131,9 @@
                 android:id="@+id/expensesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginTop="4dp"
-                android:text="Expenditure for February -234 000 sum"
+                android:text="Expenditure 0.0 sum"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/balanceText"
@@ -285,8 +307,9 @@
                 android:id="@+id/txt_saved_payments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
                 android:text="Saved payments"
+                android:layout_marginTop="36dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -297,13 +320,13 @@
                 android:id="@+id/txt_more_saved_payments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="More"
                 android:textColor="@color/baseColor"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_send_money" />
+                app:layout_constraintTop_toTopOf="@id/txt_saved_payments" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_saved_payments"

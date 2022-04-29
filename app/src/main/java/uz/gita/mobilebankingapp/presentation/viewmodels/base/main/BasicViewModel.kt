@@ -10,10 +10,11 @@ interface BasicViewModel {
     val errorMessageLiveData: LiveData<String>
     val openLoginScreenLiveData: LiveData<LogoutResponse>
     val logoutResponseLiveData: LiveData<LogoutResponse>
+    val userPhoneNumberLiveData : LiveData<String>
 
     fun openProfileScreen()
 
-    fun getUserPhoneNumber(): String
+    fun getUserPhoneNumber()
 
     fun logout()
 
