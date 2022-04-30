@@ -1,136 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/btn_1"
-        style="@style/pincode_tv_style"
-        android:text="1"
-        app:layout_constraintBottom_toTopOf="@id/btn_4"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/btn_2"
-        style="@style/pincode_tv_style"
-        android:text="2"
-        app:layout_constraintBottom_toTopOf="@id/btn_5"
-        app:layout_constraintLeft_toRightOf="@id/btn_1"
-        app:layout_constraintRight_toLeftOf="@id/btn_3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/btn_3"
-        style="@style/pincode_tv_style"
-        android:text="3"
-        app:layout_constraintBottom_toTopOf="@id/btn_6"
-        app:layout_constraintLeft_toRightOf="@id/btn_2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/btn_4"
-        style="@style/pincode_tv_style"
-        android:text="4"
-        app:layout_constraintBottom_toTopOf="@id/btn_7"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_5"
-        app:layout_constraintTop_toBottomOf="@id/btn_1" />
-
-    <TextView
-        android:id="@+id/btn_5"
-        style="@style/pincode_tv_style"
-        android:text="5"
-        app:layout_constraintBottom_toTopOf="@id/btn_8"
-        app:layout_constraintLeft_toRightOf="@id/btn_4"
-        app:layout_constraintRight_toLeftOf="@id/btn_6"
-        app:layout_constraintTop_toBottomOf="@id/btn_2" />
-
-    <TextView
-        android:id="@+id/btn_6"
-        style="@style/pincode_tv_style"
-        android:text="6"
-        app:layout_constraintBottom_toTopOf="@id/btn_9"
-        app:layout_constraintLeft_toRightOf="@id/btn_5"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_3" />
-
-
-    <TextView
-        android:id="@+id/btn_7"
-        style="@style/pincode_tv_style"
-        android:text="7"
-        app:layout_constraintBottom_toTopOf="@id/btn_biometric_auth"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_8"
-        app:layout_constraintTop_toBottomOf="@id/btn_4" />
-
-    <TextView
-        android:id="@+id/btn_8"
-        style="@style/pincode_tv_style"
-        android:text="8"
-        app:layout_constraintBottom_toTopOf="@id/btn_0"
-        app:layout_constraintLeft_toRightOf="@id/btn_7"
-        app:layout_constraintRight_toLeftOf="@id/btn_9"
-        app:layout_constraintTop_toBottomOf="@id/btn_5" />
-
-    <TextView
-        android:id="@+id/btn_9"
-        style="@style/pincode_tv_style"
-        android:text="9"
-        app:layout_constraintBottom_toTopOf="@id/btn_delete"
-        app:layout_constraintLeft_toRightOf="@id/btn_8"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_6" />
-
-    <ImageView
-        android:id="@+id/btn_biometric_auth"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="12dp"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        android:padding="10dp"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn1"
+        app:layout_constraintLeft_toLeftOf="@id/btn1"
+        app:layout_constraintRight_toRightOf="@id/btn1"
+        app:layout_constraintTop_toTopOf="@id/btn1" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn1"
+        app:layout_constraintRight_toLeftOf="@id/btn3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn2"
+        app:layout_constraintLeft_toLeftOf="@id/btn2"
+        app:layout_constraintRight_toRightOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="@id/btn2" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:id="@+id/txt3"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn3"
+        app:layout_constraintLeft_toLeftOf="@id/btn3"
+        app:layout_constraintRight_toRightOf="@id/btn3"
+        app:layout_constraintTop_toTopOf="@id/btn3" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn5"
+        app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:textColor="@color/greyColor"
+        android:id="@+id/txt4"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn4"
+        app:layout_constraintLeft_toLeftOf="@id/btn4"
+        app:layout_constraintRight_toRightOf="@id/btn4"
+        app:layout_constraintTop_toTopOf="@id/btn4" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn4"
+        app:layout_constraintRight_toLeftOf="@id/btn6"
+        app:layout_constraintTop_toBottomOf="@id/btn2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        android:id="@+id/txt5"
+        app:layout_constraintBottom_toBottomOf="@id/btn5"
+        app:layout_constraintLeft_toLeftOf="@id/btn5"
+        app:layout_constraintRight_toRightOf="@id/btn5"
+        app:layout_constraintTop_toTopOf="@id/btn5" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:textColor="@color/greyColor"
+        android:id="@+id/txt6"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn6"
+        app:layout_constraintLeft_toLeftOf="@id/btn6"
+        app:layout_constraintRight_toRightOf="@id/btn6"
+        app:layout_constraintTop_toTopOf="@id/btn6" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn8"
+        app:layout_constraintTop_toBottomOf="@id/btn4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn7"
+        app:layout_constraintLeft_toLeftOf="@id/btn7"
+        android:id="@+id/txt7"
+        app:layout_constraintRight_toRightOf="@id/btn7"
+        app:layout_constraintTop_toTopOf="@id/btn7" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn7"
+        app:layout_constraintRight_toLeftOf="@id/btn9"
+        app:layout_constraintTop_toBottomOf="@id/btn5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn8"
+        app:layout_constraintLeft_toLeftOf="@id/btn8"
+        android:id="@+id/txt8"
+        app:layout_constraintRight_toRightOf="@id/btn8"
+        app:layout_constraintTop_toTopOf="@id/btn8" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        android:id="@+id/txt9"
+        app:layout_constraintBottom_toBottomOf="@id/btn9"
+        app:layout_constraintLeft_toLeftOf="@id/btn9"
+        app:layout_constraintRight_toRightOf="@id/btn9"
+        app:layout_constraintTop_toTopOf="@id/btn9" />
+
+    <ImageView
+        android:id="@+id/btnBiometricAuth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:padding="20dp"
         android:src="@drawable/face_touch_id"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_0"
-        app:layout_constraintTop_toBottomOf="@id/btn_7"
+        app:layout_constraintRight_toLeftOf="@id/btn0"
+        app:layout_constraintTop_toBottomOf="@id/btn7"
         app:tint="@color/greyColor" />
 
-    <TextView
-        android:id="@+id/btn_0"
-        style="@style/pincode_tv_style"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btn_biometric_auth"
-        app:layout_constraintRight_toLeftOf="@id/btn_delete"
-        app:layout_constraintTop_toBottomOf="@id/btn_8" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pin_input"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btnBiometricAuth"
+        app:layout_constraintRight_toLeftOf="@id/btnDelete"
+        app:layout_constraintTop_toBottomOf="@id/btn8" />
 
     <TextView
-        android:id="@+id/btn_delete"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/txt0"
+        android:textColor="@color/greyColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn0"
+        app:layout_constraintLeft_toLeftOf="@id/btn0"
+        app:layout_constraintRight_toRightOf="@id/btn0"
+        app:layout_constraintTop_toTopOf="@id/btn0" />
+
+    <TextView
+        android:id="@+id/btnDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:text="Delete"
         android:textColor="@color/greyColor"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btn_0"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/btn0"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_9" />
+        app:layout_constraintTop_toBottomOf="@id/btn9" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MobileBankingApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/baseColor</item>
-        <item name="colorPrimaryVariant">@color/baseColor</item>
+        <item name="colorPrimary">@color/lightBaseColor</item>
+        <item name="colorPrimaryVariant">@color/lightBaseColor</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

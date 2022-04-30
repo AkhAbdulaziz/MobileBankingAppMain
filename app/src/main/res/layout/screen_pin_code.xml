@@ -41,7 +41,7 @@
 
         <ImageView
             android:id="@+id/circle_1"
-            android:layout_width="24dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
             android:adjustViewBounds="true"
@@ -49,7 +49,7 @@
 
         <ImageView
             android:id="@+id/circle_2"
-            android:layout_width="24dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
             android:adjustViewBounds="true"
@@ -57,7 +57,7 @@
 
         <ImageView
             android:id="@+id/circle_3"
-            android:layout_width="24dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
             android:adjustViewBounds="true"
@@ -65,7 +65,7 @@
 
         <ImageView
             android:id="@+id/circle_4"
-            android:layout_width="24dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
             android:adjustViewBounds="true"
@@ -78,14 +78,17 @@
         layout="@layout/innerview_pincode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/circles_layout" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

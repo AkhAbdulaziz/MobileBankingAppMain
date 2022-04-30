@@ -9,48 +9,34 @@
     android:focusable="true"
     tools:context=".presentation.ui.pages.TransferPage">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:background="@color/white"
-        android:gravity="top|center"
-        android:orientation="horizontal"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+     <!--   <ImageView
             android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:adjustViewBounds="true"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:src="@drawable/ic_back" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Money transfer"
+            android:layout_gravity="center"
+            android:text="Profile"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <Space
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/txtToWhom"

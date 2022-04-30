@@ -13,7 +13,8 @@
         android:layout_margin="16dp"
         android:adjustViewBounds="true"
         android:background="?android:selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_back"
+        android:padding="4dp"
+        android:src="@drawable/ic_back2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

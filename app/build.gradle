@@ -10,7 +10,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "uz.gita.mobilebankingapp"
+        applicationId "uz.targetsoftwaredevelopment.mobilebankingapp"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -205,4 +205,15 @@ dependencies {
      * FlashBar - Custom Notifications
      */
     implementation 'com.andrognito.flashbar:flashbar:1.0.2'
+
+    /**
+     * ZXING bar code scanner
+     */
+    implementation "com.journeyapps:zxing-android-embedded:4.3.0"
+    implementation "com.google.zxing:core:3.4.1"
+
+    /**
+     * Good code scanner
+     */
+    implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
 }
