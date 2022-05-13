@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -23,10 +24,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenPaymePeop
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.AdsPrizesPagerAdapter
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.base.main.PaymePeopleViewModel
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.main.PaymePeopleViewModelImpl
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.adsPrizesImagesList
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.dpToPx
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.*
 
 @AndroidEntryPoint
 class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
@@ -70,11 +68,19 @@ class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
         }
 
         layoutMorePrizes.setOnClickListener {
-            showToast("More about prizes")
+            showFancyToast(
+                "More about prizes",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         imgOurPartners.setOnClickListener {
-            showToast("Our partners")
+            showFancyToast(
+                "Our partners",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         txtRulesOfThePaymePeople.apply {
@@ -96,7 +102,11 @@ class PaymePeopleScreen : Fragment(R.layout.screen_payme_people) {
                             R.color.lightBaseColor
                         )
                     )
-                    showToast("Rules of the Payme People promotion")
+                    showFancyToast(
+                        "Rules of the Payme People promotion",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.INFO
+                    )
                 }
                 if (action == MotionEvent.ACTION_DOWN) {
                     txtRulesOfThePaymePeople.setTextColor(

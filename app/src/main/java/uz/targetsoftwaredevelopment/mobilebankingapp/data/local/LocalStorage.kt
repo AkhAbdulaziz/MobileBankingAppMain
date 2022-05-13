@@ -15,6 +15,8 @@ class LocalStorage @Inject constructor() {
     private val KEY = "SHDIJHEUNNSONAIEFIUBOMXss54d5s4d5OSMB4s5456sd4cv8d"
     private val pref = SecurePreferences(App.instance, KEY, "local_storage.xml")
 
+    val BASE_URL : String = "http://d84f-31-148-160-38.ngrok.io/api/v1/"
+
     var startScreen: StartScreenEnum
         set(value) = pref.edit().putString("startScreen", value.name).apply()
         get() = pref.getString("startScreen", StartScreenEnum.LOGIN.name)!!.startScreen()
@@ -47,4 +49,9 @@ class LocalStorage @Inject constructor() {
     var pinCode: String by StringPreference(pref)
     var permissionFaceID: Boolean by BooleanPreference(pref)
     var permissionConfirmPaymentByFingerPrint: Boolean by BooleanPreference(pref)
+
+    var incomes: String by StringPreference(pref)
+    var expenditures: String by StringPreference(pref)
+
+    var scannedCardNumber: String by StringPreference(pref)
 }

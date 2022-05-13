@@ -3,14 +3,15 @@ package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.ma
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider.getUriForFile
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,6 +28,9 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.CheckData
@@ -34,7 +38,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.CheckDialogButto
 import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenCheckTransferBinding
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.dialog.main.CheckTransferDialog
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,9 +58,9 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
 
         receiverPan.text = args.checkData.receiverPan
         receiverName.text = args.checkData.receiverName
-        costService.text = "${args.checkData.fee} so'm"
+        costService.text = "${getPortableAmount("${args.checkData.fee.toInt()}")} sum"
         senderPan.text = args.checkData.senderPan
-        amountPayment.text = "${args.checkData.totalCost}"
+        amountPayment.text = getPortableAmount("${args.checkData.totalCost.toInt()}")
         dateAndTime.text =
             SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.US).format(Date(args.checkData.time))
 
@@ -65,11 +69,19 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         }
 
         bottomBar.imgRetry.setOnClickListener {
-            showToast("Retry")
+            showFancyToast(
+                "Retry",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         bottomBar.imgSave.setOnClickListener {
-            showToast("Save")
+            showFancyToast(
+                "Save",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         bottomBar.imgCheck.setOnClickListener {
@@ -77,22 +89,37 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             checkDialog.setShareBtnListener { buttonType ->
                 when (buttonType) {
                     CheckDialogButtonsEnum.DOWNLOAD -> {
-                        showToast("Download")
+                        showFancyToast(
+                            "Download",
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.INFO
+                        )
                     }
                     CheckDialogButtonsEnum.SHARE -> {
-                        verifyStoragePermissions()
-                        try {
-                            createPdf(
-                                args.checkData,
-                                R.drawable.infinbank_logo,
-                                "Invest-Finance Bank"
-                            )
-                        } catch (e: FileNotFoundException) {
-                            e.printStackTrace()
-                        }
+                        Permissions.check(requireContext(), arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ), null, null,
+                            object : PermissionHandler() {
+                                override fun onGranted() {
+                                    try {
+                                        createPdf(
+                                            args.checkData,
+                                            R.drawable.infinbank_logo,
+                                            "Invest-Finance Bank"
+                                        )
+                                    } catch (e: FileNotFoundException) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                            }
+                        )
                     }
                     CheckDialogButtonsEnum.PRINT_QR -> {
-                        showToast("Print QR")
+                        showFancyToast(
+                            "Print QR",
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.INFO
+                        )
                     }
                 }
             }
@@ -101,7 +128,11 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         }
 
         bottomBar.imgCancel.setOnClickListener {
-            showToast("Cancel")
+            showFancyToast(
+                "Cancel",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
     }
 
@@ -287,7 +318,7 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
         table.addCell(
             Cell().add(
-                Paragraph(Text("${checkData.fee} sum")).setBold()
+                Paragraph(Text("${getPortableAmount("${checkData.fee}")} sum")).setBold()
                     .setTextAlignment(TextAlignment.RIGHT)
             ).setBorder(Border.NO_BORDER)
         )
@@ -302,15 +333,14 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         )
         table.addCell(
             Cell().add(
-                Paragraph(Text("${checkData.totalCost} sum")).setBold()
+                Paragraph(Text("${getPortableAmount("${checkData.totalCost}")} sum")).setBold()
                     .setTextAlignment(TextAlignment.RIGHT)
             ).setBorder(Border.NO_BORDER)
         )
 
         document.add(table)
         document.close()
-//        Toast.makeText(requireContext(), "PDF created", Toast.LENGTH_LONG).show()
-        shareAnyFile(file)
+        share()
     }
 
     private fun getPDFImage(imageResId: Int, height: Float? = null, width: Float? = null): Image {
@@ -331,38 +361,62 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
         return image
     }
 
-    private fun sharePdf(file: File) {
-        val intentShareFile = Intent(Intent.ACTION_SEND)
-        intentShareFile.type = "application/pdf"
-
-        intentShareFile.putExtra(
-            Intent.EXTRA_INTENT,
-            file
-        )
-
-        intentShareFile.putExtra(
-            Intent.EXTRA_SUBJECT,
-            "Receipt"
-        )
-
-        /*intentShareFile.putExtra(
-            Intent.EXTRA_TEXT,
-            "Your Receipt"
-        )*/
-
-        requireContext().startActivity(
-            Intent.createChooser(
-                intentShareFile,
-                "Check PDF"
+    private fun share() {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.apply {
+            type = "*/*"
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra(
+                Intent.EXTRA_SUBJECT,
+                "Receipt Transaction"
             )
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Check file"
+            )
+        }
+        val file = File(
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+            "receiptPdf.pdf"
         )
+        val fileUri =
+            getUriForFile(requireActivity(), "${requireContext().packageName}.provider", file)
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+        val chooser = Intent.createChooser(sharingIntent, "Check PDF")
+        val resInfoList: List<ResolveInfo> = requireContext().packageManager.queryIntentActivities(
+            chooser,
+            PackageManager.MATCH_DEFAULT_ONLY
+        )
+        for (resolveInfo in resInfoList) {
+            val packageName = resolveInfo.activityInfo.packageName
+            requireContext().grantUriPermission(
+                packageName,
+                fileUri,
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
+        }
+        startActivity(chooser)
     }
 
-    private fun shareAnyFile(file: File) {
-        val sharingIntent = Intent(Intent.ACTION_SEND)
-        val screenshotUri: Uri = Uri.parse(file.path)
-        sharingIntent.type = "*/*"
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri)
-        startActivity(Intent.createChooser(sharingIntent, "Check PDF"))
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
     }
 }

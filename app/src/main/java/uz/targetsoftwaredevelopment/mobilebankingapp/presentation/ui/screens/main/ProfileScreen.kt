@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.UserLocalData
@@ -18,7 +19,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.bas
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.main.ProfileViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.invisible
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.timber
 
 @AndroidEntryPoint
@@ -26,7 +27,6 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
     private val binding by viewBinding(ScreenProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels<ProfileViewModelImpl>()
 
-    //    private var imageUri: Uri? = null
     private var firstName: String = "First name"
     private var lastName: String = "Last name"
     private var nickname: String = ""
@@ -37,37 +37,11 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-//        setCurrentData()
         viewModel.getUserLocalData()
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        /*userImage.setOnClickListener {
-            Permissions.check(requireContext(), arrayOf(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ), null, null,
-                object : PermissionHandler() {
-                    override fun onGranted() {
-                        ImagePicker.with(requireActivity())
-                            .cropSquare()
-                            .compress(1024)
-                            .maxResultSize(
-                                1080,
-                                1080
-                            )
-                            .createIntent { intent ->
-                                startForProfileImageResult.launch(intent)
-                            }
-                    }
-                }
-            )
-        }*/
-
-//        viewModel.imageChangedLiveData.observe(viewLifecycleOwner, imageChangedObserver)
-
         btnEditProfile.setOnClickListener {
             findNavController().navigate(ProfileScreenDirections.actionProfileScreenToProfileSettings())
         }
@@ -87,10 +61,18 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             findNavController().navigate(ProfileScreenDirections.actionProfileScreenToPaymePeopleScreen())
         }
         clickViewChangeAccount.setOnClickListener {
-            showToast("Change account")
+            showFancyToast(
+                "Change account",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
         clickViewDeleteAccount.setOnClickListener {
-            showToast("Delete account")
+            showFancyToast(
+                "Delete account",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         viewModel.userLocalDataLiveData.observe(viewLifecycleOwner, userLocalDataObserver)
@@ -135,9 +117,7 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             txtPhoneNumber1.text = "${profileData.phone}"
         }
         phone1 = "${profileData.phone}"
-
         binding.progressBar.invisible()
-
         viewModel.setUserLocalData(
             UserLocalData(
                 firstName,
@@ -163,26 +143,4 @@ class ProfileScreen : Fragment(R.layout.screen_profile) {
             )
         )
     }
-
-    /*  private val startForProfileImageResult =
-          registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-              val resultCode = result.resultCode
-              val data = result.data
-
-              if (resultCode == Activity.RESULT_OK) {
-                  imageUri = data?.data!!
-
-                  if (imageUri != null) {
-                      viewModel.setAvatar(imageUri!!)
-                  }
-              }
-          }
-
-      private val imageChangedObserver = Observer<Uri> {
-          binding.userImage.setImageURI(it)
-      }
-
-      private fun setCurrentData() = binding.scope {
-          userImage.setImageURI(imageUri)
-      }*/
 }

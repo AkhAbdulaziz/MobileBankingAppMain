@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -94,7 +95,11 @@ class VerifyScreen : Fragment(R.layout.screen_verify) {
     }
 
     private val errorMessageObserver = Observer<String> {
-        showToast(it)
+        showFancyToast(
+            it,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 
     private val resendCodeObserver = Observer<Unit> {

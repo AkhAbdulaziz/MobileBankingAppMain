@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.items
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.items
 
 import android.os.Bundle
 import android.view.View
@@ -42,7 +42,7 @@ class SenderCardItem : Fragment(R.layout.item_sender_card) {
             }
 
             senderName.text = cardData.cardName
-            senderBalance.text = "Balance: ${cardData.balance} sum"
+            senderBalance.text = "Balance: ${getPortableAmount("${cardData.balance}")} sum"
             senderCardNumber.text = "**** ${cardData.pan!!.substring(12)}"
 
             when {
@@ -65,5 +65,24 @@ class SenderCardItem : Fragment(R.layout.item_sender_card) {
                 }
             }
         }
+    }
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
     }
 }

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.andrognito.flashbar.Flashbar
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.StartScreenEnum
@@ -612,7 +613,11 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
 
     private val errorMessageObserver = Observer<String> { errorMessage ->
         binding.progressBar.gone()
-        showToast(errorMessage)
+        showFancyToast(
+            errorMessage,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 
     private val loginResponseObserver = Observer<Unit> {
@@ -626,19 +631,15 @@ class PinCodeScreen : Fragment(R.layout.screen_pin_code) {
         val biometricManager = BiometricManager.from(requireContext())
         return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
-                Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
                 true
             }
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-                Log.d("MY_APP_TAG", "NO biometric features available on this device.")
                 true
             }
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-                Log.d("MY_APP_TAG", "Biometric features are currently not available.")
                 true
             }
             else -> {
-                Log.d("MY_APP_TAG", "Last false")
                 false
             }
         }

@@ -8,14 +8,15 @@ interface MainPageViewModel {
     val totalSumFromLocalLiveData: LiveData<String>
     val errorMessageLiveData: LiveData<String>
     val cardsListLiveData: LiveData<List<CardData>>
+    val expendituresLiveData: LiveData<String>
 
     fun getTotalSum()
 
     fun getTotalSumFromLocal()
 
-    fun getOutcomes()
-
     fun getAllCardList()
+
+    fun getHistoryPagingData()
 
     var isBalanceVisible: Boolean
 }

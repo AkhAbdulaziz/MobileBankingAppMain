@@ -37,7 +37,7 @@ class MyCardsAdapter(private val list: List<CardData>) :
         fun bind() {
             val data = list[absoluteAdapterPosition]
             cardName.text = data.cardName
-            cardBalance.text = "${data.balance} sum"
+            cardBalance.text = "${getPortableAmount("${data.balance}")} sum"
             cardOwner.text = data.owner
             cardNumber.text = data.pan
             cardValidate.text = data.exp
@@ -55,4 +55,23 @@ class MyCardsAdapter(private val list: List<CardData>) :
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind()
 
     override fun getItemCount(): Int = list.size
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
+    }
 }

@@ -12,8 +12,8 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.ServicesData
 class ServicesAdapter(private val list: List<ServicesData>) :
     RecyclerView.Adapter<ServicesAdapter.VH>() {
 
-    private var listener: ((Int) -> Unit)? = null
-    fun setListener(block: (Int) -> Unit) {
+    private var listener: ((String) -> Unit)? = null
+    fun setListener(block: (String) -> Unit) {
         listener = block
     }
 
@@ -24,7 +24,7 @@ class ServicesAdapter(private val list: List<ServicesData>) :
 
         init {
             itemView.setOnClickListener {
-                listener?.invoke(absoluteAdapterPosition)
+                listener?.invoke(list[absoluteAdapterPosition].title)
             }
         }
 

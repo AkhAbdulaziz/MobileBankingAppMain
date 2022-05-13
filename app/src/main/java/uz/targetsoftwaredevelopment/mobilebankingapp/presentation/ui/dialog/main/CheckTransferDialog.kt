@@ -48,8 +48,8 @@ class CheckTransferDialog(private val checkData: CheckData) : BottomSheetDialogF
             txtTimeCreated.text = "${checkData.time}"
             txtTimePayment.text = "${checkData.time}"
             txtSenderCard.text = checkData.senderPan
-            txtServiceCost.text = "${checkData.fee}"
-            txtPaymentCost.text = "${checkData.totalCost}"
+            txtServiceCost.text = getPortableAmount("${checkData.fee.toInt()}")
+            txtPaymentCost.text = getPortableAmount("${checkData.totalCost.toInt()}")
         }
 
         btnDownload.setOnClickListener {
@@ -63,5 +63,24 @@ class CheckTransferDialog(private val checkData: CheckData) : BottomSheetDialogF
         btnPrintQR.setOnClickListener {
             shareBtnListener?.invoke(CheckDialogButtonsEnum.PRINT_QR)
         }
+    }
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
     }
 }

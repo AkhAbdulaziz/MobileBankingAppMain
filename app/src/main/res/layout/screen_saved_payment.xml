@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.ui.screens.adaptersdatascreens.SavedPaymentScreen">
+    tools:context=".presentation.ui.screens.main.SavedPaymentScreen">
 
     <FrameLayout
         android:id="@+id/topBar"
@@ -41,6 +41,7 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
+            android:visibility="invisible"
             android:adjustViewBounds="true"
             android:background="?android:selectableItemBackgroundBorderless"
             android:padding="4dp"
@@ -71,18 +72,29 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/logo_beeline" />
 
+            <TextView
+                android:id="@+id/txtReceiverCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/greyColor"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgReceiverCompanyLogo"
+                tools:text="Beeline" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/cardNumberLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="26dp"
                 app:counterMaxLength="16"
                 app:endIconMode="clear_text"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgReceiverCompanyLogo">
+                app:layout_constraintTop_toBottomOf="@id/txtReceiverCompanyName">
 
                 <EditText
                     android:id="@+id/cardNumberEditText"
@@ -155,7 +167,7 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextBtn"
+        android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

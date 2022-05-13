@@ -28,6 +28,7 @@ class TransferViewModelImpl @Inject constructor(
     override val openLoginScreenLiveData = MutableLiveData<Unit>()
     override val cardsListLiveData = MutableLiveData<List<CardData>>()
     override val panToTransferPageLiveData = MutableLiveData<String>()
+    override val scannedCardNumberLiveData = MutableLiveData<String>()
 
     init {
         authRepository.setOpenLoginScreenListener {
@@ -35,6 +36,9 @@ class TransferViewModelImpl @Inject constructor(
         }
         cardRepository.setPanToTransferPageListener {
             panToTransferPageLiveData.value = it
+        }
+        cardRepository.setScannedCardNumberListener {
+            scannedCardNumberLiveData.value = it
         }
     }
 

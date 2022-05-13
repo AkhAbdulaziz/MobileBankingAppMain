@@ -48,7 +48,7 @@
     <string name="ru_transaction_transport">транспорт</string>
     <string name="ru_transaction_transfer">перевод</string>
 
-    <!-- payment for services -->
+    <!-- payment for services ru -->
     <string name="ru_payment_for_service_popular">Популярное</string>
     <string name="ru_payment_for_service_mobile_operators">Мобильные операторы</string>
     <string name="ru_payment_for_service_internet_providers">Интернет провайдеры</string>
@@ -68,7 +68,27 @@
     <string name="ru_payment_for_service_game_social_media">Игры и социальные сети</string>
     <string name="ru_payment_for_service_airplane">Авиа и ЖД билеты</string>
 
-    <!-- services -->
+    <!-- payment for services en -->
+    <string name="en_payment_for_service_popular">Popular</string>
+    <string name="en_payment_for_service_mobile_operators">Mobile operators</string>
+    <string name="en_payment_for_service_internet_providers">Internet providers</string>
+    <string name="en_payment_for_service_communal">Public utilities</string>
+    <string name="en_payment_for_service_government">Public services and traffic police fines</string>
+    <string name="en_payment_for_service_telephone">Telephony</string>
+    <string name="en_payment_for_service_tv">Television and online broadcasting</string>
+    <string name="en_payment_for_service_online_service">Online services</string>
+    <string name="en_payment_for_service_poster">Announcements and advertising</string>
+    <string name="en_payment_for_service_bank">Repayment of bank loans</string>
+    <string name="en_payment_for_service_credit">Repayment of loans and installments</string>
+    <string name="en_payment_for_service_transport">Transport</string>
+    <string name="en_payment_for_service_charity">Charity</string>
+    <string name="en_payment_for_service_education">Education</string>
+    <string name="en_payment_for_service_electronic_wallet">Electronic wallets</string>
+    <string name="en_payment_for_service_insurance">Insurance</string>
+    <string name="en_payment_for_service_game_social_media">Games and social networks</string>
+    <string name="en_payment_for_service_airplane">Air and railway tickets</string>
+
+    <!-- services ru-->
     <string name="ru_services_title_payme_avia">Payme Avia</string>
     <string name="ru_services_description_payme_avia">Покупка авиабилетов</string>
     <string name="ru_services_title_payment_for_checking_account">Оплата на расчётный счёт</string>
@@ -82,8 +102,23 @@
     <string name="ru_services_title_traffic_fine_notices">Уведомления о штрафах ГУБДД</string>
     <string name="ru_services_description_traffic_fine_notices">Disabled</string>
     <string name="ru_services_title_auto_insurance">Автострахование</string>
-    <string name="ru_services_description_auto_insurance">Покупка Е-полиса объятельного автострахования</string>
+    <string name="ru_services_description_auto_insurance">Покупка Е-полиса обязательного автострахования</string>
 
+    <!-- services en-->
+    <string name="en_services_title_payme_avia">Payme Avia</string>
+    <string name="en_services_description_payme_avia">Buying tickets</string>
+    <string name="en_services_title_payment_for_checking_account">Payment to current account</string>
+    <string name="en_services_description_payment_for_checking_account"> </string>
+    <string name="en_services_title_iib_debt_checking">IIB debt check</string>
+    <string name="en_services_description_iib_debt_checking"> </string>
+    <string name="en_services_title_gold_crown">Gold Crown</string>
+    <string name="en_services_description_gold_crown">Receive international transfers directly to your card</string>
+    <string name="en_services_title_payment_monitoring">Payment monitoring</string>
+    <string name="en_services_description_payment_monitoring">Enabled</string>
+    <string name="en_services_title_traffic_fine_notices">Traffic fine notices</string>
+    <string name="en_services_description_traffic_fine_notices">Disabled</string>
+    <string name="en_services_title_auto_insurance">Auto insurance</string>
+    <string name="en_services_description_auto_insurance">Buying an E-policy of compulsory auto insurance</string>
 
     <!--ENGLISH-->
     <string name="check_service_point">Service point:</string>

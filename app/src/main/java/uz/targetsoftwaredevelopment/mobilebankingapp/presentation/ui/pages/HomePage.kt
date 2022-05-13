@@ -19,18 +19,23 @@ import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.blikoon.qrcodescanner.QrCodeActivity
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
+import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.SavedPaymentData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.PageHomeBinding
-import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.homePageAdapters.*
+import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.*
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.base.pages.MainPageViewModel
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.pages.MainPageViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.*
+import java.util.*
 
 @AndroidEntryPoint
 class HomePage : Fragment(R.layout.page_home) {
@@ -38,21 +43,11 @@ class HomePage : Fragment(R.layout.page_home) {
     private val viewModel: MainPageViewModel by viewModels<MainPageViewModelImpl>()
     private val REQUEST_CODE_QR_SCAN = 101
 
-    //    private var savedPaymentsList = ArrayList<SavedPaymentData>()
     private val savedPaymentsAdapter by lazy { SavedPaymentsAdapter(savedPaymentsList) }
-
-    //    private var adsList = ArrayList<AdData>()
     private lateinit var adsAdapter: AdsAdapter
-
-    //    private var paymentForServicesList = ArrayList<PaymentForServicesData>()
     private val paymentForServicesAdapter by lazy { PaymentForServicesAdapter(paymentForServicesList) }
-
-    //    private var myHomesList = ArrayList<MyHomeData>()
     private val myHomesAdapter by lazy { MyHomesAdapter(myHomesList) }
-
-    //    private var recentTransactionsList = ArrayList<RecentTransactionData>()
     private val recentTransactionsAdapter by lazy { RecentTransactionsAdapter(recentTransactionsList) }
-//    private var isFirstTime: Boolean = true
 
     private var clickHomeButtonListener: (() -> Unit)? = null
     fun setOnClickHomeButtonListener(block: () -> Unit) {
@@ -79,6 +74,16 @@ class HomePage : Fragment(R.layout.page_home) {
         backPressedListener = f
     }
 
+    private var openSavedPaymentScreenListener: ((SavedPaymentData) -> Unit)? = null
+    fun setOpenSavedPaymentScreenListener(f: (SavedPaymentData) -> Unit) {
+        openSavedPaymentScreenListener = f
+    }
+
+    private var openNewSavedPaymentScreenListener: (() -> Unit)? = null
+    fun setOpenNewSavedPaymentScreenListener(f: () -> Unit) {
+        openNewSavedPaymentScreenListener = f
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -87,8 +92,8 @@ class HomePage : Fragment(R.layout.page_home) {
                 }
             })
 
-//        refresh.isRefreshing = true
         viewModel.getTotalSumFromLocal()
+        viewModel.getHistoryPagingData()
 
         arguments?.let {
             CoroutineScope(Dispatchers.IO).launch {
@@ -101,24 +106,15 @@ class HomePage : Fragment(R.layout.page_home) {
             }
         }
 
-        /*if (isFirstTime) {
-            fillSavedPaymentsList()
-            fillAdsList()
-            fillPaymentForServicesList()
-            fillMyHomesList()
-            fillRecentTransactionsList()
-            isFirstTime = false
-        }*/
-
         // SavedPaymentsAdapter
         rvSavedPayments.adapter = savedPaymentsAdapter
         rvSavedPayments.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         savedPaymentsAdapter.setSavedPaymentOnClickListener {
-            showToast("Saved Payment $it")
+            openSavedPaymentScreenListener?.invoke(it)
         }
         savedPaymentsAdapter.setNewButtonOnClickListener {
-            showToast("New Saved Payment")
+            openNewSavedPaymentScreenListener?.invoke()
         }
 
         // AdsAdapter
@@ -153,8 +149,12 @@ class HomePage : Fragment(R.layout.page_home) {
         rvPaymentForServices.adapter = paymentForServicesAdapter
         rvPaymentForServices.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        paymentForServicesAdapter.setServiceOnClickListener {
-            showToast("Payment for service $it")
+        paymentForServicesAdapter.setServiceOnClickListener { serviceName ->
+            showFancyToast(
+                serviceName,
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         // MyHomesAdapter
@@ -165,20 +165,21 @@ class HomePage : Fragment(R.layout.page_home) {
         snapHelper.attachToRecyclerView(rvMyHomes)
 
         myHomesAdapter.setHomeOnClickListener {
-            showToast("My Home $it")
+            showFancyToast(
+                if (it.isLast) {
+                    "Add new home"
+                } else {
+                    it.name
+                }
+            )
         }
 
         // RecentTransactionsAdapter
         rvRecentTransactions.adapter = recentTransactionsAdapter
         rvRecentTransactions.layoutManager = LinearLayoutManager(requireContext())
         recentTransactionsAdapter.setTransactionOnClickListener {
-            showToast("Recent Transaction $it")
+            showFancyToast("$it")
         }
-
-        /*refresh.setOnRefreshListener {
-            viewModel.getTotalSum()
-            refresh.isRefreshing = true
-        }*/
 
         if (viewModel.isBalanceVisible) {
             showBalance()
@@ -194,63 +195,62 @@ class HomePage : Fragment(R.layout.page_home) {
             }
         }
 
-        homeBtn.setOnClickListener {
+        btnHome.setOnClickListener {
             clickHomeButtonListener?.invoke()
             timber("home pageds bosildi", "HOME_BTN")
         }
 
+        btnBell.setOnClickListener {
+            showFancyToast(
+                "News",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
+        }
+
         txtAddCardOrOpenAWallet.setOnClickListener {
-//            findNavController().navigate(R.id.action_basicScreen_to_addCardScreen)
             openAddCardScreenListener?.invoke()
         }
 
         myCardsImg.setOnClickListener {
-//            findNavController().navigate(R.id.action_basicScreen_to_myCardsScreen)
             openMyCardsScreenListener?.invoke()
         }
 
         paymeGoImg.setOnClickListener {
-            // TODO: Open PAYME GO SCREEN
+            showFancyToast("Payme Go")
         }
 
         qrPaymentImg.setOnClickListener {
-            /* val intentIntegrator = IntentIntegrator(requireActivity())
-             intentIntegrator.setDesiredBarcodeFormats(listOf(IntentIntegrator.QR_CODE))
-             intentIntegrator.initiateScan()
-             intentIntegrator.captureActivity = MainActivity::class.java
-             intentIntegrator.setOrientationLocked(false)*/
-
-            val i = Intent(requireContext(), QrCodeActivity::class.java)
-            startActivityForResult(i, REQUEST_CODE_QR_SCAN)
+            Permissions.check(requireContext(), arrayOf(
+                android.Manifest.permission.CAMERA
+            ), null, null,
+                object : PermissionHandler() {
+                    override fun onGranted() {
+                        val i = Intent(requireContext(), QrCodeActivity::class.java)
+                        startActivityForResult(i, REQUEST_CODE_QR_SCAN)
+                    }
+                }
+            )
         }
 
         btnSendMoney.setOnClickListener {
-            /*   val bundle = Bundle()
-               bundle.putString("direction_type", PaymentPageEnum.FROM_PAYMENT_SCREEN.name)
-               findNavController().navigate(R.id.action_basicScreen_to_transferPage)*/
+            Log.d("OpenTransferPage", "HomePage")
             openTransferPageListener?.invoke(null)
         }
         btnRequestMoney.setOnClickListener {
-            showToast("Request Money")
+            showFancyToast("Request Money")
         }
 
         viewModel.totalSumFromLocalLiveData.observe(viewLifecycleOwner, totalSumFromLocalObserver)
         viewModel.totalSumLiveData.observe(viewLifecycleOwner, totalSumObserver)
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, errorMessageObserver)
         viewModel.cardsListLiveData.observe(viewLifecycleOwner, cardsListObserver)
+        viewModel.expendituresLiveData.observe(viewLifecycleOwner, expendituresObserver)
     }
-
-    /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         super.onActivityResult(requestCode, resultCode, data)
-         var result = IntentIntegrator.parseActivityResult(resultCode, data)
-         if (result != null) {
-             openTransferScreenListener?.invoke(result.contents)
-         }
-     }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode != Activity.RESULT_OK) {
-            Log.d("QRCODESCANE", "COULD NOT GET A GOOD RESULT.")
+            timber("COULD NOT GET A GOOD RESULT", "QRCODESCANE")
             if (data == null) return
             //Getting the passed result
             val result = data.getStringExtra("com.blikoon.qrcodescanner.error_decoding_image")
@@ -268,7 +268,7 @@ class HomePage : Fragment(R.layout.page_home) {
             if (data == null) return
             //Getting the passed result
             val result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult")
-            Log.d("QRCODESCANE", "Have scan result in your app activity :$result")
+            timber("Have scan result in your app activity :$result", "QRCODESCANE")
             val alertDialog: AlertDialog = AlertDialog.Builder(requireContext()).create()
             alertDialog.setTitle("Scan result")
             alertDialog.setMessage(result)
@@ -279,22 +279,21 @@ class HomePage : Fragment(R.layout.page_home) {
     }
 
     private val totalSumFromLocalObserver = Observer<String> {
-//        if (viewModel.isBalanceVisible) {
         binding.balanceText.text = it
-//        }
         viewModel.getTotalSum()
     }
 
     private val totalSumObserver = Observer<String> {
-//        if (viewModel.isBalanceVisible) {
         binding.balanceText.text = it
-//        }
-//        binding.refresh.isRefreshing = false
         binding.progressBar.invisible()
     }
 
     private val errorMessageObserver = Observer<String> {
-//        binding.refresh.isRefreshing = false
+        showFancyToast(
+            it,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
         binding.progressBar.invisible()
     }
 
@@ -306,6 +305,11 @@ class HomePage : Fragment(R.layout.page_home) {
                 hideAddCardView()
             }
         }
+    }
+
+    private val expendituresObserver = Observer<String> {
+        binding.expensesText.text =
+            "Expenditure for ${months[Calendar.getInstance(TimeZone.getTimeZone("UTC+5"))[Calendar.MONTH]]} -$it sum"
     }
 
     private fun showAddCardView() = binding.scope {
@@ -326,358 +330,6 @@ class HomePage : Fragment(R.layout.page_home) {
         expensesText.visible()
     }
 
-/*
-    private fun fillSavedPaymentsList() {
-        savedPaymentsList.apply {
-            add(
-                SavedPaymentData(
-                    false,
-                    R.drawable.logo_beeline,
-                    "My phone",
-                    "+998991002030"
-                )
-            )
-            add(
-                SavedPaymentData(
-                    false,
-                    R.drawable.logo_beeline,
-                    "Granny's phone",
-                    "+998919998877"
-                )
-            )
-            add(
-                SavedPaymentData(
-                    false,
-                    R.drawable.logo_atto,
-                    "My ATTO",
-                    "14 000 sum"
-                )
-            )
-            add(
-                SavedPaymentData(
-                    false,
-                    R.drawable.logo_mobiuz,
-                    "brother",
-                    "+998901510051"
-                )
-            )
-            add(
-                SavedPaymentData(
-                    true,
-                    R.drawable.logo_mobiuz,
-                    "brother",
-                    "+998901510051"
-                )
-            )
-        }
-    }
-
-    private fun fillAdsList() {
-        adsList.apply {
-            add(
-                AdData(
-                    R.drawable.ad1,
-                    getString(R.string.ru_ad1_title),
-                    getString(R.string.ru_ad1_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad2,
-                    getString(R.string.ru_ad2_title),
-                    getString(R.string.ru_ad2_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad3,
-                    getString(R.string.ru_ad3_title),
-                    getString(R.string.ru_ad3_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad4,
-                    getString(R.string.ru_ad4_title),
-                    getString(R.string.ru_ad4_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad5,
-                    getString(R.string.ru_ad5_title),
-                    getString(R.string.ru_ad5_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad6,
-                    getString(R.string.ru_ad6_title),
-                    getString(R.string.ru_ad6_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad1,
-                    getString(R.string.ru_ad1_title),
-                    getString(R.string.ru_ad1_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad2,
-                    getString(R.string.ru_ad2_title),
-                    getString(R.string.ru_ad2_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad3,
-                    getString(R.string.ru_ad3_title),
-                    getString(R.string.ru_ad3_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad4,
-                    getString(R.string.ru_ad4_title),
-                    getString(R.string.ru_ad4_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad5,
-                    getString(R.string.ru_ad5_title),
-                    getString(R.string.ru_ad5_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad6,
-                    getString(R.string.ru_ad6_title),
-                    getString(R.string.ru_ad6_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad1,
-                    getString(R.string.ru_ad1_title),
-                    getString(R.string.ru_ad1_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad2,
-                    getString(R.string.ru_ad2_title),
-                    getString(R.string.ru_ad2_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad3,
-                    getString(R.string.ru_ad3_title),
-                    getString(R.string.ru_ad3_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad4,
-                    getString(R.string.ru_ad4_title),
-                    getString(R.string.ru_ad4_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad5,
-                    getString(R.string.ru_ad5_title),
-                    getString(R.string.ru_ad5_description),
-                )
-            )
-            add(
-                AdData(
-                    R.drawable.ad6,
-                    getString(R.string.ru_ad6_title),
-                    getString(R.string.ru_ad6_description),
-                )
-            )
-        }
-    }
-
-    private fun fillPaymentForServicesList() {
-        paymentForServicesList.apply {
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_popular,
-                    getString(R.string.ru_payment_for_service_popular)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_smartphone,
-                    getString(R.string.ru_payment_for_service_mobile_operators)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_internet,
-                    getString(R.string.ru_payment_for_service_internet_providers)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_house,
-                    getString(R.string.ru_payment_for_service_communal)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_government,
-                    getString(R.string.ru_payment_for_service_government)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_phone,
-                    getString(R.string.ru_payment_for_service_telephone)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_tv,
-                    getString(R.string.ru_payment_for_service_tv)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_online_services,
-                    getString(R.string.ru_payment_for_service_online_service)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_poster,
-                    getString(R.string.ru_payment_for_service_poster)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_bank_credit,
-                    getString(R.string.ru_payment_for_service_bank)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_percentage,
-                    getString(R.string.ru_payment_for_service_credit)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_bus,
-                    getString(R.string.ru_payment_for_service_transport)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_heart,
-                    getString(R.string.ru_payment_for_service_charity)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_hat_graduation,
-                    getString(R.string.ru_payment_for_service_education)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_wallet,
-                    getString(R.string.ru_payment_for_service_electronic_wallet)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_umbrella,
-                    getString(R.string.ru_payment_for_service_insurance)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_game_controller,
-                    getString(R.string.ru_payment_for_service_game_social_media)
-                )
-            )
-            add(
-                PaymentForServicesData(
-                    R.drawable.ic_airplane,
-                    getString(R.string.ru_payment_for_service_airplane)
-                )
-            )
-        }
-    }
-
-    private fun fillMyHomesList() {
-        myHomesList.apply {
-            add(
-                MyHomeData(
-                    false,
-                    "My home1",
-                    true
-                )
-            )
-            add(
-                MyHomeData(
-                    false,
-                    "My home2",
-                    false
-                )
-            )
-            add(
-                MyHomeData(
-                    true,
-                    "My home2",
-                    false
-                )
-            )
-        }
-    }
-
-    private fun fillRecentTransactionsList() {
-        recentTransactionsList.apply {
-            add(
-                RecentTransactionData(
-                    null,
-                    "myinfin online\nconvert",
-                    "21 February",
-                    "00:39",
-                    "-5 430",
-                    TransactionTypes.CONVERSION
-                )
-            )
-            add(
-                RecentTransactionData(
-                    null,
-                    "myinfin online\nconvert",
-                    "21 February",
-                    "00:34",
-                    "-124 564.2",
-                    TransactionTypes.CONVERSION
-                )
-            )
-            add(
-                RecentTransactionData(
-                    R.drawable.infinbank_logo,
-                    "",
-                    "21 February",
-                    "00:33",
-                    "-70 700",
-                    TransactionTypes.TRANSFER
-                )
-            )
-        }
-    }
-*/
-
     private fun hideBalance() = binding.scope {
         imgEye.setImageResource(R.drawable.ic_eye_opened)
         expensesText.gone()
@@ -696,7 +348,6 @@ class HomePage : Fragment(R.layout.page_home) {
         currencyText.visible()
         balanceText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28f)
         balanceText.setMarginsInDp(0f, 0f, 28f, 0f)
-//        viewModel.getTotalSum()
         balanceText.text = "131 202"
         viewModel.isBalanceVisible = true
     }

@@ -5,6 +5,8 @@ import java.io.Serializable
 data class SavedPaymentData(
     var isLast: Boolean = true,
     var logo: Int,
+    var logoName: String,
     var title: String,
-    var number: String
+    var phone: String,
+    var moneyAmount: Int = 0
 ) : Serializable

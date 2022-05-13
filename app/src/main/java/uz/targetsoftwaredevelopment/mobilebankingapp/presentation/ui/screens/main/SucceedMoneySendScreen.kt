@@ -9,10 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenSucceedMoneySendBinding
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
 
 @AndroidEntryPoint
@@ -116,7 +118,11 @@ class SucceedMoneySendScreen : Fragment(R.layout.screen_succeed_money_send) {
                             R.color.greyColor
                         ), android.graphics.PorterDuff.Mode.SRC_IN
                     )
-                    showToast("Cheque clicked")
+                    showFancyToast(
+                        "Cheque",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.INFO
+                    )
                 }
                 if (action == MotionEvent.ACTION_DOWN) {
                     txtCheque.setTextColor(
@@ -167,7 +173,11 @@ class SucceedMoneySendScreen : Fragment(R.layout.screen_succeed_money_send) {
                             R.color.greyColor
                         ), android.graphics.PorterDuff.Mode.SRC_IN
                     )
-                    showToast("Save clicked")
+                    showFancyToast(
+                        "Save",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.INFO
+                    )
                 }
                 if (action == MotionEvent.ACTION_DOWN) {
                     txtSave.setTextColor(

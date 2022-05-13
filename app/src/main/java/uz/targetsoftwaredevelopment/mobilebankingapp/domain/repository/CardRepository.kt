@@ -1,6 +1,7 @@
 package uz.targetsoftwaredevelopment.mobilebankingapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.SavedPaymentData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.request.*
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.response.*
@@ -43,7 +44,7 @@ interface CardRepository {
 
     fun putIgnoreBalance(data: IgnoreBalanceRequest): Flow<Result<String>>
 
-    fun getTotalSum(): Flow<Result<TotalCardResponse>>
+    fun getTotalSum(): Flow<Result<String>>
 
     fun getMyMainCardData(): CardData?
 
@@ -54,6 +55,11 @@ interface CardRepository {
     fun changeMainCard(pan :String)
 
     fun setPanToTransferPageListener(block: (String) -> Unit)
+    fun setDataToHistoryPageListener(block: (SavedPaymentData) -> Unit)
+    fun setScannedCardNumberListener(block: (String) -> Unit)
 
     fun givePanToTransferPage(pan: String)
+    fun giveDataToHistoryPage(data: SavedPaymentData)
+
+    fun saveScannedCardNumber(cardNumber: String)
 }

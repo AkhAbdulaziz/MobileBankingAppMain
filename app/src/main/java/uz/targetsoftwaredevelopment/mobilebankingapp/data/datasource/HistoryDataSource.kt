@@ -9,8 +9,11 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.utils.timber
 
 class HistoryDataSource(
     private val api: MoneyTransferApi,
-    private val pref: LocalStorage
+    private val localStorage: LocalStorage
 ) : PagingSource<Int, MoneyTransferResponse.HistoryData>() {
+    private var incomeCounter: Float = 0f
+    private var expenditureCounter: Float = 0f
+
     override fun getRefreshKey(state: PagingState<Int, MoneyTransferResponse.HistoryData>): Int? {
         return state.anchorPosition
     }
@@ -19,9 +22,20 @@ class HistoryDataSource(
         return try {
             val nextPageNumber = params.key ?: 0
             val pageSize = 10
-            val response = api.getMoneyTransferHistory(pref.accessToken, nextPageNumber, pageSize)
+            val response =
+                api.getMoneyTransferHistory(localStorage.accessToken, nextPageNumber, pageSize)
 
-            pref.historyDataCount = response.body()!!.data.totalCount
+            localStorage.historyDataCount = response.body()!!.data.totalCount
+
+            for (historyData in response.body()!!.data.data) {
+                if (historyData.status == 0) {
+                    incomeCounter += historyData.amount
+                } else {
+                    expenditureCounter += historyData.amount + historyData.fee
+                }
+            }
+            localStorage.incomes = getPortableAmount("${incomeCounter.toInt()}")
+            localStorage.expenditures = getPortableAmount("${expenditureCounter.toInt()}")
 
             timber(response.isSuccessful.toString())
             timber(response.body().toString())
@@ -36,5 +50,24 @@ class HistoryDataSource(
             timber("e = $e")
             LoadResult.Error(Throwable("Ulanishda xatolik bo'ldi"))
         }
+    }
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
     }
 }

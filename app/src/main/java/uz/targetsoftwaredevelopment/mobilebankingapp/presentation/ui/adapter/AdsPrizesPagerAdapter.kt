@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.items.AdsPrizesPagerItem
+import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.items.AdsPrizesPagerItem
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.putArguments
 
 class AdsPrizesPagerAdapter(

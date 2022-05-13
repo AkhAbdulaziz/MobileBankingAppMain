@@ -10,18 +10,12 @@ import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import java.util.ArrayList
 
-fun Activity.checkPermission(permission: String, granted : () -> Unit) {
+fun Activity.checkPermissions(permission: Array<String>, granted: () -> Unit) {
     Permissions.check(
-        this, permission, null,
-        permissionHandler(granted,
-            {
-                Toast.makeText(this,"denied", Toast.LENGTH_SHORT).show()
-                goToSettings()
-            },
-            {
-                Toast.makeText(this,"block", Toast.LENGTH_SHORT).show()
-                goToSettings()
-            })
+        this,
+        permission,
+        null, null,
+        permissionHandler(granted, { goToSettings() }, { goToSettings() }, { goToSettings() })
     )
 }
 
@@ -37,26 +31,29 @@ fun Activity.goToSettings() {
 private fun permissionHandler(
     granted: () -> Unit,
     denied: () -> Unit,
-    block: () -> Unit
-) : PermissionHandler {
-    return object : PermissionHandler() {
-        override fun onGranted() {
-            granted.invoke()
-        }
+    justBlocked: () -> Unit,
+    blocked: () -> Unit
+) = object : PermissionHandler() {
+    override fun onGranted() {
+        granted()
+    }
 
-        override fun onDenied(context: Context?, deniedPermissions: ArrayList<String>?) {
-            super.onDenied(context, deniedPermissions)
-            denied.invoke()
-        }
+    override fun onDenied(context: Context?, deniedPermissions: ArrayList<String>?) {
+        super.onDenied(context, deniedPermissions)
+        denied()
+    }
 
-        override fun onBlocked(context: Context?, blockedList: ArrayList<String>?): Boolean {
-            block.invoke()
-            return super.onBlocked(context, blockedList)
-        }
+    override fun onJustBlocked(
+        context: Context?,
+        justBlockedList: ArrayList<String>?,
+        deniedPermissions: ArrayList<String>?
+    ) {
+        super.onJustBlocked(context, justBlockedList, deniedPermissions)
+        justBlocked()
+    }
 
-        override fun onJustBlocked(context: Context?, justBlockedList: ArrayList<String>?, deniedPermissions: ArrayList<String>?) {
-            super.onJustBlocked(context, justBlockedList, deniedPermissions)
-            block.invoke()
-        }
+    override fun onBlocked(context: Context?, blockedList: ArrayList<String>?): Boolean {
+        blocked()
+        return super.onBlocked(context, blockedList)
     }
 }

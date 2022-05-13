@@ -54,12 +54,14 @@ class RegisterScreen : Fragment(R.layout.screen_register) {
                 }
             }
         }*/
+
         /*lastNameEditText.addTextChangedListener {
             it?.let {
                 isLastNameReady = it.length > 3
                 check()
             }
         }*/
+
         phoneNumberEditText.apply {
             addTextChangedListener {
                 phoneNumberEditTextLayout.disableError()

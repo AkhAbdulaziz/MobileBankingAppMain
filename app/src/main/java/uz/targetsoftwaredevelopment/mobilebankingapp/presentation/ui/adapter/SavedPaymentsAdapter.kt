@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.homePageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +18,8 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
 class SavedPaymentsAdapter(private val list: List<SavedPaymentData>) :
     RecyclerView.Adapter<SavedPaymentsAdapter.VH>() {
 
-    private var savedPaymentOnClickListener: ((Int) -> Unit)? = null
-    fun setSavedPaymentOnClickListener(f: (Int) -> Unit) {
+    private var savedPaymentOnClickListener: ((SavedPaymentData) -> Unit)? = null
+    fun setSavedPaymentOnClickListener(f: (SavedPaymentData) -> Unit) {
         savedPaymentOnClickListener = f
     }
 
@@ -40,7 +40,7 @@ class SavedPaymentsAdapter(private val list: List<SavedPaymentData>) :
                     newButtonOnClickListener?.invoke()
                     return@setOnClickListener
                 } else {
-                    savedPaymentOnClickListener?.invoke(absoluteAdapterPosition)
+                    savedPaymentOnClickListener?.invoke(list[absoluteAdapterPosition])
                     return@setOnClickListener
                 }
             }
@@ -80,7 +80,7 @@ class SavedPaymentsAdapter(private val list: List<SavedPaymentData>) :
 
                 logo.setImageResource(data.logo)
                 title.text = data.title
-                number.text = data.number
+                number.text = data.phone
             }
         }
     }

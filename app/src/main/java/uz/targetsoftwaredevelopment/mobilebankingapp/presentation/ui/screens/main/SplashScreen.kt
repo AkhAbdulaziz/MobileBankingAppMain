@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.main
 
 import android.os.Bundle
 import android.view.View

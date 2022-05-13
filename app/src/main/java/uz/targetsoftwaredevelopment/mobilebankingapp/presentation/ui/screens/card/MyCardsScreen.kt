@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.StartScreenEnum
@@ -20,10 +21,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.dialog.card
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.dialog.card.QRToReceiveTransferDialog
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.base.card.MyCardsViewModel
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.card.MyCardsViewModelImpl
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.gone
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.*
 
 @AndroidEntryPoint
 class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
@@ -89,15 +87,27 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
                     qrToReceiveTransferDialog = QRToReceiveTransferDialog(cardsList[adapterPos])
                     qrToReceiveTransferDialog.apply {
                         setSaveQRButtonClickListener {
-                            showToast("Save QR")
+                            showFancyToast(
+                                "Save QR",
+                                FancyToast.LENGTH_SHORT,
+                                FancyToast.INFO
+                            )
                             dismiss()
                         }
                         setShareQRButtonClickListener {
-                            showToast("Share QR")
+                            showFancyToast(
+                                "Share QR",
+                                FancyToast.LENGTH_SHORT,
+                                FancyToast.INFO
+                            )
                             dismiss()
                         }
                         setPrintQRButtonClickListener {
-                            showToast("Print QR")
+                            showFancyToast(
+                                "Print QR",
+                                FancyToast.LENGTH_SHORT,
+                                FancyToast.INFO
+                            )
                             dismiss()
                         }
                     }
@@ -135,7 +145,11 @@ class MyCardsScreen : Fragment(R.layout.screen_my_cards) {
     }
 
     private val errorMessageObserver = Observer<String> {
-        showToast(it)
+        showFancyToast(
+            "Share QR",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 
     private val closeDialogObserver = Observer<Unit> {

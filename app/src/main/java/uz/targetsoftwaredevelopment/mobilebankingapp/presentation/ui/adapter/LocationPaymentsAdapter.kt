@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.paymentPageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +14,13 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
 class LocationPaymentsAdapter(private val list: List<LocationPaymentsData>) :
     RecyclerView.Adapter<LocationPaymentsAdapter.VH>() {
 
-    private var locationOnLickListener: ((Int) -> Unit)? = null
-    fun setLocationOnClickListener(f: (Int) -> Unit) {
+    private var locationOnLickListener: ((String) -> Unit)? = null
+    fun setLocationOnClickListener(f: (String) -> Unit) {
         locationOnLickListener = f
     }
 
-    private var errorListener: ((Int) -> Unit)? = null
-    fun setErrorListener(f: (Int) -> Unit) {
+    private var errorListener: ((String) -> Unit)? = null
+    fun setErrorListener(f: (String) -> Unit) {
         errorListener = f
     }
 
@@ -40,10 +40,10 @@ class LocationPaymentsAdapter(private val list: List<LocationPaymentsData>) :
         init {
             itemView.setOnClickListener {
                 if (list[absoluteAdapterPosition].imgAlertError != null) {
-                    errorListener?.invoke(absoluteAdapterPosition)
+                    errorListener?.invoke(list[absoluteAdapterPosition].descriptionError!!)
                     return@setOnClickListener
                 } else {
-                    locationOnLickListener?.invoke(absoluteAdapterPosition)
+                    locationOnLickListener?.invoke(list[absoluteAdapterPosition].nameLocation!!)
                     return@setOnClickListener
                 }
             }
@@ -68,7 +68,7 @@ class LocationPaymentsAdapter(private val list: List<LocationPaymentsData>) :
             } else {
                 if (data.isUnderlineVisible) {
                     underlineLocation.visible()
-                }else{
+                } else {
                     underlineLocation.gone()
                 }
                 imgAlertError.gone()

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.response.ReceiptMoneyData
@@ -16,7 +17,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenWaitingMo
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.base.main.WaitingMoneySendViewModel
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.main.WaitingMoneySendViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 
 @AndroidEntryPoint
 class WaitingMoneySendScreen : Fragment(R.layout.screen_waiting_money_send) {
@@ -41,7 +42,11 @@ class WaitingMoneySendScreen : Fragment(R.layout.screen_waiting_money_send) {
     }
 
     private val errorObserver = Observer<String> {
-        showToast(it)
+        showFancyToast(
+            it,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 
     private val successObserver = Observer<ReceiptMoneyData> {

@@ -16,8 +16,8 @@ fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this.requireContext(), message, duration).show()
 }
 
-fun View.visible(bool: Boolean) {
-    if (bool) this.visibility = View.VISIBLE
+fun View.visible(isVisible: Boolean) {
+    if (isVisible) this.visibility = View.VISIBLE
     else this.visibility = View.GONE
 }
 

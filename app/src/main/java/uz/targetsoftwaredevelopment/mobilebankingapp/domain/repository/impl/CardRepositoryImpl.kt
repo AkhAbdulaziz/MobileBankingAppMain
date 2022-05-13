@@ -1,12 +1,12 @@
 package uz.targetsoftwaredevelopment.mobilebankingapp.domain.repository.impl
 
-import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.SavedPaymentData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.local.LocalStorage
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.api.CardApi
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.CardData
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class CardRepositoryImpl @Inject constructor(
     private val cardApi: CardApi,
-    private val pref: LocalStorage
+    private val localStorage: LocalStorage
 ) : CardRepository {
     private val gson = Gson()
     private var cardsList: List<CardData>? = null
@@ -34,13 +34,23 @@ class CardRepositoryImpl @Inject constructor(
         panToTransferPageListener = block
     }
 
+    private var dataToHistoryPageListener: ((SavedPaymentData) -> Unit)? = null
+    override fun setDataToHistoryPageListener(block: (SavedPaymentData) -> Unit) {
+        dataToHistoryPageListener = block
+    }
+
+    private var scannedCardNumberListener: ((String) -> Unit)? = null
+    override fun setScannedCardNumberListener(block: (String) -> Unit) {
+        scannedCardNumberListener = block
+    }
+
     override fun addCard(data: AddCardRequest): Flow<Result<VerifyCardResponseData>> = flow {
         savePanToPref(data.pan)
         val response = cardApi.addCard(data)
         if (response.isSuccessful) {
             getAllCardsList()
             if (cardsList!!.size == 1) {
-                pref.mainCardPan = data.pan
+                localStorage.mainCardPan = data.pan
             }
             emit(Result.success(response.body()!!.data))
         } else {
@@ -56,7 +66,7 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getAllCardsList(): Flow<Result<GetCardsData?>?> = flow {
-        val response = cardApi.getAllCards(pref.accessToken)
+        val response = cardApi.getAllCards(localStorage.accessToken)
         if (response.isSuccessful) {
             emit(Result.success(response.body()!!.data))
             cardsList = response.body()!!.data?.data
@@ -88,11 +98,11 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun savePanToPref(pan: String) {
-        pref.currentPan = pan
+        localStorage.currentPan = pan
     }
 
     override fun getCurrentPan(): Flow<Result<String>> = flow {
-        emit(Result.success(pref.currentPan))
+        emit(Result.success(localStorage.currentPan))
     }.flowOn(Dispatchers.IO)
 
     override fun deleteCard(data: DeleteCardRequest): Flow<Result<String>> = flow {
@@ -110,28 +120,22 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerByPan(data: OwnerByPanRequest): Flow<Result<OwnerByPanResponse>> = flow {
-        Log.d("HISTORY_TR", "getOwnerByPan repository")
         val response = cardApi.getOwnerByPan(data.pan)
         if (response.isSuccessful) {
-            Log.d("HISTORY_TR", "getOwnerByPan repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getOwnerById(data: OwnerByIdRequest): Flow<Result<OwnerByIdResponse>> = flow {
-        Log.d("HISTORY_TR", "getOwnerById repository")
         val response = cardApi.getOwnerById(data.id)
         if (response.isSuccessful) {
-            Log.d("HISTORY_TR", "getOwnerById repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getPanById(data: PanByIdRequest): Flow<Result<PanByIdResponse>> = flow {
-        Log.d("HISTORY_TR", "getPanById repository")
         val response = cardApi.getPanById(data.id)
         if (response.isSuccessful) {
-            Log.d("HISTORY_TR", "getPanById repository succeed")
             emit(Result.success(response.body()!!))
         }
     }.flowOn(Dispatchers.IO)
@@ -179,14 +183,15 @@ class CardRepositoryImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     override fun getTotalSumFromLocal(): Flow<Result<String>> = flow {
-        emit(Result.success(pref.lastAllMoneyAmount))
+        emit(Result.success(localStorage.lastAllMoneyAmount))
     }.flowOn(Dispatchers.IO)
 
-    override fun getTotalSum(): Flow<Result<TotalCardResponse>> = flow {
+    override fun getTotalSum(): Flow<Result<String>> = flow {
         val response = cardApi.getTotalSum()
         if (response.isSuccessful) {
-            pref.lastAllMoneyAmount = "${response.body()!!.data}"
-            emit(Result.success(response.body()!!))
+            val amount = getPortableAmount("${response.body()!!.data.toInt()}")
+            localStorage.lastAllMoneyAmount = amount
+            emit(Result.success(amount))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -194,7 +199,7 @@ class CardRepositoryImpl @Inject constructor(
         getAllCardsList()
         if (cardsList != null) {
             for (cardData: CardData in cardsList!!) {
-                if (cardData.pan.equals(pref.mainCardPan)) {
+                if (cardData.pan.equals(localStorage.mainCardPan)) {
                     return cardData
                 }
             }
@@ -204,17 +209,17 @@ class CardRepositoryImpl @Inject constructor(
     }
 
     override fun changeMainCard(pan: String) {
-        if (pref.mainCardPan == pan) {
-            pref.mainCardPan = cardsList!![0].pan!!
+        if (localStorage.mainCardPan == pan) {
+            localStorage.mainCardPan = cardsList!![0].pan!!
         } else {
-            pref.mainCardPan = pan
+            localStorage.mainCardPan = pan
         }
     }
 
     override var isBalanceVisible: Boolean
-        get() = pref.isBalanceVisible
+        get() = localStorage.isBalanceVisible
         set(visibility) {
-            pref.isBalanceVisible = visibility
+            localStorage.isBalanceVisible = visibility
             if (cardsList != null && cardsList!!.isNotEmpty()) {
                 putIgnoreBalance(
                     IgnoreBalanceRequest(
@@ -227,5 +232,33 @@ class CardRepositoryImpl @Inject constructor(
 
     override fun givePanToTransferPage(pan: String) {
         panToTransferPageListener?.invoke(pan)
+    }
+
+    override fun giveDataToHistoryPage(data: SavedPaymentData) {
+        dataToHistoryPageListener?.invoke(data)
+    }
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
+    }
+
+    override fun saveScannedCardNumber(cardNumber: String) {
+        localStorage.scannedCardNumber = cardNumber
+        scannedCardNumberListener?.invoke(cardNumber)
     }
 }

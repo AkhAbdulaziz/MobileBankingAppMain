@@ -12,6 +12,7 @@ interface TransferViewModel {
     val openLoginScreenLiveData: LiveData<Unit>
     val cardsListLiveData: LiveData<List<CardData>>
     val panToTransferPageLiveData: LiveData<String>
+    val scannedCardNumberLiveData: LiveData<String>
 
     fun getOwnerByPan(data: OwnerByPanRequest)
     fun getAllCardList()

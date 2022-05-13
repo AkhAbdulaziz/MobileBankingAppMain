@@ -1,11 +1,11 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.paymentPageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.CardData
-import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.items.SenderCardItem
+import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.items.SenderCardItem
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.putArguments
 class SenderCardsPagerAdapter(
     private val receiverCardPan: String,

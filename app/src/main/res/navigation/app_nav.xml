@@ -7,7 +7,7 @@
     action_transferPage_to_pinCodeScreen
     <fragment
         android:id="@+id/splashScreen"
-        android:name="uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.SplashScreen"
+        android:name="uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.main.SplashScreen"
         android:label="screen_splash"
         tools:layout="@layout/screen_splash">
         <action
@@ -77,6 +77,15 @@
             android:name="isNewUser"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_basicScreen_to_savedPaymentScreen"
+            app:destination="@id/savedPaymentScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_contactsScreen"
+            app:destination="@id/contactsScreen" />
+        <action
+            android:id="@+id/action_basicScreen_to_scanCardScreen"
+            app:destination="@id/scanCardScreen" />
     </fragment>
     <fragment
         android:id="@+id/verifyScreen"
@@ -271,4 +280,26 @@
             android:id="@+id/action_paymePeopleScreen_to_pinCodeScreen"
             app:destination="@id/pinCodeScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/savedPaymentScreen"
+        android:name="uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.main.SavedPaymentScreen"
+        android:label="screen_saved_payment"
+        tools:layout="@layout/screen_saved_payment" >
+        <argument
+            android:name="savedPaymentData"
+            app:argType="uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.SavedPaymentData" />
+        <action
+            android:id="@+id/action_savedPaymentScreen_to_contactsScreen"
+            app:destination="@id/contactsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactsScreen"
+        android:name="uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.main.ContactsScreen"
+        android:label="screen_contacts"
+        tools:layout="@layout/screen_contacts" />
+    <fragment
+        android:id="@+id/scanCardScreen"
+        android:name="uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.card.ScanCardScreen"
+        android:label="screen_scan_card"
+        tools:layout="@layout/screen_scan_card" />
 </navigation>

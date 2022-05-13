@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,20 +24,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/homeBtn"
+                    android:id="@+id/btnHome"
                     android:layout_width="28dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/ic_menu"
                     app:tint="@color/white" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/btnBell"
@@ -50,34 +46,34 @@
                     android:src="@drawable/ic_bell"
                     app:tint="@color/white" />
 
-            </LinearLayout>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtAddCardOrOpenAWallet"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:background="@drawable/bg_error_no_cards_white"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Add card or\nopen a wallet"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/paymeGoImg"
                 app:layout_constraintLeft_toLeftOf="@id/pager_ads"
                 app:layout_constraintRight_toRightOf="@id/pager_ads"
-                app:layout_constraintBottom_toTopOf="@id/paymeGoImg"
                 app:layout_constraintTop_toBottomOf="@id/appBar" />
 
             <TextView
                 android:id="@+id/balanceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginBottom="4dp"
                 android:text="Total balance"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@id/balanceText"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -88,13 +84,13 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="24dp"
-                android:visibility="visible"
                 android:adjustViewBounds="true"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="6dp"
                 android:rotationX="180"
                 android:src="@drawable/ic_eye_closed"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appBar" />
 
@@ -102,27 +98,27 @@
                 android:id="@+id/balanceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:text="0.0"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/imgEye"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imgEye"
-                android:text="0.0" />
+                app:layout_constraintTop_toTopOf="@id/imgEye" />
 
             <TextView
                 android:id="@+id/currencyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:visibility="visible"
                 android:layout_marginBottom="2dp"
                 android:text="sum"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/balanceText"
                 app:layout_constraintLeft_toRightOf="@id/balanceText" />
 
@@ -130,11 +126,11 @@
                 android:id="@+id/expensesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="4dp"
                 android:text="Expenditure 0.0 sum"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="@id/balanceText"
                 app:layout_constraintRight_toRightOf="@id/balanceText"
                 app:layout_constraintTop_toBottomOf="@id/balanceText" />
@@ -237,6 +233,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="12dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/btn_request_money"
@@ -307,8 +305,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Saved payments"
                 android:layout_marginTop="36dp"
+                android:text="Saved payments"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"

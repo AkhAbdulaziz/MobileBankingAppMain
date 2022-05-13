@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.homePageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

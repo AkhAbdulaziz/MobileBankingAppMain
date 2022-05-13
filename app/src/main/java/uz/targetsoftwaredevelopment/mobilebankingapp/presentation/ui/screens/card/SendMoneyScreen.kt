@@ -16,7 +16,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.CardData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.request.MoneyRequest
 import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenSendMoneyBinding
-import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.paymentPageAdapters.SenderCardsPagerAdapter
+import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.SenderCardsPagerAdapter
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.base.card.SendMoneyViewModel
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.card.SendMoneyViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.dpToPx
@@ -44,9 +44,9 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
         cardNumberText.text =
             "${args.cardNumber.substring(0, 6)}******${args.cardNumber.substring(12)}"
         receiverNameText.text = "John Smith"
-        moneyAmountText.text = "${args.amount} sum"
-        feeText.text = "${args.amount / 100} sum"
-        fullAmountText.text = "${args.amount + args.amount / 100} sum"
+        moneyAmountText.text = "${getPortableAmount("${args.amount}")} sum"
+        feeText.text = "${getPortableAmount("${args.amount / 100 }")} sum"
+        fullAmountText.text = "${getPortableAmount("${args.amount + args.amount / 100 }")} sum"
 
         /*  val mainCardData: CardData? = viewModel.getMyMainCardData()
         if (mainCardData != null) {
@@ -200,4 +200,23 @@ class SendMoneyScreen : Fragment(R.layout.screen_send_money) {
          super.onDestroyView()
          viewpagerSenderCards.removeOnLayoutChangeListener { view, i, i2, i3, i4, i5, i6, i7, i8 ->  }
      }*/
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
+    }
 }

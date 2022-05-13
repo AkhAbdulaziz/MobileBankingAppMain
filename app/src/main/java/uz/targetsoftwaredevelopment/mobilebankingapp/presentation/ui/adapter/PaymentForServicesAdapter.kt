@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.homePageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -14,8 +14,8 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.utils.setMarginsInDp
 class PaymentForServicesAdapter(private val list: List<PaymentForServicesData>) :
     RecyclerView.Adapter<PaymentForServicesAdapter.VH>() {
 
-    private var serviceOnLickListener: ((Int) -> Unit)? = null
-    fun setServiceOnClickListener(f: (Int) -> Unit) {
+    private var serviceOnLickListener: ((String) -> Unit)? = null
+    fun setServiceOnClickListener(f: (String) -> Unit) {
         serviceOnLickListener = f
     }
 
@@ -25,7 +25,7 @@ class PaymentForServicesAdapter(private val list: List<PaymentForServicesData>) 
 
         init {
             itemView.setOnClickListener {
-                serviceOnLickListener?.invoke(absoluteAdapterPosition)
+                serviceOnLickListener?.invoke(list[absoluteAdapterPosition].description)
                 return@setOnClickListener
             }
         }

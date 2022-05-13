@@ -8,5 +8,9 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.data.remote.card_req_res.re
 interface HistoryRepository {
     fun getHistoryPagingData(scope: CoroutineScope): Flow<PagingData<MoneyTransferResponse.HistoryData>>
 
-    fun getHistoryDataCount() : Int
+    fun getHistoryDataCount(): Int
+
+    fun getIncomes(): String
+
+    fun getExpenditures(): String
 }

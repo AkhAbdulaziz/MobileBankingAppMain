@@ -2,7 +2,6 @@ package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.ca
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -11,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.MarginPageTransformer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.StartScreenEnum
@@ -132,6 +132,10 @@ class SettingsCardScreen : Fragment(R.layout.screen_card_settings) {
     }
 
     private val errorMessageObserver = Observer<String> {
-        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        showFancyToast(
+            it,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 }

@@ -3,6 +3,7 @@ package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.screens.ma
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -13,6 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.app.App
@@ -26,7 +30,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.bas
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.main.BasicViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.invisible
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
@@ -40,7 +44,6 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         viewModel.getProfileInfo()
 
-        txtUserName
         val adapter = BasicScreenAdapter(childFragmentManager, lifecycle, args.isNewUser)
         innerLayout.pager.adapter = adapter
         innerLayout.pager.isUserInputEnabled = false
@@ -55,6 +58,7 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             }
             return@setOnItemSelectedListener true
         }
+
         adapter.apply {
             setBackPressedListener { currentPageId ->
                 if (currentPageId == 0) {
@@ -77,11 +81,17 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
                 findNavController().navigate(BasicScreenDirections.actionBasicScreenToMyCardsScreen())
             }
             setOpenTransferPageListener { pan ->
+                Log.d("OpenTransferPage", "BasicScreen")
                 if (pan != null) {
                     viewModel.givePanToTransferPage(pan)
                 }
-                innerLayout.pager.setCurrentItem(1, false)
-                innerLayout.bottomNavigationView.selectedItemId = R.id.transfer
+                innerLayout.apply {
+                    pager.post {
+                        pager.setCurrentItem(1, false)
+                    }
+                    bottomNavigationView.selectedItemId = R.id.transfer
+                    Log.d("OpenTransferPage", "InnerLayout")
+                }
             }
             setOpenSendMoneyScreenListener { cardNumber, amount, receiverName ->
                 findNavController().navigate(
@@ -96,6 +106,34 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
                         lastScreen
                     )
                 )
+            }
+            setOpenSavedPaymentScreenListener {
+                findNavController().navigate(
+                    BasicScreenDirections.actionBasicScreenToSavedPaymentScreen(
+                        it
+                    )
+                )
+            }
+            setOpenNewSavedPaymentScreenListener {
+                showFancyToast(
+                    "Add New Saved Payment",
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.INFO
+                )
+            }
+            setOpenContactsScreenListener {
+                Permissions.check(requireContext(), arrayOf(
+                    android.Manifest.permission.READ_CONTACTS
+                ), null, null,
+                    object : PermissionHandler() {
+                        override fun onGranted() {
+                            findNavController().navigate(BasicScreenDirections.actionBasicScreenToContactsScreen())
+                        }
+                    }
+                )
+            }
+            setOpenScanCardScreenListener {
+                findNavController().navigate(BasicScreenDirections.actionBasicScreenToScanCardScreen())
             }
         }
 
@@ -114,10 +152,18 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
         }
 
         lineSettings.setOnClickListener {
-            showToast("Settings")
+            showFancyToast(
+                "Settings",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
         lineTheme.setOnClickListener {
-            showToast("Theme")
+            showFancyToast(
+                "Theme",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
         lineShare.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
@@ -128,7 +174,11 @@ class BasicScreen : Fragment(R.layout.screen_basic_nav),
             requireActivity().startActivity(Intent.createChooser(intent, "Share:"))
         }
         lineSupport.setOnClickListener {
-            showToast("Support")
+            showFancyToast(
+                "Support",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
         lineDescriptions.setOnClickListener {
             findNavController().navigate(BasicScreenDirections.actionBasicScreenToDescriptionsScreen())

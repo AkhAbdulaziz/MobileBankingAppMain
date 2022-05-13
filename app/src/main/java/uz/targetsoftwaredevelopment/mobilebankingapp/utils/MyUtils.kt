@@ -12,18 +12,33 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import timber.log.Timber
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
+import uz.targetsoftwaredevelopment.mobilebankingapp.app.App
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.StartScreenEnum
 import java.io.File
 import java.util.*
 
-
 fun Fragment.showToast(message: String) {
     Toast.makeText(this.requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.showFancyToast(
+    message: String,
+    duration: Int = FancyToast.LENGTH_SHORT,
+    toastType: Int = FancyToast.INFO
+) {
+    FancyToast.makeText(
+        App.instance,
+        message,
+        toastType,
+        duration,
+        false
+    ).show()
 }
 
 fun String.startScreen(): StartScreenEnum {

@@ -1,10 +1,12 @@
 package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import uz.targetsoftwaredevelopment.mobilebankingapp.data.entities.SavedPaymentData
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.PaymentPageEnum
 import uz.targetsoftwaredevelopment.mobilebankingapp.data.enums.StartScreenEnum
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.pages.*
@@ -52,6 +54,27 @@ class BasicScreenAdapter(
         openPinCodeScreenListener = block
     }
 
+    private var openSavedPaymentScreenListener: ((SavedPaymentData) -> Unit)? = null
+    fun setOpenSavedPaymentScreenListener(f: (SavedPaymentData) -> Unit) {
+        openSavedPaymentScreenListener = f
+    }
+
+    private var openNewSavedPaymentScreenListener: (() -> Unit)? = null
+    fun setOpenNewSavedPaymentScreenListener(f: () -> Unit) {
+        openNewSavedPaymentScreenListener = f
+    }
+
+    private var openContactsScreenListener: (() -> Unit)? = null
+    fun setOpenContactsScreenListener(f: () -> Unit) {
+        openContactsScreenListener = f
+    }
+
+    private var openScanCardScreenListener: (() -> Unit)? = null
+    fun setOpenScanCardScreenListener(f: () -> Unit) {
+        openScanCardScreenListener = f
+    }
+
+
     override fun getItemCount(): Int = 5
 
     override fun createFragment(position: Int): Fragment {
@@ -65,6 +88,12 @@ class BasicScreenAdapter(
             }
             setOpenPinCodeScreenListener {
                 openPinCodeScreenListener?.invoke(it)
+            }
+            setOpenContactsScreenListener {
+                openContactsScreenListener?.invoke()
+            }
+            setOpenScanCardScreenListener {
+                openScanCardScreenListener?.invoke()
             }
         }
         val bundle = Bundle()
@@ -89,13 +118,26 @@ class BasicScreenAdapter(
                     openMyCardsScreenListener?.invoke()
                 }
                 setOpenTransferPageListener {
+                    Log.d("OpenTransferPage", "Adapter")
                     openTransferPageListener?.invoke(it)
+                }
+                setOpenSavedPaymentScreenListener {
+                    openSavedPaymentScreenListener?.invoke(it)
+                }
+                setOpenNewSavedPaymentScreenListener {
+                    openNewSavedPaymentScreenListener?.invoke()
                 }
             }
             1 -> transferPage
             2 -> PaymentPage().apply {
                 setBackPressedListener { currentPageId ->
                     backPressedListener?.invoke(currentPageId)
+                }
+                setOpenSavedPaymentScreenListener {
+                    openSavedPaymentScreenListener?.invoke(it)
+                }
+                setOpenNewSavedPaymentScreenListener {
+                    openNewSavedPaymentScreenListener?.invoke()
                 }
             }
             3 -> ServicePage().apply {

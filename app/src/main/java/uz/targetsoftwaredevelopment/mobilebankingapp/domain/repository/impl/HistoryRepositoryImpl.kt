@@ -14,17 +14,25 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.domain.repository.HistoryRe
 import javax.inject.Inject
 
 class HistoryRepositoryImpl @Inject constructor(
-    private val pref: LocalStorage,
+    private val localStorage: LocalStorage,
     val api: MoneyTransferApi
 ) : HistoryRepository {
     private val config = PagingConfig(10)
 
     override fun getHistoryPagingData(scope: CoroutineScope): Flow<PagingData<MoneyTransferResponse.HistoryData>> =
         Pager(config) {
-            HistoryDataSource(api, pref)
+            HistoryDataSource(api, localStorage)
         }.flow.cachedIn(scope)
 
     override fun getHistoryDataCount(): Int {
-        return pref.historyDataCount
+        return localStorage.historyDataCount
+    }
+
+    override fun getIncomes(): String {
+        return localStorage.incomes
+    }
+
+    override fun getExpenditures(): String {
+        return localStorage.expenditures
     }
 }

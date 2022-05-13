@@ -79,7 +79,7 @@ class HistoryAdapter :
                             R.color.colorGreen
                         )
                     )
-                    textMoney.text = "+${data.amount}"
+                    textMoney.text = "+${getPortableAmount("${data.amount.toInt()}")}"
                 } else {
                     textMoney.setTextColor(
                         ContextCompat.getColor(
@@ -87,7 +87,7 @@ class HistoryAdapter :
                             R.color.colorRed
                         )
                     )
-                    textMoney.text = "-${data.amount}"
+                    textMoney.text = "-${getPortableAmount("${data.amount.toInt()}")}"
                 }
                 imageLogo.setImageResource(R.drawable.trastbank_logo)
 
@@ -120,4 +120,23 @@ class HistoryAdapter :
         HistoryViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
         )
+
+    private fun getPortableAmount(amount: String): String {
+        var firstPiece = ""
+        var secondPiece = ""
+        var thirdPiece = ""
+
+        if (amount.length <= 3) {
+            firstPiece = amount
+        } else if (amount.length <= 6) {
+            secondPiece = amount.substring(amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 3)
+        } else if (amount.length <= 9) {
+            thirdPiece = amount.substring(amount.length - 3)
+            secondPiece = amount.substring(amount.length - 6, amount.length - 3)
+            firstPiece = amount.substring(0, amount.length - 6)
+        }
+
+        return "$firstPiece $secondPiece $thirdPiece".trim()
+    }
 }

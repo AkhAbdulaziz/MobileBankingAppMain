@@ -7,12 +7,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import uz.targetsoftwaredevelopment.mobilebankingapp.R
 import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenOfflineModeBinding
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.CheckInternetReceiver
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.isConnected
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.*
 
 class OfflineModeScreen : Fragment(R.layout.screen_offline_mode) {
     private val binding by viewBinding(ScreenOfflineModeBinding::bind)
@@ -22,7 +20,11 @@ class OfflineModeScreen : Fragment(R.layout.screen_offline_mode) {
         super.onViewCreated(view, savedInstanceState)
 
         innerView.innerViewCardView.setOnClickListener {
-            showToast("Payme Go")
+            showFancyToast(
+                "Payme Go",
+                FancyToast.LENGTH_SHORT,
+                FancyToast.INFO
+            )
         }
 
         btnRepeat.setOnClickListener {

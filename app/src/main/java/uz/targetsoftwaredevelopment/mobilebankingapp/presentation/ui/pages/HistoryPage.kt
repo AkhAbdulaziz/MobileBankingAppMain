@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.shashank.sony.fancytoastlib.FancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,7 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.bas
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.viewmodels.impl.main.HistoryViewModelImpl
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.gone
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
-import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
 
 @AndroidEntryPoint
@@ -45,6 +46,16 @@ class HistoryPage : Fragment(R.layout.page_history) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
+        btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        btnFilter.setOnClickListener {
+            showFancyToast("Filter")
+        }
+        btnStatistics.setOnClickListener {
+            showFancyToast("Statistics")
+        }
+
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -91,6 +102,9 @@ class HistoryPage : Fragment(R.layout.page_history) {
         viewModel.ownerNameLiveData.observe(viewLifecycleOwner, ownerNameObserver)
         viewModel.historyPagingLiveData.observe(viewLifecycleOwner, historyPagingDataObserver)
         viewModel.historyDataCountLiveData.observe(viewLifecycleOwner, historyDataCountObserver)
+        viewModel.incomesLiveData.observe(viewLifecycleOwner, incomesObserver)
+        viewModel.expendituresLiveData.observe(viewLifecycleOwner, expendituresObserver)
+//        viewModel.argumentDataLiveData.observe(viewLifecycleOwner, argumentObserver)
     }
 
     private fun getHistoryData() = binding.scope {
@@ -111,12 +125,15 @@ class HistoryPage : Fragment(R.layout.page_history) {
     }
 
     private val errorMessageObserver = Observer<String> {
-        showToast(it)
+        showFancyToast(
+            it,
+            FancyToast.LENGTH_SHORT,
+            FancyToast.ERROR
+        )
     }
 
     private val historyPagingDataObserver =
         Observer<PagingData<MoneyTransferResponse.HistoryData>> {
-            viewModel.getHistoryDataCount()
             CoroutineScope(Dispatchers.IO).launch {
                 adapter.submitData(it)
             }
@@ -134,4 +151,17 @@ class HistoryPage : Fragment(R.layout.page_history) {
             }
         }
     }
+
+    private val incomesObserver = Observer<String> {
+        binding.incomesText.text = "+$it sum"
+    }
+
+    private val expendituresObserver = Observer<String> {
+        binding.expendituresText.text = "-$it sum"
+    }
+
+    /*private val argumentObserver = Observer<SavedPaymentData> {
+        Log.d("HISTORY_DATA", "screen receive")
+        binding.btnBack.visible()
+    }*/
 }

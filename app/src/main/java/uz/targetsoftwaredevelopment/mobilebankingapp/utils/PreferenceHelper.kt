@@ -33,6 +33,14 @@ class LongPreference(
     override fun setValue(thisRef: Any, property: KProperty<*>, value: Long) = pref.edit { putLong(property.name, value).apply() }
 }
 
+class FloatPreference(
+    private val pref: SharedPreferences,
+    private val defValue: Float = 0f
+) : ReadWriteProperty<Any, Float> {
+    override fun getValue(thisRef: Any, property: KProperty<*>) = pref.getFloat(property.name, defValue)
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: Float) = pref.edit { putFloat(property.name, value).apply() }
+}
+
 class StringPreference(
     private val pref: SharedPreferences,
     private val defValue: String = ""

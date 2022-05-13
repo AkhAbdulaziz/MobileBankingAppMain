@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="240dp"
     app:cardBackgroundColor="@android:color/transparent"
-    tools:context=".presentation.ui.adapter.items.CardBgItem"
+    tools:context=".presentation.ui.items.CardBgItem"
     app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

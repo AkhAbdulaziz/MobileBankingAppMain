@@ -1,4 +1,4 @@
-package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter.homePageAdapters
+package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +15,8 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.utils.visible
 class MyHomesAdapter(private val list: List<MyHomeData>) :
     RecyclerView.Adapter<MyHomesAdapter.VH>() {
 
-    private var homeOnLickListener: ((Int) -> Unit)? = null
-    fun setHomeOnClickListener(f: (Int) -> Unit) {
+    private var homeOnLickListener: ((MyHomeData) -> Unit)? = null
+    fun setHomeOnClickListener(f: (MyHomeData) -> Unit) {
         homeOnLickListener = f
     }
 
@@ -28,7 +28,7 @@ class MyHomesAdapter(private val list: List<MyHomeData>) :
 
         init {
             itemView.setOnClickListener {
-                homeOnLickListener?.invoke(absoluteAdapterPosition)
+                homeOnLickListener?.invoke(list[absoluteAdapterPosition])
                 return@setOnClickListener
             }
             imageEye.setOnClickListener {

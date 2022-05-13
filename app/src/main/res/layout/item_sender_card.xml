@@ -11,7 +11,7 @@
     app:layout_constraintBottom_toTopOf="@id/sendBtn"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    tools:context=".presentation.ui.adapter.items.SenderCardItem">
+    tools:context=".presentation.ui.items.SenderCardItem">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomCardInfo"
