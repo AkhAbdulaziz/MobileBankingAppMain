@@ -15,7 +15,7 @@ class LocalStorage @Inject constructor() {
     private val KEY = "SHDIJHEUNNSONAIEFIUBOMXss54d5s4d5OSMB4s5456sd4cv8d"
     private val pref = SecurePreferences(App.instance, KEY, "local_storage.xml")
 
-    val BASE_URL : String = "http://d84f-31-148-160-38.ngrok.io/api/v1/"
+    val BASE_URL : String = "http://5cf7-31-148-160-38.ngrok.io/api/v1/"
 
     var startScreen: StartScreenEnum
         set(value) = pref.edit().putString("startScreen", value.name).apply()

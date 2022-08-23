@@ -6,12 +6,13 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
-import androidx.core.content.FileProvider.getUriForFile
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -39,9 +40,11 @@ import uz.targetsoftwaredevelopment.mobilebankingapp.databinding.ScreenCheckTran
 import uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.dialog.main.CheckTransferDialog
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.scope
 import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showFancyToast
+import uz.targetsoftwaredevelopment.mobilebankingapp.utils.showToast
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @AndroidEntryPoint
 class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
@@ -381,9 +384,20 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
             "receiptPdf.pdf"
         )
-        val fileUri =
-            getUriForFile(requireActivity(), "${requireContext().packageName}.provider", file)
+        /* val fileUri =
+             getUriForFile(requireActivity(), "${requireContext().packageName}.provider", file)
+         sharingIntent.putExtra(Intent.EXTRA_STREAM, fileUri)*/
+
+        val fileUri: Uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().applicationContext.packageName}.provider",
+            file
+        )
         sharingIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+        println("--------------------------------------------------------------")
+        println(fileUri)
+        println("--------------------------------------------------------------")
 
         val chooser = Intent.createChooser(sharingIntent, "Check PDF")
         val resInfoList: List<ResolveInfo> = requireContext().packageManager.queryIntentActivities(
@@ -399,6 +413,102 @@ class CheckTransferScreen : Fragment(R.layout.screen_check_transfer) {
             )
         }
         startActivity(chooser)
+    }   // Others didn't work properly.
+
+    private fun share2() {
+        val file = File(
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+            "receiptPdf.pdf"
+        )
+        if (file != null) {
+            val uri = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().applicationContext.packageName.toString() + ".provider",
+                file
+            )
+            val i = Intent(Intent.ACTION_SEND)
+            i.apply {
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+//            i.putExtra(Intent.EXTRA_EMAIL, arrayOf("fake@fake.edu"))
+            i.putExtra(Intent.EXTRA_SUBJECT, "Check Subject")
+            i.putExtra(Intent.EXTRA_TEXT, "Check Message")
+            i.putExtra(Intent.EXTRA_STREAM, uri)
+            i.type = "*/*"
+
+            val chooser = Intent.createChooser(i, "Check PDF")
+            val resInfoList: List<ResolveInfo> =
+                requireContext().packageManager.queryIntentActivities(
+                    chooser,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
+            for (resolveInfo in resInfoList) {
+                val packageName = resolveInfo.activityInfo.packageName
+                requireContext().grantUriPermission(
+                    packageName,
+                    uri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+            requireContext().startActivity(Intent.createChooser(i, "Share you on the jobing"))
+        }
+    }
+
+    private fun share3() {
+        val intentShareFile = Intent(Intent.ACTION_SEND)
+        val fileWithinMyDir = File(
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+            "receiptPdf.pdf"
+        )
+        println("--------------------------------------------------------------")
+        println(fileWithinMyDir)
+        println("--------------------------------------------------------------")
+
+        if (!fileWithinMyDir.exists()) {
+            fileWithinMyDir.mkdirs()
+        }
+        if (fileWithinMyDir.exists()) {
+            intentShareFile.type = "*/*"
+            intentShareFile.putExtra(
+                Intent.EXTRA_STREAM,
+                Uri.parse("content://" + fileWithinMyDir.absolutePath)
+            )
+            intentShareFile.putExtra(
+                Intent.EXTRA_SUBJECT,
+                "Check"
+            )
+            requireContext().startActivity(Intent.createChooser(intentShareFile, "Share File"))
+        } else {
+            showToast("File does not exist");
+        }
+    }
+
+    private fun share4() {
+        val filePath = File(
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+            "receiptPdf.pdf"
+        )
+
+        if (!filePath.exists()) {
+            filePath.createNewFile()
+        }
+
+        val fileOutputStream = FileOutputStream(filePath)
+//        hssfWorkbook.write(fileOutputStream)
+
+        fileOutputStream.flush()
+        fileOutputStream.close()
+
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        val uri = FileProvider.getUriForFile(requireContext(), "com.example.counter", filePath)
+        emailIntent.type = "*/*"
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Sending")
+        emailIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        requireContext().startActivity(emailIntent)
     }
 
     private fun getPortableAmount(amount: String): String {

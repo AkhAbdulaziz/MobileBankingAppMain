@@ -1,8 +1,9 @@
 package uz.targetsoftwaredevelopment.mobilebankingapp.data.remote
 
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -45,7 +46,14 @@ fun OkHttpClient.Builder.addLogging(): OkHttpClient.Builder {
     HttpLoggingInterceptor.Level.HEADERS
     val logging = HttpLoggingInterceptor.Logger { message -> timber(message, "HTTP") }
     if (LOGGING) {
-        addInterceptor(ChuckInterceptor(App.instance))
+        addInterceptor(
+            ChuckerInterceptor.Builder(App.instance)
+                .collector(ChuckerCollector(App.instance))
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build()
+        )
         addInterceptor(HttpLoggingInterceptor(logging))
     }
     return this
