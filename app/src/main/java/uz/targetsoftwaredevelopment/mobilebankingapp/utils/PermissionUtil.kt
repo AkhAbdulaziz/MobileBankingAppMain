@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import android.widget.Toast
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
-import java.util.ArrayList
 
 fun Activity.checkPermissions(permission: Array<String>, granted: () -> Unit) {
     Permissions.check(

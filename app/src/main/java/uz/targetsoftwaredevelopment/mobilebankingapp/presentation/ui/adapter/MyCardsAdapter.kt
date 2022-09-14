@@ -1,5 +1,6 @@
 package uz.targetsoftwaredevelopment.mobilebankingapp.presentation.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,12 +35,20 @@ class MyCardsAdapter(private val list: List<CardData>) :
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind() {
+            val asterisk = Char(42)
             val data = list[absoluteAdapterPosition]
             cardName.text = data.cardName
             cardBalance.text = "${getPortableAmount("${data.balance}")} sum"
             cardOwner.text = data.owner
-            cardNumber.text = data.pan
+            cardNumber.text =
+                "${data.pan!!.substring(0, 4)} ${
+                    data.pan.substring(
+                        4,
+                        6
+                    )
+                }$asterisk$asterisk $asterisk$asterisk$asterisk$asterisk ${data.pan.substring(12)}"
             cardValidate.text = data.exp
             if (data.color != null) {
                 cardBg.setImageResource(cardBgImagesList[data.color])
